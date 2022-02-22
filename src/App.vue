@@ -1,9 +1,13 @@
-<template></template>
+<template>
+  <MainHeader></MainHeader>
+  <router-view v-slot="{ Component }" class="bg-zinc-50">
+    <component :is="Component"></component>
+  </router-view>
+</template>
 
 <script setup>
-import { getArticles } from '@/api/article'
-const { data: result } = await getArticles(10, 1)
-console.log(result);
+import MainHeader from './components/main-header/main-header.vue';
+
 </script>
-<style lang='scss' scoped>
+<style scoped>
 </style>
