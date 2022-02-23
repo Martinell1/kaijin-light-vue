@@ -1,14 +1,16 @@
 <template>
-  <div class="content-list-wrapper mt-4 shadow rounded">
+  <div class="content-list-wrapper shadow rounded bg-zinc-50">
     <div v-for="item in datas" :key="item.id" class="pt-4 px-6">
       <div class="flex justify-between mb-3 font-black text-xl text-stone-500">
-        <div>{{ item.holder.nickname }}</div>
+        <div>{{ item.holder?.nickname }}</div>
         <div class="flex">
           <div class="topic-item" v-for="topic in item.topics" :key="topic.id">{{ topic.name }}</div>
         </div>
       </div>
 
-      <h2 class="font-black text-xl text-rose-500">{{ item.title }}</h2>
+      <router-link :to="{ name: content_type + 'Detail', params: { id: item._id } }">
+        <h2 class="font-black text-xl text-rose-500">{{ item.title }}</h2>
+      </router-link>
 
       <div class="flex justify-between mt-3">
         <div class="text-lg text-stone-500 mb-2">{{ item.description }}</div>
@@ -45,6 +47,10 @@ defineProps({
   datas: {
     type: Array,
     default: []
+  },
+  content_type: {
+    type: String,
+    default: 'Question'
   }
 })
 </script>

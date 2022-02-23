@@ -1,8 +1,5 @@
 <template>
-  <MainHeader></MainHeader>
-  <router-view v-slot="{ Component }" class="bg-zinc-50">
-    <component :is="Component"></component>
-  </router-view>
+  <router-view></router-view>
 </template>
 
 <script setup>
