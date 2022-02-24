@@ -5,11 +5,20 @@ const login = async (params) => {
 }
 
 const getUserDetail = async(id,params)=>{
-  console.log(params);
   return await axios.get("user/"+id+"?fields="+params)
+}
+
+const thumb = async(entity,id) => {
+  return await axios.put("user/"+entity+"/"+id)
+}
+
+const unthumb = async(entity,id) => {
+  return await axios.delete("user/"+entity+"/"+id)
 }
 
 export {
   login,
-  getUserDetail
+  getUserDetail,
+  thumb,
+  unthumb
 }

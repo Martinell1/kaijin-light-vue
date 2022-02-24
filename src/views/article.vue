@@ -1,5 +1,5 @@
 <template>
-  <ContentList :datas="article_list" :title_type="'Article'"></ContentList>
+  <ContentList :datas="article_list" :content_type="'Article'"></ContentList>
 </template>
 
 <script setup>

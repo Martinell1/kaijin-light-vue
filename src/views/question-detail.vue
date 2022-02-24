@@ -5,8 +5,6 @@
   <h1 class="font-black text-3xl my-6 text-rose-500">{{ question_detail.title }}</h1>
   <MdEditor :previewOnly="true" :modelValue="question_detail.description" class="my-4"></MdEditor>
   <ContentFooter :size="'text-xl'"></ContentFooter>
-
-  <!-- <ContentList :datas="answer_list" :title_type="'User'"></ContentList> -->
 </template>
 
 <script setup>

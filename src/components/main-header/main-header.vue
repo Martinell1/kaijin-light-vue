@@ -35,7 +35,7 @@ import Modal from '../modal/modal.vue';
 import Login from '../../views/login.vue';
 import store from '../../store';
 
-const avatar_url = computed(() => store.state.userInfo.avatar_url)
+const avatar_url = computed(() => store.state.userInfo?.avatar_url)
 
 const modalRef = ref(null)
 const showLogin = () => {
@@ -45,6 +45,8 @@ const showLogin = () => {
 const hideLogin = () => {
   modalRef.value.hide()
 }
+
+
 
 </script>
 <style scoped>

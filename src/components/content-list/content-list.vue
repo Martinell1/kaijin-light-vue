@@ -4,11 +4,11 @@
       <div class="flex justify-between mb-3 font-black text-xl text-stone-500">
         <div>{{ item.holder?.nickname }}</div>
         <div class="flex">
-          <div class="topic-item" v-for="topic in item.topics" :key="topic.id">{{ topic.name }}</div>
+          <div class="topic-item" v-for="topic in item.topics" :key="topic._id">{{ topic.name }}</div>
         </div>
       </div>
 
-      <router-link :to="{ name: title_type + 'Detail', params: { id: item._id } }">
+      <router-link :to="{ name: content_type + 'Detail', params: { id: item._id } }">
         <h2 class="font-black text-xl text-rose-500">{{ item.title }}</h2>
       </router-link>
 
@@ -22,28 +22,59 @@
           class="ml-4"
         />
       </div>
-
-      <ContentFooter :divide="true" @thumbHandle="thumb"></ContentFooter>
+      <ContentFooter
+        :voteCount="item.voteCount"
+        :voteActive="content_type === 'Question' ? userInfo?.likingQuestions.includes(item._id) : userInfo?.likingArticles.includes(item._id)"
+        :divide="true"
+        @thumbClick="thumbHandle(item)"
+      ></ContentFooter>
     </div>
   </div>
 </template>
 
 <script setup>
+import { ref, computed } from 'vue'
 import ContentFooter from './content-footer.vue';
+import { thumb, unthumb } from '@/api/user';
+import { useStore } from 'vuex';
+const store = useStore()
 
-defineProps({
+const userInfo = ref(store.state.userInfo)
+
+const props = defineProps({
   datas: {
     type: Array,
     default: []
   },
-  title_type: {
+  content_type: {
     type: String,
     default: 'Question'
   }
 })
 
-const thumb = () => {
-  console.log('点赞');
+const thumbHandle = async (item) => {
+  let id = item._id
+  let entity = "liking" + props.content_type + 's'
+
+  let list = userInfo.value[entity].slice()
+  console.log(list);
+  let index = list.indexOf(id)
+  if (index > -1) {
+    await unthumb(entity, id)
+    list.splice(index, 1)
+    item.voteCount--
+  } else {
+    await thumb(entity, id)
+    list.push(id)
+    item.voteCount++
+  }
+
+  store.commit('setLikingQuestions', list)
+  const u = JSON.parse(localStorage.getItem("userInfo"));
+
+  u[entity] = list
+
+  localStorage.setItem('userInfo', JSON.stringify(u))
 }
 </script>
 <style scoped>

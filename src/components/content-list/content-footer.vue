@@ -1,8 +1,8 @@
 <template>
   <div class="pb-4 flex" :class="{ 'border-b-2': divide }, size">
-    <div class="opt-item" @click="thumbHandle">
+    <div class="opt-item" :class="{ 'opt-item-active': voteActive }" @click="thumbClick">
       <ThumbUpIcon class="opt-item-icon"></ThumbUpIcon>
-      <div class="opt-item-text">点赞数</div>
+      <div class="opt-item-text">{{ voteCount }}</div>
     </div>
     <div class="opt-item">
       <EyeIcon class="opt-item-icon"></EyeIcon>
@@ -25,17 +25,29 @@ defineProps({
   size: {
     type: String,
     default: 'text-lg'
+  },
+  voteCount: {
+    type: Number,
+    default: 0
+  },
+  voteActive: {
+    type: Boolean,
+    default: false
   }
 })
 
-const emit = defineEmits(['thumbHandle', 'comment'])
-const thumbHandle = () => {
-  emit('thumbHandle')
+const emit = defineEmits(['thumbClick', 'comment'])
+const thumbClick = () => {
+  emit('thumbClick')
 }
 </script>
-<style  scoped>
+<style scoped>
 .opt-item {
   @apply flex items-center text-stone-500 mr-6;
+}
+
+.opt-item-active {
+  @apply text-rose-500;
 }
 
 .opt-item-icon {

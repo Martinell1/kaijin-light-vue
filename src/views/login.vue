@@ -49,7 +49,7 @@
 import { reactive } from 'vue';
 import { useStore } from 'vuex';
 import { LockClosedIcon } from '@heroicons/vue/solid'
-import { login, getUserDetail } from '@/api/user'
+import { login } from '@/api/user'
 const store = useStore()
 
 const emit = defineEmits(['hide'])
@@ -62,13 +62,8 @@ const useLogin = () => {
   const handleLogin = async () => {
     const { data: { id, token } } = await login(loginForm)
     localStorage.setItem("token", token)
-    const params = "locations;education;employments;following;followingTopics;followingArticles;followingQuestions;followingAnswers;likingAnswers;dislikingAnswers;likingQuestions;likingArticles;likingComments;dislikingComments;likingTalks;dislikingTalks"
-    const { data: result } = await getUserDetail(id, params)
-    store.dispatch('setUserInfo', result)
-    localStorage.setItem("userInfo", JSON.stringify(result))
+    store.dispatch('fetchUserInfo', id)
     emit('hide')
-
-    console.log(JSON.parse(localStorage.getItem("userInfo")));
   }
 
   return { loginForm, handleLogin }
