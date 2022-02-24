@@ -14,7 +14,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
-import MdEditor from '../components/md-editor/md-editor.vue';
+import MdEditor from '../components/editor/md-editor.vue';
 import { getArticleDetail } from '@/api/article'
 const route = useRoute()
 const useArticleDetail = () => {

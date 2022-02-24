@@ -9,24 +9,43 @@
           <div class="nav">Article</div>
         </router-link>
       </div>
+
       <div class="flex">
         <div class="flex mr-10">
           <input class="bg-zinc-50 w-80 outline-rose-300 pl-4" type="text" />
           <div class="btn">Search</div>
         </div>
-        <div class="flex">
-          <router-link :to="{ name: 'Login' }">
-            <div class="btn">Login</div>
-          </router-link>
 
+        <img v-if="avatar_url" src="../../assets/images/static.jpg" class="w-10 h-10 rounded-full" />
+        <div v-if="!avatar_url" class="flex">
+          <div class="btn" @click="showLogin">Login</div>
           <div class="btn">Register</div>
         </div>
       </div>
     </div>
   </div>
+  <Modal ref="modalRef">
+    <Login @hide="hideLogin" />
+  </Modal>
 </template>
 
 <script setup>
+import { computed, ref } from 'vue';
+import Modal from '../modal/modal.vue';
+import Login from '../../views/login.vue';
+import store from '../../store';
+
+const avatar_url = computed(() => store.state.userInfo.avatar_url)
+
+const modalRef = ref(null)
+const showLogin = () => {
+  modalRef.value.show()
+}
+
+const hideLogin = () => {
+  modalRef.value.hide()
+}
+
 </script>
 <style scoped>
 .nav {

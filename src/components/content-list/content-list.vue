@@ -8,7 +8,7 @@
         </div>
       </div>
 
-      <router-link :to="{ name: content_type + 'Detail', params: { id: item._id } }">
+      <router-link :to="{ name: title_type + 'Detail', params: { id: item._id } }">
         <h2 class="font-black text-xl text-rose-500">{{ item.title }}</h2>
       </router-link>
 
@@ -23,36 +23,28 @@
         />
       </div>
 
-      <div class="pb-4 border-b-2 flex">
-        <div class="opt-item">
-          <ThumbUpIcon class="opt-item-icon"></ThumbUpIcon>
-          <div class="opt-item-text">点赞数</div>
-        </div>
-        <div class="opt-item">
-          <EyeIcon class="opt-item-icon"></EyeIcon>
-          <div class="opt-item-text">浏览量</div>
-        </div>
-        <div class="opt-item">
-          <ChatAltIcon class="opt-item-icon"></ChatAltIcon>
-          <div class="opt-item-text">评论</div>
-        </div>
-      </div>
+      <ContentFooter :divide="true" @thumbHandle="thumb"></ContentFooter>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ThumbUpIcon, ChatAltIcon, EyeIcon } from '@heroicons/vue/solid'
+import ContentFooter from './content-footer.vue';
+
 defineProps({
   datas: {
     type: Array,
     default: []
   },
-  content_type: {
+  title_type: {
     type: String,
     default: 'Question'
   }
 })
+
+const thumb = () => {
+  console.log('点赞');
+}
 </script>
 <style scoped>
 .content-list-wrapper {
@@ -61,16 +53,5 @@ defineProps({
 
 .topic-item {
   @apply ml-3;
-}
-
-.opt-item {
-  @apply flex items-center text-stone-500 mr-6;
-}
-
-.opt-item-icon {
-  @apply h-5 w-5 mr-2;
-}
-.opt-item-text {
-  @apply text-lg;
 }
 </style>
