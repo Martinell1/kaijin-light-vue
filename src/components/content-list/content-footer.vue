@@ -2,11 +2,11 @@
   <div class="pb-4 flex" :class="{ 'border-b-2': divide }, size">
     <div class="opt-item" :class="{ 'opt-item-active': voteActive }" @click="thumbClick">
       <ThumbUpIcon class="opt-item-icon"></ThumbUpIcon>
-      <div class="opt-item-text">{{ voteCount }}</div>
+      <div class="opt-item-text">点赞数{{ voteCount }}</div>
     </div>
     <div class="opt-item">
       <EyeIcon class="opt-item-icon"></EyeIcon>
-      <div class="opt-item-text">浏览量</div>
+      <div class="opt-item-text">浏览量{{ viewCount }}</div>
     </div>
     <div class="opt-item">
       <ChatAltIcon class="opt-item-icon"></ChatAltIcon>
@@ -33,6 +33,10 @@ defineProps({
   voteActive: {
     type: Boolean,
     default: false
+  },
+  viewCount: {
+    type: Number,
+    default: 0
   }
 })
 
@@ -52,5 +56,9 @@ const thumbClick = () => {
 
 .opt-item-icon {
   @apply h-5 w-5 mr-2;
+}
+
+.opt-item-text {
+  @apply leading-5;
 }
 </style>

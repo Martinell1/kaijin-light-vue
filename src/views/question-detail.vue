@@ -4,23 +4,37 @@
   </div>
   <h1 class="font-black text-3xl my-6 text-rose-500">{{ question_detail.title }}</h1>
   <MdEditor :previewOnly="true" :modelValue="question_detail.description" class="my-4"></MdEditor>
-  <ContentFooter :size="'text-xl'"></ContentFooter>
+  <ContentFooter
+    :voteCount="question_detail.voteCount"
+    :voteActive="userInfo?.likingQuestions.includes(question_detail._id)"
+    :viewCount="question_detail.viewCount"
+    @thumbClick="thumbHandle(question_detail, 'Question')"
+    :size="'text-xl'"
+  ></ContentFooter>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import MdEditor from '../components/editor/md-editor.vue';
 import { getQuestionDetail } from '@/api/question'
 import { getAnswers } from '@/api/answer'
 import ContentList from '../components/content-list/content-list.vue';
 import ContentFooter from '../components/content-list/content-footer.vue';
+import { useStore } from 'vuex';
+import useThumb from '@/components/content-list/useThumb'
 const route = useRoute()
+
+const store = useStore()
+const userInfo = computed(() => store.state.userInfo)
+
+
 const useQuestion = () => {
   const question_detail = ref({})
 
   const fetchQuestions = async () => {
     const { data: result } = await getQuestionDetail(route.params.id)
+    console.log(result);
     question_detail.value = result
   }
 
@@ -38,6 +52,9 @@ const useQuestion = () => {
 const { question_detail, answer_list, fetchQuestions, fetchAnswers } = useQuestion()
 fetchQuestions()
 fetchAnswers()
+
+
+const { thumbHandle } = useThumb()
 </script>
 <style scoped>
 .tag {

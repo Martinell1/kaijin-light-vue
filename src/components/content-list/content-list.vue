@@ -25,8 +25,9 @@
       <ContentFooter
         :voteCount="item.voteCount"
         :voteActive="content_type === 'Question' ? userInfo?.likingQuestions.includes(item._id) : userInfo?.likingArticles.includes(item._id)"
+        :viewCount="item.viewCount"
         :divide="true"
-        @thumbClick="thumbHandle(item)"
+        @thumbClick="thumbHandle(item, content_type)"
       ></ContentFooter>
     </div>
   </div>
@@ -35,12 +36,12 @@
 <script setup>
 import { ref, computed } from 'vue'
 import ContentFooter from './content-footer.vue';
-import { thumb, unthumb } from '@/api/user';
 import { useStore } from 'vuex';
+import useThumb from './useThumb'
+
 const store = useStore()
 
 const userInfo = ref(store.state.userInfo)
-
 const props = defineProps({
   datas: {
     type: Array,
@@ -52,30 +53,8 @@ const props = defineProps({
   }
 })
 
-const thumbHandle = async (item) => {
-  let id = item._id
-  let entity = "liking" + props.content_type + 's'
+const { thumbHandle } = useThumb()
 
-  let list = userInfo.value[entity].slice()
-  console.log(list);
-  let index = list.indexOf(id)
-  if (index > -1) {
-    await unthumb(entity, id)
-    list.splice(index, 1)
-    item.voteCount--
-  } else {
-    await thumb(entity, id)
-    list.push(id)
-    item.voteCount++
-  }
-
-  store.commit('setLikingQuestions', list)
-  const u = JSON.parse(localStorage.getItem("userInfo"));
-
-  u[entity] = list
-
-  localStorage.setItem('userInfo', JSON.stringify(u))
-}
 </script>
 <style scoped>
 .content-list-wrapper {
