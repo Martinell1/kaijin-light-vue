@@ -1,6 +1,6 @@
 <template>
   <div class="shadow-lg mb-4" v-show="visible">
-    <div v-for="(comment, index) in comment_list" class="flex px-5 py-4">
+    <div v-for="(comment, index) in comment_list" :key="comment._id" class="flex px-5 py-4">
       <img src="../../assets/images/static.jpg" class="w-8 h-8" />
       <div class="w-full ml-4 border-b-2">
         <span>{{ comment.holder.nickname }}</span>
@@ -10,20 +10,31 @@
           :voteCount="comment.voteCount"
           :voteActive="userInfo?.likingComments.includes(comment._id)"
           @thumbClick="thumbHandle(comment, 'Comment')"
-          @commentClick="commentHandle(index)"
+          @commentClick="commentHandle(comment._id)"
         ></ActionList>
         <CommentInput
           :questionId="questionId"
           :answerId="answerId"
           :rootCommentId="comment._id"
+          @refresh="refresh2(index)"
           :replyTo="comment.holder._id"
-          :ref="(el) => setItemRef(el, index)"
+          :ref="(el) => setInputRef(el, comment._id)"
         ></CommentInput>
-        <ReplyList :questionId="questionId" :answerId="answerId" :rootCommentId="comment._id"></ReplyList>
+        <ReplyList
+          :questionId="questionId"
+          :answerId="answerId"
+          :rootCommentId="comment._id"
+          :ref="(el) => setReplyRef(el, index)"
+        ></ReplyList>
       </div>
     </div>
     <div class="ml-5 mr-4">
-      <CommentInput :questionId="questionId" :answerId="answerId" ref="commentInputRef"></CommentInput>
+      <CommentInput
+        @refresh="refresh1"
+        :questionId="questionId"
+        :answerId="answerId"
+        ref="commentInputRef"
+      ></CommentInput>
     </div>
   </div>
 </template>
@@ -68,7 +79,7 @@ defineExpose({
   shiftVisible
 })
 
-const { comment_list, commentInputRef, setItemRef, commentHandle, fetchComments } = useComment()
+const { comment_list, commentInputRef, replyRefs, setInputRef, setReplyRef, commentHandle, fetchComments, } = useComment()
 fetchComments(props.questionId, props.answerId)
 
 nextTick(() => {
@@ -77,8 +88,13 @@ nextTick(() => {
 
 const { thumbHandle } = useThumb()
 
+const refresh1 = () => {
+  fetchComments(props.questionId, props.answerId)
+}
 
-
+const refresh2 = (index) => {
+  replyRefs[index].refresh()
+}
 
 </script>
 <style scoped>

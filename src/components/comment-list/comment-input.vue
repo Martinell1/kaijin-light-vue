@@ -31,13 +31,16 @@ const props = defineProps({
   }
 })
 const comment_content = ref('')
+const emit = defineEmits(['refresh'])
 const publishHandle = async () => {
   const params = { 'content': comment_content.value }
   if (props.rootCommentId && props.replyTo) {
     params.rootCommentId = props.rootCommentId
     params.replyTo = props.replyTo
   }
-  const { data: result } = await doComment(props.questionId, props.answerId, params)
+  const { data: comment } = await doComment(props.questionId, props.answerId, params)
+  comment_content.value = ''
+  emit('refresh', comment)
 }
 
 const visible = ref(false)
@@ -48,6 +51,8 @@ const shiftVisible = () => {
 defineExpose({
   shiftVisible
 })
+
+
 </script>
 <style  scoped>
 </style>

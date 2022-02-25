@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import {  nextTick, ref } from 'vue'
 import { getComments } from '@/api/comment'
 export default function useComment(){
   const comment_list = ref([])
@@ -7,18 +7,22 @@ export default function useComment(){
 
   const fetchComments = async (questionId,answerId,rootCommentId) => {
     const { data: result } = await getComments(questionId, answerId,rootCommentId);
-    comment_list.value = result;
+    comment_list.value = result;   
   }
 
   const commentInputRefs = []
-  const setItemRef = (el, index) => {
-    if (el) {
-      commentInputRefs.push(el)
-    }
-}
-  const commentHandle = (index) => {
-    commentInputRefs[index].shiftVisible()
+  const setInputRef = (el, id) => {
+      commentInputRefs[id] = el
+  }
+  const commentHandle = async(id) => {
+    commentInputRefs[id].shiftVisible()
   }
 
-  return { comment_list, commentInputRef,commentInputRefs,setItemRef,commentHandle, fetchComments }
+  const replyRefs = []
+  const setReplyRef = (el, index) => {
+    replyRefs.push(el)
+  }
+
+
+  return { comment_list, commentInputRef,commentInputRefs,replyRefs,setReplyRef,setInputRef,commentHandle, fetchComments }
 }

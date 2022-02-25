@@ -28,7 +28,7 @@
       </div>
 
       <CommentList
-        :ref="(el) => setItemRef(el, index)"
+        :ref="(el) => setInputRef(el, index)"
         :questionId="route.params.id"
         :answerId="answer._id"
       ></CommentList>
@@ -45,6 +45,7 @@ import useThumb from '@/components/action-list/useThumb'
 import useFollow from '@/components/action-list/useFollow'
 import CommentList from '../comment-list/comment-list.vue';
 import { useRoute } from 'vue-router';
+import useComment from '../comment-list/useComment'
 defineProps({
   answer_list: {
     type: Array,
@@ -58,22 +59,12 @@ const userInfo = computed(() => store.state.userInfo)
 const { thumbHandle } = useThumb()
 const { followHandle } = useFollow()
 
-const commentsRefs = []
-const setItemRef = (el, index) => {
-  if (el) {
-    commentsRefs.push(el)
-  }
-}
-const commentHandle = (index) => {
-  commentsRefs[index].shiftVisible()
-}
+const { setInputRef, commentHandle } = useComment()
 
 const emit = defineEmits(['editAnswerClick'])
 const editAnswerClick = (answer) => {
   emit('editAnswerClick', answer)
 }
-
-
 
 </script>
 <style  scoped>

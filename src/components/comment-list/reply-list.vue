@@ -1,5 +1,5 @@
 <template>
-  <div v-for="(comment, index) in comment_list" class="flex pt-4 pb-2">
+  <div v-for="comment in comment_list" :key="comment._id" class="flex pt-4 pb-2">
     <img src="../../assets/images/static.jpg" class="w-8 h-8" />
     <div class="w-full ml-4">
       <span>{{ comment.holder.nickname }}回复{{ comment.replyTo.nickname }}</span>
@@ -9,14 +9,15 @@
         :voteCount="comment.voteCount"
         :voteActive="userInfo?.likingComments.includes(comment._id)"
         @thumbClick="thumbHandle(comment, 'Comment')"
-        @commentClick="commentHandle(index)"
+        @commentClick="commentHandle(comment._id)"
       ></ActionList>
       <CommentInput
         :questionId="questionId"
         :answerId="answerId"
         :rootCommentId="rootCommentId"
         :replyTo="comment.holder._id"
-        :ref="(el) => setItemRef(el, index)"
+        :ref="(el) => setInputRef(el, comment._id)"
+        @refresh="refresh"
       ></CommentInput>
     </div>
   </div>
@@ -46,10 +47,17 @@ const props = defineProps({
 const store = useStore()
 const userInfo = computed(() => store.state.userInfo)
 
-const { comment_list, setItemRef, commentHandle, fetchComments } = useComment()
+const { comment_list, setInputRef, commentHandle, fetchComments } = useComment()
 fetchComments(props.questionId, props.answerId, props.rootCommentId)
-
 const { thumbHandle } = useThumb()
+
+const refresh = () => {
+  fetchComments(props.questionId, props.answerId, props.rootCommentId)
+}
+
+defineExpose({
+  refresh
+})
 </script>
 <style scoped>
 </style>
