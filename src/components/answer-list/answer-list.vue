@@ -20,7 +20,11 @@
           @followClick="followHandle(answer, 'Answer')"
           @commentClick="commentHandle(index)"
         ></ActionList>
-        <div class="btn -mt-4 mr-4" v-if="answer.holder._id === userInfo._id">编辑回答</div>
+        <div
+          class="btn -mt-4 mr-4"
+          v-if="answer.holder._id === userInfo._id"
+          @click="editAnswerClick(answer)"
+        >编辑回答</div>
       </div>
 
       <CommentList
@@ -62,6 +66,11 @@ const setItemRef = (el, index) => {
 }
 const commentHandle = (index) => {
   commentsRefs[index].shiftVisible()
+}
+
+const emit = defineEmits(['editAnswerClick'])
+const editAnswerClick = (answer) => {
+  emit('editAnswerClick', answer)
 }
 
 

@@ -20,8 +20,8 @@
     </div>
   </div>
   <div class="main-wrapper">
-    <Editor ref="editorRef"></Editor>
-    <AnswerList :answer_list="answer_list"></AnswerList>
+    <Editor ref="editorRef" @refresh="refresh"></Editor>
+    <AnswerList :answer_list="answer_list" @editAnswerClick="editAnswerHandle"></AnswerList>
   </div>
 </template>
 
@@ -73,6 +73,17 @@ const { followHandle } = useFollow()
 const editorRef = ref(null)
 const writeAnswerHandle = () => {
   editorRef.value.shiftVisible()
+}
+
+const editAnswerHandle = (answer) => {
+  editorRef.value.id = answer._id
+  editorRef.value.content = answer.content
+  editorRef.value.show()
+}
+
+const refresh = () => {
+  answer_list.value = []
+  fetchAnswers()
 }
 
 </script>

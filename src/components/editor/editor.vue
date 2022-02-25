@@ -2,7 +2,7 @@
   <div v-show="visible" class="mt-5 bg-zinc-50 shadow-md">
     <MdEditor v-model="content" :preview="false"></MdEditor>
     <div class="flex justify-end py-4">
-      <div class="btn" @click="publishHandle">发布回答</div>
+      <div class="btn mr-8" @click="publishHandle">发布回答</div>
     </div>
   </div>
 </template>
@@ -10,9 +10,10 @@
 <script setup>
 import { ref } from 'vue';
 import MdEditor from 'md-editor-v3';
-import { doAnswer } from '@/api/answer'
+import { doAnswer, updateAnswer } from '@/api/answer'
 import { useRoute } from 'vue-router';
-
+const id = ref('')
+const content = ref('')
 const visible = ref(false)
 const show = () => {
   visible.value = true
@@ -27,16 +28,23 @@ const shiftVisible = () => {
 }
 
 defineExpose({
+  id,
+  content,
   show,
   hide,
   shiftVisible,
 })
 
-const content = ref('')
 const route = useRoute()
+const emit = defineEmits(['refresh'])
 const publishHandle = async () => {
   const params = { 'content': content.value }
-  await doAnswer(route.params.id, params);
+  if (id.value) {
+    await updateAnswer(route.params.id, id.value, params)
+  } else {
+    await doAnswer(route.params.id, params);
+  }
+  emit('refresh')
   hide()
 }
 </script>
