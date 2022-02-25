@@ -7,7 +7,7 @@ body{
 }
 
 .btn {
-  @apply text-center text-white font-semibold bg-rose-500 ring-rose-300 ring-inset ring-4 rounded-lg w-28 h-10 leading-10 mx-2 cursor-pointer;
+  @apply text-center text-white font-semibold bg-rose-500 ring-rose-300 ring-inset ring-4 rounded-lg w-28 h-10 leading-10 cursor-pointer;
 } 
 
 .main-wrapper{

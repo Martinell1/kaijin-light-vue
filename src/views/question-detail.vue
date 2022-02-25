@@ -55,7 +55,6 @@ const useQuestion = () => {
 
   const fetchAnswers = async () => {
     const { data: result } = await getAnswers(route.params.id)
-    console.log(result);
     answer_list.value = [...answer_list.value, ...result]
   }
 
@@ -79,7 +78,7 @@ const writeAnswerHandle = () => {
 </script>
 <style scoped>
 .question-detail-wrappper {
-  @apply -mt-4 pt-5 bg-zinc-50  shadow;
+  @apply -mt-4 pt-5 bg-zinc-50 shadow;
 }
 .tag {
   @apply bg-rose-200 text-rose-500 text-lg px-3 leading-8 mr-4 rounded-full;
