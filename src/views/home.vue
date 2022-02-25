@@ -11,7 +11,5 @@ import MainHeader from '../components/main-header/main-header.vue';
 </script>
 <style scoped>
 .home-wrapper {
-  width: 1000px;
-  margin: auto;
 }
 </style>

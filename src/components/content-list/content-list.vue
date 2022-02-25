@@ -22,22 +22,23 @@
           class="ml-4"
         />
       </div>
-      <ContentFooter
+      <ActionList
         :voteCount="item.voteCount"
         :voteActive="content_type === 'Question' ? userInfo?.likingQuestions.includes(item._id) : userInfo?.likingArticles.includes(item._id)"
         :viewCount="item.viewCount"
         :divide="true"
+        :actionList="['voteCount', 'viewCount', 'comment']"
         @thumbClick="thumbHandle(item, content_type)"
-      ></ContentFooter>
+      ></ActionList>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import ContentFooter from './content-footer.vue';
+import { ref } from 'vue'
+import ActionList from '../../components/action-list/action-list.vue';
 import { useStore } from 'vuex';
-import useThumb from './useThumb'
+import useThumb from '../action-list/useThumb'
 
 const store = useStore()
 

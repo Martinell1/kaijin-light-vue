@@ -4,8 +4,3 @@ export function setLocal(field,list){
   localStorage.setItem('userInfo', JSON.stringify(userInfo))
 }
 
-const useContentTypeHandle = () => {
-  const field = "liking" + props.content_type + 's'
-  const fn = 'setLiking' + props.content_type + 's'
-  return { field, fn }
-}

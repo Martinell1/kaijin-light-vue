@@ -1,5 +1,7 @@
 <template>
-  <ContentList :datas="article_list" :content_type="'Article'"></ContentList>
+  <div class="main-wrapper">
+    <ContentList :datas="article_list" :content_type="'Article'"></ContentList>
+  </div>
 </template>
 
 <script setup>

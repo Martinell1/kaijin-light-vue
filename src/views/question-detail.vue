@@ -1,28 +1,42 @@
 <template>
-  <div class="flex">
-    <div class="tag" v-for="topic in question_detail.topics">{{ topic.name }}</div>
+  <div class="question-detail-wrappper">
+    <div class="main-wrapper">
+      <div class="flex">
+        <div class="tag" v-for="topic in question_detail.topics">{{ topic.name }}</div>
+      </div>
+      <h1 class="font-black text-3xl my-6 text-rose-500">{{ question_detail.title }}</h1>
+      <PreviewEditor :modelValue="question_detail.description" class="my-4"></PreviewEditor>
+      <ActionList
+        :voteCount="question_detail.voteCount"
+        :voteActive="userInfo?.likingQuestions.includes(question_detail._id)"
+        :followActive="userInfo?.followingQuestions.includes(question_detail._id)"
+        :viewCount="question_detail.viewCount"
+        :actionList="['follow', 'writeAnswer', 'voteCount', 'viewCount']"
+        :size="'text-xl'"
+        @thumbClick="thumbHandle(question_detail, 'Question')"
+        @followClick="followHandle(question_detail, 'Question')"
+        @writeAnswerClick="writeAnswerHandle"
+      ></ActionList>
+    </div>
   </div>
-  <h1 class="font-black text-3xl my-6 text-rose-500">{{ question_detail.title }}</h1>
-  <MdEditor :previewOnly="true" :modelValue="question_detail.description" class="my-4"></MdEditor>
-  <ContentFooter
-    :voteCount="question_detail.voteCount"
-    :voteActive="userInfo?.likingQuestions.includes(question_detail._id)"
-    :viewCount="question_detail.viewCount"
-    @thumbClick="thumbHandle(question_detail, 'Question')"
-    :size="'text-xl'"
-  ></ContentFooter>
+  <div class="main-wrapper">
+    <Editor ref="editorRef"></Editor>
+    <AnswerList :answer_list="answer_list"></AnswerList>
+  </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import MdEditor from '../components/editor/md-editor.vue';
+import PreviewEditor from '@/components/editor/preview-editor.vue';
 import { getQuestionDetail } from '@/api/question'
 import { getAnswers } from '@/api/answer'
-import ContentList from '../components/content-list/content-list.vue';
-import ContentFooter from '../components/content-list/content-footer.vue';
 import { useStore } from 'vuex';
-import useThumb from '@/components/content-list/useThumb'
+import Editor from '@/components/editor/editor.vue'
+import AnswerList from '@/components/answer-list/answer-list.vue';
+import ActionList from '@/components/action-list/action-list.vue';
+import useThumb from '@/components/action-list/useThumb'
+import useFollow from '@/components/action-list/useFollow'
 const route = useRoute()
 
 const store = useStore()
@@ -34,7 +48,6 @@ const useQuestion = () => {
 
   const fetchQuestions = async () => {
     const { data: result } = await getQuestionDetail(route.params.id)
-    console.log(result);
     question_detail.value = result
   }
 
@@ -55,8 +68,19 @@ fetchAnswers()
 
 
 const { thumbHandle } = useThumb()
+
+const { followHandle } = useFollow()
+
+const editorRef = ref(null)
+const writeAnswerHandle = () => {
+  editorRef.value.shiftVisible()
+}
+
 </script>
 <style scoped>
+.question-detail-wrappper {
+  @apply -mt-4 pt-5 bg-zinc-50  shadow;
+}
 .tag {
   @apply bg-rose-200 text-rose-500 text-lg px-3 leading-8 mr-4 rounded-full;
 }

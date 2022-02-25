@@ -1,5 +1,7 @@
 <template>
-  <ContentList :datas="question_list"></ContentList>
+  <div class="main-wrapper">
+    <ContentList :datas="question_list"></ContentList>
+  </div>
 </template>
 
 <script setup>

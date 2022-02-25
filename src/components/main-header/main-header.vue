@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-[3.75rem] bg-slate-50 shadow mb-4">
+  <div class="w-full h-[3.75rem] bg-slate-50 shadow box-border mb-5">
     <div class="flex justify-between items-center h-full xl:mx-[25rem]">
       <div class="flex">
         <router-link :to="{ name: 'Questions' }">
