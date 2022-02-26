@@ -91,7 +91,4 @@ const refresh = () => {
 .question-detail-wrappper {
   @apply -mt-4 pt-5 bg-zinc-50 shadow;
 }
-.tag {
-  @apply bg-rose-200 text-rose-500 text-lg px-3 leading-8 mr-4 rounded-full;
-}
 </style>

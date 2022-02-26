@@ -10,6 +10,7 @@ export default function useComment(){
     comment_list.value = result;   
   }
 
+  //二级评论
   const commentInputRefs = []
   const setInputRef = (el, id) => {
       commentInputRefs[id] = el

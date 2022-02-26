@@ -26,8 +26,8 @@ const mutations = {
   setEducation(state,education){
     state.userInfo.education = education
   },
-  setFollowing(state,following){
-    state.userInfo.following = following
+  setFollowings(state,followings){
+    state.userInfo.followings = followings
   },
   setFollowingTopics(state,followingTopics){
     state.userInfo.followingTopics = followingTopics
