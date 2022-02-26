@@ -3,8 +3,11 @@
     <div v-for="(comment, index) in comment_list" :key="comment._id" class="flex px-5 py-4">
       <img src="../../assets/images/static.jpg" class="w-8 h-8" />
       <div class="w-full ml-4 border-b-2">
-        <span>{{ comment.holder.nickname }}</span>
-        <div class="my-2">{{ comment.content }}</div>
+        <div class="flex justify-between">
+          <span class="main-text">{{ comment.holder.nickname }}</span>
+          <span class="support-text">{{ useTimeAgo(comment.updatedAt).value }}</span>
+        </div>
+        <div class="my-2 text-lg text-stone-700">{{ comment.content }}</div>
         <ActionList
           :actionList="['voteCount', 'comment']"
           :voteCount="comment.voteCount"
@@ -47,6 +50,7 @@ import ReplyList from './reply-list.vue';
 import useComment from '../comment-list/useComment'
 import useThumb from '@/components/action-list/useThumb'
 import { useStore } from 'vuex';
+import { useTimeAgo } from '@vueuse/core'
 const props = defineProps({
   questionId: {
     type: String,

@@ -13,3 +13,11 @@ body{
 .main-wrapper{
   @apply w-[1000px] mx-auto ;
 }
+
+.main-text{
+  @apply text-lg font-semibold text-stone-700
+}
+
+.support-text{
+  @apply text-lg font-semibold text-stone-500
+}

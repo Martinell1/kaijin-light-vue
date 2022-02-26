@@ -1,9 +1,18 @@
 <template>
-  <div v-for="comment in comment_list" :key="comment._id" class="flex pt-4 pb-2">
+  <div v-for="comment in comment_list" :key="comment._id" class="flex pt-4 pb-2 border-t-2">
     <img src="../../assets/images/static.jpg" class="w-8 h-8" />
     <div class="w-full ml-4">
-      <span>{{ comment.holder.nickname }}回复{{ comment.replyTo.nickname }}</span>
-      <div class="my-2">{{ comment.content }}</div>
+      <div class="flex justify-between">
+        <div>
+          <span class="main-text">{{ comment.holder.nickname }}</span>
+          <span class="support-text mx-2">回复</span>
+          <span class="main-text">{{ comment.replyTo.nickname }}</span>
+        </div>
+
+        <span class="support-text">{{ useTimeAgo(comment.updatedAt).value }}</span>
+      </div>
+
+      <div class="my-2 text-lg text-stone-700">{{ comment.content }}</div>
       <ActionList
         :actionList="['voteCount', 'comment']"
         :voteCount="comment.voteCount"
@@ -30,6 +39,7 @@ import CommentInput from './comment-input.vue';
 import useComment from '../comment-list/useComment'
 import useThumb from '@/components/action-list/useThumb'
 import { useStore } from 'vuex';
+import { useTimeAgo } from '@vueuse/core'
 const props = defineProps({
   questionId: {
     type: String,

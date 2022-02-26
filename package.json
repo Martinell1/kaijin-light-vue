@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@heroicons/vue": "^1.0.5",
+    "@vueuse/core": "^7.6.2",
     "axios": "^0.26.0",
     "md-editor-v3": "^1.10.2",
     "vue": "^3.2.25",
