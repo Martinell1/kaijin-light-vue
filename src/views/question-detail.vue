@@ -1,9 +1,7 @@
 <template>
   <div class="question-detail-wrappper">
     <div class="main-wrapper">
-      <div class="flex">
-        <div class="tag" v-for="topic in question_detail.topics">{{ topic.name }}</div>
-      </div>
+      <TopicList :topics="question_detail.topics" :tag="true"></TopicList>
       <h1 class="font-black text-3xl my-6 text-rose-500">{{ question_detail.title }}</h1>
       <PreviewEditor :modelValue="question_detail.description" class="my-4"></PreviewEditor>
       <ActionList
@@ -33,37 +31,20 @@ import AnswerList from '@/components/answer-list/answer-list.vue';
 import PreviewEditor from '@/components/base/editor/preview-editor.vue';
 import Editor from '@/components/base/editor/editor.vue'
 import ActionList from '@/components/base/action-list/action-list.vue';
+import TopicList from '@/components/topic-list/topic-list.vue';
 import useThumb from '@/components/base/action-list/useThumb'
 import useFollow from '@/components/base/action-list/useFollow'
-import { getQuestionDetail } from '@/api/question'
-import { getAnswers } from '@/api/answer'
+import useQuestion from '@/hooks/useQuestion';
+
 const route = useRoute()
 
 const store = useStore()
 const userInfo = computed(() => store.state.userInfo)
 
 
-const useQuestion = () => {
-  const question_detail = ref({})
-
-  const fetchQuestions = async () => {
-    const { data: result } = await getQuestionDetail(route.params.id)
-    question_detail.value = result
-  }
-
-  const answer_list = ref([])
-
-  const fetchAnswers = async () => {
-    const { data: result } = await getAnswers(route.params.id)
-    answer_list.value = [...answer_list.value, ...result]
-  }
-
-  return { question_detail, answer_list, fetchQuestions, fetchAnswers }
-}
-
-const { question_detail, answer_list, fetchQuestions, fetchAnswers } = useQuestion()
-fetchQuestions()
-fetchAnswers()
+const { question_detail, answer_list, fetchQuestionDetail, fetchAnswers } = useQuestion()
+fetchQuestionDetail(route.params.id)
+fetchAnswers(route.params.id)
 
 
 const { thumbHandle } = useThumb()

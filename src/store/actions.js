@@ -1,8 +1,8 @@
 import {getUserDetail} from '@/api/user'
-
+import {FIELDS} from '@/js/constance'
 export async function fetchUserInfo ({ commit, state }, id) {
-  const params = "locations;education;employments;followings;followingTopics;followingArticles;followingQuestions;followingAnswers;likingAnswers;dislikingAnswers;likingQuestions;likingArticles;likingComments;dislikingComments;likingTalks;dislikingTalks"
-  const { data: userInfo } = await getUserDetail(id, params)
+
+  const { data: userInfo } = await getUserDetail(id, FIELDS)
   commit('setUserInfo',userInfo)
   localStorage.setItem('userInfo',JSON.stringify(userInfo))
 }

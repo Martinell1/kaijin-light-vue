@@ -22,19 +22,37 @@ const routes = [
         component: () => import(/* webpackChunkName: "Articles" */ '../views/article.vue'),
       },
       {
-        path: '/question/:id',
+        path: 'question/:id',
         name: 'QuestionDetail',
         component: () => import(/* webpackChunkName: "Questions" */ '../views/question-detail.vue'),
       },
       {
-        path: '/article/:id',
+        path: 'article/:id',
         name: 'ArticleDetail',
         component: () => import(/* webpackChunkName: "Questions" */ '../views/article-detail.vue'),
       },
       {
-        path: '/user/:id',
+        path: 'user/:id',
         name: 'UserDetail',
         component: () => import(/* webpackChunkName: "Questions" */ '../views/user-detail.vue'),
+        redirect: to => {
+          return { name: 'Moment', params: { id:to.params.id,channel:'question' } }
+        },
+        children:[
+          {
+            path: ':channel',
+            name: 'Moment',
+            components:{
+              nav:() => import(/* webpackChunkName: "Questions" */ '../components/moment-list/moment-nav.vue'),
+              default:() => import(/* webpackChunkName: "Questions" */ '../components/moment-list/moment-list.vue'),
+            }
+          },
+          {
+            path: 'edit',
+            name: 'EditUser',
+            component: () => import(/* webpackChunkName: "Questions" */ '../views/user-edit.vue'),
+          },
+        ]
       }
     ]
   },

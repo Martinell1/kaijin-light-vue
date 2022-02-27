@@ -26,6 +26,7 @@ export default function useThumb(){
   }
 
   const useContentTypeHandle = (content_type) => {
+    content_type = content_type.toLowerCase().replace(content_type[0],content_type[0].toUpperCase())
     const field = "liking" + content_type + 's'
     const fn = 'setLiking' + content_type + 's'
     return { field, fn }

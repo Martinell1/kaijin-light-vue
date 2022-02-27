@@ -14,9 +14,7 @@
       </div>
     </div>
     <PreviewEditor :previewOnly="true" :modelValue="article_detail.content"></PreviewEditor>
-    <div class="flex mt-4">
-      <div class="tag" v-for="topic in article_detail.topics">{{ topic.name }}</div>
-    </div>
+    <TopicList :topics="article_detail.topics" :tag="true"></TopicList>
     <TalkList :articleId="article_detail._id"></TalkList>
   </div>
   <ArticleFooter :article_detail="article_detail"></ArticleFooter>
@@ -30,23 +28,14 @@ import PreviewEditor from '@/components/base/editor/preview-editor.vue';
 import ArticleFooter from '@/components/article-footer/article-footer.vue';
 import TalkList from '@/components/talk-list/talk-list.vue';
 import SuspendUserInfo from '@/components/base/suspend-userInfo/suspend-userInfo.vue'
+import TopicList from '@/components/topic-list/topic-list.vue';
 import useFollow from '@/components/base/action-list/useFollow'
-import { getArticleDetail } from '@/api/article'
+import useArticle from '@/hooks/useArticle';
 
 const route = useRoute()
-const useArticleDetail = () => {
-  const article_detail = ref({})
 
-  const fetchArticleDetail = async () => {
-    const { data: result } = await getArticleDetail(route.params.id)
-    article_detail.value = result
-  }
-
-  return { article_detail, fetchArticleDetail }
-}
-
-const { article_detail, fetchArticleDetail } = useArticleDetail()
-fetchArticleDetail()
+const { article_detail, fetchArticleDetail } = useArticle()
+fetchArticleDetail(route.params.id)
 
 const { followHandle } = useFollow()
 const store = useStore()

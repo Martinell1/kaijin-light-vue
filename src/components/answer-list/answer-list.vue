@@ -42,7 +42,6 @@ import ActionList from '@/components/base/action-list/action-list.vue';
 import useThumb from '@/components/base/action-list/useThumb'
 import useFollow from '@/components/base/action-list/useFollow'
 import SuspendUserInfo from '@/components/base/suspend-userInfo/suspend-userInfo.vue'
-
 import useComment from '../comment-list/useComment'
 defineProps({
   answer_list: {

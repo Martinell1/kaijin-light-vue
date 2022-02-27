@@ -11,7 +11,7 @@
     </div>
     <div
       v-show="visible"
-      class="absolute -left-4 w-80 shadow flex flex-col bg-zinc-50 p-4 z-20"
+      class="absolute -left-4 w-80 shadow flex flex-col bg-zinc-50 p-4 z-20 border"
       :class="{ 'top-10': showAvatar }"
     >
       <div class="flex">
@@ -28,7 +28,7 @@
         </div>
         <div class="follow-item">
           <label>粉丝数</label>
-          <span class="follow-count">{{ followers.length }}</span>
+          <span class="follow-count">{{ follower_list.length }}</span>
         </div>
         <div class="follow-item">
           <div
@@ -47,8 +47,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useStore } from 'vuex';
-import { getFollowers } from '@/api/user'
 import useFollow from '@/components/base/action-list/useFollow'
+import useUser from '@/hooks/useUser'
 
 const props = defineProps({
   userInfo: {
@@ -70,15 +70,12 @@ const props = defineProps({
 })
 const visible = ref(false)
 
-const followers = ref([])
-const fetchFollows = async () => {
-  const { data: result } = await getFollowers(props.userInfo._id)
-  followers.value = result
-}
+const { follower_list, fetchFollowers } = useUser()
+
 
 const show = () => {
   visible.value = true
-  fetchFollows()
+  fetchFollowers(props.userInfo._id)
 }
 
 const hide = () => {
@@ -94,9 +91,9 @@ const isFollow = computed(() => me.value?.followings.includes(props.userInfo._id
 
 const doFollowHandle = () => {
   if (isFollow.value) {
-    --followers.value.length;
+    --follower_list.value.length;
   } else {
-    ++followers.value.length
+    ++follower_list.value.length
   }
   followHandle(props.userInfo, '')
 }
