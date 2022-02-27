@@ -4,8 +4,9 @@
     <h1 class="font-black text-3xl my-6 text-rose-500">{{ article_detail.title }}</h1>
     <div class="flex justify-between mb-6">
       <div class="flex items-center">
-        <img src="../assets/images/static.jpg" class="w-10 h-10 rounded-full" />
-        <span class="ml-4 text-lg font-bold">{{ article_detail.holder?.nickname }}</span>
+        <SuspendUserInfo :userInfo="article_detail.holder" :showAvatar="true"></SuspendUserInfo>
+        <!-- <img src="../assets/images/static.jpg" class="w-10 h-10 rounded-full" />
+        <span class="ml-4 text-lg font-bold">{{ article_detail.holder?.nickname }}</span>-->
       </div>
       <div class="btn mr-4" @click="followHandle(article_detail.holder, '')">
         <span v-show="userInfo?.followings.includes(article_detail.holder?._id)">已关注</span>
@@ -25,11 +26,12 @@
 import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
-import PreviewEditor from '@/components/editor/preview-editor.vue';
-import { getArticleDetail } from '@/api/article'
+import PreviewEditor from '@/components/base/editor/preview-editor.vue';
 import ArticleFooter from '@/components/article-footer/article-footer.vue';
-import useFollow from '@/components/action-list/useFollow'
 import TalkList from '@/components/talk-list/talk-list.vue';
+import SuspendUserInfo from '@/components/base/suspend-userInfo/suspend-userInfo.vue'
+import useFollow from '@/components/base/action-list/useFollow'
+import { getArticleDetail } from '@/api/article'
 
 const route = useRoute()
 const useArticleDetail = () => {

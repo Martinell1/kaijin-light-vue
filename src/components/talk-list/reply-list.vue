@@ -1,44 +1,44 @@
 <template>
-  <div v-for="talk in talk_list" :key="talk._id" class="flex pt-4 pb-2 border-t-2">
-    <img src="../../assets/images/static.jpg" class="w-8 h-8" />
-    <div class="w-full ml-4">
+  <div v-for="talk in talk_list" :key="talk._id" class="flex flex-col pt-4 pb-2 border-t-2">
+    <div class="w-full">
       <div class="flex justify-between">
-        <div>
-          <span class="main-text">{{ talk.holder.nickname }}</span>
+        <div class="flex items-center">
+          <SuspendUserInfo :userInfo="talk.holder" :rounded="''"></SuspendUserInfo>
           <span class="support-text mx-2">回复</span>
-          <span class="main-text">{{ talk.replyTo.nickname }}</span>
+          <SuspendUserInfo :userInfo="talk.holder" :showAvatar="false"></SuspendUserInfo>
         </div>
-
         <span class="support-text">{{ useTimeAgo(talk.updatedAt).value }}</span>
       </div>
-
-      <div class="my-2 text-lg text-stone-700">{{ talk.content }}</div>
-      <ActionList
-        :actionList="['voteCount', 'comment']"
-        :voteCount="talk.voteCount"
-        :voteActive="userInfo?.likingTalks.includes(talk._id)"
-        @thumbClick="thumbHandle(talk, 'Talk')"
-        @commentClick="talkHandle(talk._id)"
-      ></ActionList>
-      <TalkInput
-        :articleId="articleId"
-        :rootTalkId="rootTalkId"
-        :replyTo="talk.holder._id"
-        :ref="(el) => setInputRef(el, talk._id)"
-        @refresh="refresh"
-      ></TalkInput>
+      <div class="w-full pl-14">
+        <div class="my-2 text-lg text-stone-700">{{ talk.content }}</div>
+        <ActionList
+          :actionList="['voteCount', 'comment']"
+          :voteCount="talk.voteCount"
+          :voteActive="userInfo?.likingTalks.includes(talk._id)"
+          @thumbClick="thumbHandle(talk, 'Talk')"
+          @commentClick="talkHandle(talk._id)"
+        ></ActionList>
+        <TalkInput
+          :articleId="articleId"
+          :rootTalkId="rootTalkId"
+          :replyTo="talk.holder?._id"
+          :ref="(el) => setInputRef(el, talk._id)"
+          @refresh="refresh"
+        ></TalkInput>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
-import ActionList from '../action-list/action-list.vue';
-import TalkInput from './talk-input.vue';
-import useTalk from '../talk-list/useTalk'
-import useThumb from '@/components/action-list/useThumb'
 import { useStore } from 'vuex';
 import { useTimeAgo } from '@vueuse/core'
+import TalkInput from './talk-input.vue';
+import useTalk from '../talk-list/useTalk'
+import ActionList from '@/components/base/action-list/action-list.vue';
+import useThumb from '@/components/base/action-list/useThumb'
+import SuspendUserInfo from '@/components/base/suspend-userInfo/suspend-userInfo.vue'
 const props = defineProps({
   articleId: {
     type: String,

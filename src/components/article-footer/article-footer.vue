@@ -17,9 +17,9 @@
 <script setup>
 import { computed } from 'vue'
 import { useStore } from 'vuex';
-import ActionList from '../action-list/action-list.vue';
-import useThumb from '@/components/action-list/useThumb'
-import useFollow from '@/components/action-list/useFollow'
+import ActionList from '@/components/base/action-list/action-list.vue';
+import useThumb from '@/components/base/action-list/useThumb'
+import useFollow from '@/components/base/action-list/useFollow'
 defineProps({
   article_detail: {
     type: Object,

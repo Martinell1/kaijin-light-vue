@@ -1,10 +1,10 @@
 <template>
   <div class="shadow-lg mb-4" v-show="visible">
     <div v-for="(comment, index) in comment_list" :key="comment._id" class="flex px-5 py-4">
-      <img src="../../assets/images/static.jpg" class="w-8 h-8" />
-      <div class="w-full ml-4 border-b-2">
+      <SuspendUserInfo :userInfo="comment.holder" :showText="false" :rounded="''"></SuspendUserInfo>
+      <div class="w-full border-b-2">
         <div class="flex justify-between">
-          <span class="main-text">{{ comment.holder.nickname }}</span>
+          <SuspendUserInfo :userInfo="comment.holder" :showAvatar="false"></SuspendUserInfo>
           <span class="support-text">{{ useTimeAgo(comment.updatedAt).value }}</span>
         </div>
         <div class="my-2 text-lg text-stone-700">{{ comment.content }}</div>
@@ -44,13 +44,14 @@
 
 <script setup>
 import { nextTick, ref, computed } from 'vue';
-import ActionList from '../action-list/action-list.vue';
-import CommentInput from './comment-input.vue';
-import ReplyList from './reply-list.vue';
-import useComment from '../comment-list/useComment'
-import useThumb from '@/components/action-list/useThumb'
 import { useStore } from 'vuex';
 import { useTimeAgo } from '@vueuse/core'
+import CommentInput from './comment-input.vue';
+import ReplyList from './reply-list.vue';
+import ActionList from '@/components/base/action-list/action-list.vue';
+import useComment from '@/components/comment-list/useComment'
+import useThumb from '@/components/base/action-list/useThumb'
+import SuspendUserInfo from '@/components/base/suspend-userInfo/suspend-userInfo.vue'
 const props = defineProps({
   questionId: {
     type: String,

@@ -8,6 +8,10 @@ const getUserDetail = async(id,params)=>{
   return await axios.get("user/"+id+"?fields="+params)
 }
 
+const getFollowers = async(id)=>{
+  return await axios.get("user/"+id+"/followers")
+}
+
 const thumb = async(field,id) => {
   return await axios.put("user/"+field+"/"+id)
 }
@@ -27,6 +31,7 @@ const unfollow = async(field,id)=>{
 export {
   login,
   getUserDetail,
+  getFollowers,
   thumb,
   unthumb,
   follow,

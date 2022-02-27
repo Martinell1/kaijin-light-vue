@@ -16,7 +16,11 @@
           <div class="btn">Search</div>
         </div>
 
-        <img v-if="avatar_url" src="../../assets/images/static.jpg" class="w-10 h-10 rounded-full" />
+        <img
+          v-if="avatar_url"
+          src="../../../assets/images/static.jpg"
+          class="w-10 h-10 rounded-full"
+        />
         <div v-if="!avatar_url" class="flex">
           <div class="btn" @click="showLogin">Login</div>
           <div class="btn">Register</div>
@@ -32,9 +36,10 @@
 <script setup>
 import { computed, ref } from 'vue';
 import Modal from '../modal/modal.vue';
-import Login from '../../views/login.vue';
-import store from '../../store';
+import Login from '../../../views/login.vue';
+import { useStore } from 'vuex';
 
+const store = useStore()
 const avatar_url = computed(() => store.state.userInfo?.avatar_url)
 
 const modalRef = ref(null)

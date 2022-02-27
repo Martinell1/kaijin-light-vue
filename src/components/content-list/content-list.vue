@@ -2,7 +2,7 @@
   <div class="content-list-wrapper shadow rounded bg-zinc-50">
     <div v-for="item in datas" :key="item.id" class="pt-4 px-6">
       <div class="flex justify-between mb-3 font-black text-xl text-stone-500">
-        <div>{{ item.holder?.nickname }}</div>
+        <SuspendUserInfo :userInfo="item.holder" :showAvatar="false"></SuspendUserInfo>
         <div class="flex">
           <div class="topic-item" v-for="topic in item.topics" :key="topic._id">{{ topic.name }}</div>
         </div>
@@ -36,9 +36,10 @@
 
 <script setup>
 import { ref } from 'vue'
-import ActionList from '../../components/action-list/action-list.vue';
 import { useStore } from 'vuex';
-import useThumb from '../action-list/useThumb'
+import ActionList from '../../components/base/action-list/action-list.vue';
+import useThumb from '../base/action-list/useThumb'
+import SuspendUserInfo from '@/components/base/suspend-userInfo/suspend-userInfo.vue'
 
 const store = useStore()
 

@@ -1,17 +1,18 @@
 <template>
-  <div v-for="comment in comment_list" :key="comment._id" class="flex pt-4 pb-2 border-t-2">
-    <img src="../../assets/images/static.jpg" class="w-8 h-8" />
-    <div class="w-full ml-4">
-      <div class="flex justify-between">
-        <div>
-          <span class="main-text">{{ comment.holder.nickname }}</span>
-          <span class="support-text mx-2">回复</span>
-          <span class="main-text">{{ comment.replyTo.nickname }}</span>
-        </div>
-
-        <span class="support-text">{{ useTimeAgo(comment.updatedAt).value }}</span>
+  <div
+    v-for="comment in comment_list"
+    :key="comment._id"
+    class="flex flex-col pt-4 pb-2 border-t-2"
+  >
+    <div class="flex justify-between">
+      <div class="flex items-center">
+        <SuspendUserInfo :userInfo="comment.holder" :rounded="''"></SuspendUserInfo>
+        <span class="support-text mx-2">回复</span>
+        <SuspendUserInfo :userInfo="comment.holder" :showAvatar="false"></SuspendUserInfo>
       </div>
-
+      <span class="support-text">{{ useTimeAgo(comment.updatedAt).value }}</span>
+    </div>
+    <div class="w-full pl-14">
       <div class="my-2 text-lg text-stone-700">{{ comment.content }}</div>
       <ActionList
         :actionList="['voteCount', 'comment']"
@@ -34,12 +35,13 @@
 
 <script setup>
 import { computed } from 'vue'
-import ActionList from '../action-list/action-list.vue';
-import CommentInput from './comment-input.vue';
-import useComment from '../comment-list/useComment'
-import useThumb from '@/components/action-list/useThumb'
 import { useStore } from 'vuex';
 import { useTimeAgo } from '@vueuse/core'
+import CommentInput from './comment-input.vue';
+import useComment from '../comment-list/useComment'
+import ActionList from '@/components/base/action-list/action-list.vue';
+import useThumb from '@/components/base/action-list/useThumb'
+import SuspendUserInfo from '@/components/base/suspend-userInfo/suspend-userInfo.vue'
 const props = defineProps({
   questionId: {
     type: String,

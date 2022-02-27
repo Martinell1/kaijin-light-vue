@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import MainHeader from '../components/main-header/main-header.vue';
+import MainHeader from '../components/base/main-header/main-header.vue';
 
 </script>
 <style scoped>

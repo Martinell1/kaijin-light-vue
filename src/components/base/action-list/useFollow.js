@@ -10,7 +10,6 @@ export default function useFollow(){
   const followHandle = async(item,content_type)=>{
     let id = item._id
     const { field, fn } = useContentTypeHandle(content_type)
-    console.log(userInfo.value,field);
     let list = userInfo.value[field].slice()
     let index = list.indexOf(id)
     if (index > -1) {

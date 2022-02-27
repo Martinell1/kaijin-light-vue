@@ -4,10 +4,10 @@
       <TalkInput :articleId="articleId" ref="talkInputRef" @refresh="refresh1"></TalkInput>
     </div>
     <div v-for="(talk, index) in talk_list" :key="talk._id" class="flex px-5 py-4">
-      <img src="../../assets/images/static.jpg" class="w-8 h-8" />
-      <div class="w-full ml-4 border-b-2">
+      <SuspendUserInfo :userInfo="talk.holder" :showText="false" :rounded="''"></SuspendUserInfo>
+      <div class="w-full border-b-2">
         <div class="flex justify-between">
-          <span class="main-text">{{ talk.holder.nickname }}</span>
+          <SuspendUserInfo :userInfo="talk.holder" :showAvatar="false"></SuspendUserInfo>
           <span class="support-text">{{ useTimeAgo(talk.updatedAt).value }}</span>
         </div>
         <div class="my-2 text-lg text-stone-700">{{ talk.content }}</div>
@@ -22,7 +22,7 @@
           :articleId="articleId"
           :rootTalkId="talk._id"
           @refresh="refresh2(index)"
-          :replyTo="talk.holder._id"
+          :replyTo="talk.holder?._id"
           :ref="(el) => setInputRef(el, talk._id)"
         ></TalkInput>
         <ReplyList
@@ -37,13 +37,14 @@
 
 <script setup>
 import { nextTick, watch, ref, computed } from 'vue';
-import ActionList from '../action-list/action-list.vue';
+import { useStore } from 'vuex';
+import { useTimeAgo } from '@vueuse/core'
 import TalkInput from './talk-input.vue';
 import ReplyList from './reply-list.vue';
 import useTalk from '../talk-list/useTalk'
-import useThumb from '@/components/action-list/useThumb'
-import { useStore } from 'vuex';
-import { useTimeAgo } from '@vueuse/core'
+import ActionList from '@/components/base/action-list/action-list.vue';
+import useThumb from '@/components/base/action-list/useThumb'
+import SuspendUserInfo from '@/components/base/suspend-userInfo/suspend-userInfo.vue'
 const props = defineProps({
   articleId: {
     type: String,

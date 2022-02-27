@@ -28,15 +28,15 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import PreviewEditor from '@/components/editor/preview-editor.vue';
+import { useStore } from 'vuex';
+import AnswerList from '@/components/answer-list/answer-list.vue';
+import PreviewEditor from '@/components/base/editor/preview-editor.vue';
+import Editor from '@/components/base/editor/editor.vue'
+import ActionList from '@/components/base/action-list/action-list.vue';
+import useThumb from '@/components/base/action-list/useThumb'
+import useFollow from '@/components/base/action-list/useFollow'
 import { getQuestionDetail } from '@/api/question'
 import { getAnswers } from '@/api/answer'
-import { useStore } from 'vuex';
-import Editor from '@/components/editor/editor.vue'
-import AnswerList from '@/components/answer-list/answer-list.vue';
-import ActionList from '@/components/action-list/action-list.vue';
-import useThumb from '@/components/action-list/useThumb'
-import useFollow from '@/components/action-list/useFollow'
 const route = useRoute()
 
 const store = useStore()
@@ -72,6 +72,8 @@ const { followHandle } = useFollow()
 
 const editorRef = ref(null)
 const writeAnswerHandle = () => {
+  editorRef.value.id = ''
+  editorRef.value.content = ''
   editorRef.value.shiftVisible()
 }
 
