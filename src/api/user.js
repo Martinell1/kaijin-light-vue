@@ -4,6 +4,10 @@ const login = async (params) => {
   return await axios.post("user/login",params)
 }
 
+const register = async (params) => {
+  return await axios.post("user",params)
+}
+
 const getUserDetail = async(id,params)=>{
   return await axios.get("user/"+id+"?fields="+params)
 }
@@ -51,6 +55,7 @@ const updateUser = async(id,params)=>{
 
 export {
   login,
+  register,
   getUserDetail,
   getFollowings,
   getFollowers,

@@ -25,33 +25,23 @@
       <input v-model="user_detail.headline" type="text" class="w-full form-input" />
       <div class="btn ml-4" @click="modifyHandle('headline')">修改</div>
     </div>
-    <div class="form-item">
-      <label class="form-label">地址</label>
-      <div class="flex w-full space-x-4">
-        <input v-model="user_detail.educations" type="text" class="flex-1 form-input" />
-        <input v-model="user_detail.educations" type="text" class="flex-1 form-input" />
-        <input v-model="user_detail.educations" type="text" class="flex-1 form-input" />
-      </div>
-      <div class="btn ml-4" @click="modifyHandle('address')">修改</div>
-    </div>
-    <div class="form-item">
+    <!-- <div class="form-item">
       <label class="form-label">公司</label>
+      
       <div class="flex w-full space-x-4">
-        <input v-model="user_detail.educations" type="text" class="flex-1 form-input" />
-        <input v-model="user_detail.educations" type="text" class="flex-1 form-input" />
-        <input v-model="user_detail.educations" type="text" class="flex-1 form-input" />
+        <input v-model="user_detail.employment[0].company" type="text" class="flex-1 form-input" />
+        <input v-model="user_detail.employment[0].job" type="text" class="flex-1 form-input" />
       </div>
       <div class="btn ml-4" @click="modifyHandle('employments')">修改</div>
     </div>
     <div class="form-item">
       <label class="form-label">教育</label>
       <div class="flex w-full space-x-4">
-        <input v-model="user_detail.educations" type="text" class="flex-1 form-input" />
-        <input v-model="user_detail.educations" type="text" class="flex-1 form-input" />
-        <input v-model="user_detail.educations" type="text" class="flex-1 form-input" />
+        <input v-model="user_detail.education[0]?.school" type="text" class="flex-1 form-input" />
+        <input v-model="user_detail.education[0]?.major" type="text" class="flex-1 form-input" />
       </div>
       <div class="btn ml-4" @click="modifyHandle('education')">修改</div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -60,13 +50,12 @@ import { useRoute } from 'vue-router';
 import useUser from '../../hooks/useUser'
 const route = useRoute()
 const { user_detail, fetchUserDetail, modifyUser } = useUser()
-
 fetchUserDetail(route.params.id)
 const modifyHandle = (field,) => {
   modifyUser(field, user_detail.value._id, user_detail.value)
 }
 </script>
-<style  scoped>
+<style scoped>
 .form-item {
   @apply flex items-center;
 }

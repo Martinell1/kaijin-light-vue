@@ -16,7 +16,7 @@
           <div class="btn">Search</div>
         </div>
 
-        <div v-if="userInfo?.avatar_url" class="relative" id="drop-down-wrapper">
+        <div v-if="userInfo?._id" class="relative" id="drop-down-wrapper">
           <img
             src="../../../assets/images/static.jpg"
             class="w-10 h-10 rounded-full cursor-pointer"
@@ -24,16 +24,16 @@
           />
           <Dropdown ref="dropdownRef"></Dropdown>
         </div>
-        <div v-if="!userInfo?.avatar_url" class="flex">
-          <div class="btn" @click="showLogin">Login</div>
-          <div class="btn">Register</div>
+        <div v-if="!userInfo?._id" class="flex">
+          <div class="btn" @click="showLogin(false)">Login</div>
+          <div class="btn ml-4" @click="showLogin(true)">Register</div>
         </div>
       </div>
     </div>
   </div>
-  <!-- <Modal ref="modalRef">
-    <Login @hide="hideLogin" />
-  </Modal>-->
+  <Modal ref="modalRef">
+    <Login :isRegister="isRegister" @hide="hideLogin" />
+  </Modal>
 </template>
 
 <script setup>
@@ -47,8 +47,10 @@ const store = useStore()
 const userInfo = computed(() => store.state.userInfo)
 
 const modalRef = ref(null)
-const showLogin = () => {
+const isRegister = ref(false)
+const showLogin = (info) => {
   modalRef.value.show()
+  isRegister.value = info
 }
 
 const hideLogin = () => {

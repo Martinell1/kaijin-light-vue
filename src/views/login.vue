@@ -5,7 +5,7 @@
         <div>
           <label for="account" class="sr-only">Account</label>
           <input
-            v-model="loginForm.account"
+            v-model="userForm.account"
             id="account"
             autocomplete="account"
             required
@@ -16,7 +16,7 @@
         <div>
           <label for="password" class="sr-only">Password</label>
           <input
-            v-model="loginForm.password"
+            v-model="userForm.password"
             id="password"
             type="password"
             autocomplete="current-password"
@@ -25,9 +25,20 @@
             placeholder="Password"
           />
         </div>
+        <div v-if="isRegister">
+          <label for="nickname" class="sr-only">Password</label>
+          <input
+            v-model="userForm.nickname"
+            id="nickname"
+            autocomplete="current-password"
+            required
+            class="input"
+            placeholder="nickname"
+          />
+        </div>
       </div>
 
-      <div>
+      <div v-if="!isRegister">
         <button
           @click="handleLogin"
           class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
@@ -41,6 +52,20 @@
           Sign in
         </button>
       </div>
+      <div v-if="isRegister">
+        <button
+          @click="handleRegister"
+          class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-rose-600 hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
+        >
+          <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+            <LockClosedIcon
+              class="h-5 w-5 text-rose-500 group-hover:text-rose-400"
+              aria-hidden="true"
+            />
+          </span>
+          Register in
+        </button>
+      </div>
     </form>
   </div>
 </template>
@@ -49,20 +74,41 @@
 import { reactive } from 'vue';
 import { useStore } from 'vuex';
 import { LockClosedIcon } from '@heroicons/vue/solid'
-import { login } from '@/api/user'
+import { login, register } from '@/api/user'
 import { useRouter } from 'vue-router';
+defineProps({
+  isRegister: {
+    type: Boolean,
+    default: false
+  }
+})
+
 const router = useRouter()
 const store = useStore()
 
 const emit = defineEmits(['hide'])
 const useLogin = () => {
-  const loginForm = reactive({
+  const userForm = reactive({
     account: '',
-    password: ''
+    password: '',
+    nickname: ''
   })
 
+  const handleRegister = async () => {
+    const { data: result } = await register(userForm)
+    console.log('result', result);
+    if (result) {
+      let timer = setTimeout(() => {
+        router.go(0)
+        emit('hide')
+        timer = null
+      }, 1000);
+    }
+
+  }
+
   const handleLogin = async () => {
-    const { data: { id, token } } = await login(loginForm)
+    const { data: { id, token } } = await login(userForm)
     localStorage.setItem("token", token)
     store.dispatch('fetchUserInfo', id)
     let timer = setTimeout(() => {
@@ -73,10 +119,10 @@ const useLogin = () => {
 
   }
 
-  return { loginForm, handleLogin }
+  return { userForm, handleLogin, handleRegister }
 }
 
-const { loginForm, handleLogin } = useLogin()
+const { userForm, handleLogin, handleRegister } = useLogin()
 
 </script>
 

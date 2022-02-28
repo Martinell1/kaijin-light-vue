@@ -56,7 +56,6 @@ const props = defineProps({
     default: 'Question'
   }
 })
-
 const { thumbHandle } = useThumb()
 
 const router = useRouter()
