@@ -87,7 +87,7 @@ const me = computed(() => store.state.userInfo)
 
 const { followHandle } = useFollow()
 
-const isFollow = computed(() => me.value?.followings.includes(props.userInfo._id))
+const isFollow = computed(() => me.value?.followings?.includes(props.userInfo._id))
 
 const doFollowHandle = () => {
   if (isFollow.value) {

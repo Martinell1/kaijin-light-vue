@@ -1,30 +1,37 @@
 <template>
   <div v-if="['question', 'answer', 'article'].includes(route.params.channel)">
-    <div v-for="data in datas" class="shadow border px-5 pt -4">
+    <div v-for="data in datas" class="shadow border px-5 pt-4">
       <div class="flex justify-between items-center">
         <SuspendUserInfo :showAvatar="false" :userInfo="data.holder"></SuspendUserInfo>
         <TopicList :topics="data.topics" class="text-stone-500"></TopicList>
       </div>
-      <div class="flex justify-between cursor-pointer" @click="dataHandle(data)">
+      <div class="flex justify-between cursor-pointer" @click="goDetail(data)">
         <div :class="{ 'withAvatar': data.avatar_url }">
-          <div class="font-bold text-xl text-rose-400">{{ data.title || data.question.title }}</div>
+          <div class="font-bold text-xl text-rose-400">{{ data.title || data.question?.title }}</div>
           <div class="my-3 truncate text-stone-500">{{ data.description || data.content }}</div>
           <ActionList
             @click.stop
             :voteCount="data.voteCount"
             :voteActive="isVoted(data._id)"
             :viewCount="data.viewCount"
-            :actionList="['voteCount', 'viewCount', 'comment', route.params.channel === 'question' ? 'writeAnswer' : '']"
-            @writeAnswerClick="writeAnswerHandle(data._id)"
+            :actionList="['voteCount', 'viewCount', 'comment', route.params.channel === 'question' ? 'writeAnswer' : '', route.params.id === userInfo._id ? 'edit' : '']"
+            @writeAnswerClick="goDetail(data)"
             @thumbClick="thumbHandle(data, route.params.channel)"
-            @commentClick="commentHandle(data._id)"
+            @commentClick="goDetail(data)"
+            @editClick="goDetail(data)"
           ></ActionList>
         </div>
         <img v-if="data.avatar_url" src="../../assets/images/static.jpg" class="w-40 h-24" />
       </div>
     </div>
   </div>
-  <div v-if="['following', 'follower'].includes(route.params.channel)">关注</div>
+  <div v-if="['following', 'follower'].includes(route.params.channel)">
+    <div v-for="data in datas" class="shadow border px-5 py-4">
+      <router-link :to="{ name: 'UserDetail', params: { id: data._id } }">
+        <SuspendUserInfo :userInfo="data"></SuspendUserInfo>
+      </router-link>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -56,13 +63,20 @@ const useMoment = async () => {
       await fetchArticles(id)
       datas.value = article_list.value;
       break;
-
+    case 'following':
+      await fetchFollowings(id)
+      datas.value = following_list.value;
+      break;
+    case 'follower':
+      await fetchFollowers(id)
+      datas.value = follower_list.value;
+      break;
     default:
       break;
   }
 }
 
-const { question_list, fetchQuestions, answer_list, fetchAnswers, article_list, fetchArticles } = useUser()
+const { question_list, fetchQuestions, answer_list, fetchAnswers, article_list, fetchArticles, following_list, fetchFollowings, follower_list, fetchFollowers } = useUser()
 
 watch(() => route.params.channel, async (newChannel) => {
   if (newChannel) {
@@ -83,7 +97,7 @@ const isVoted = (id) => {
 }
 
 const router = useRouter()
-const dataHandle = (data) => {
+const goDetail = (data) => {
   if (route.params.channel === 'answer') {
     data = data.question
   }
@@ -102,14 +116,6 @@ const dataHandle = (data) => {
       }
     })
   }
-}
-
-const commentHandle = (id) => {
-
-}
-
-const writeAnswerHandle = (id) => {
-
 }
 
 </script>

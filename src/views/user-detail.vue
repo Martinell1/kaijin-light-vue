@@ -3,19 +3,19 @@
     <div class="shadow p-6 flex justify-between border">
       <div class="flex items-start">
         <img src="../assets/images/static.jpg" class="w-40 h-40 object-cover rounded-full" />
-        <div>
+        <div class="ml-4">
           <h1 class="font-bold text-2xl">{{ user_detail.nickname }}</h1>
           <span>{{ user_detail.headline }}</span>
         </div>
       </div>
 
       <div class="btn self-end">
-        <router-link v-if="me._id === id" :to="{ name: 'EditUser', params: { id: me._id } }">
+        <router-link v-if="me?._id === id" :to="{ name: 'EditUser', params: { id: me._id } }">
           <span>编辑个人信息</span>
         </router-link>
         <span v-else>
-          <div v-show="me.followings.includes(id)">已关注</div>
-          <div v-show="!me.followings.includes(id)">关注</div>
+          <div v-show="me?.followings?.includes(id)">已关注</div>
+          <div v-show="!me?.followings?.includes(id)">关注</div>
         </span>
       </div>
     </div>
@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import useUser from '@/hooks/useUser'

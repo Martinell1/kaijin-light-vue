@@ -1,8 +1,10 @@
 import { ref } from 'vue';
-import { getUserDetail, getFollowers,getArticles,getQuestions,getAnswers } from '@/api/user'
+import { getUserDetail, getFollowers,getArticles,getQuestions,getAnswers,getFollowings,updateUser } from '@/api/user'
 import { FIELDS } from '@/js/constance'
+import { useStore } from 'vuex';
+import { setLocal } from '../js/user-store';
 export default function useQuestion(){
-
+  const store = useStore()
   //用户详情
   const user_detail = ref({})
   const fetchUserDetail = async (id) => {
@@ -28,12 +30,24 @@ export default function useQuestion(){
     article_list.value = result
   }
 
+  const following_list = ref([])
+  const fetchFollowings = async (id) => {
+    const { data: result } = await getFollowings(id)
+    following_list.value = result
+  }
+
   const follower_list = ref([])
   const fetchFollowers = async (id) => {
     const { data: result } = await getFollowers(id)
     follower_list.value = result
   }
 
-  return { user_detail,question_list,answer_list,article_list,follower_list,
-    fetchUserDetail,fetchQuestions,fetchAnswers,fetchArticles,fetchFollowers }
+  const modifyUser = async(field,id,params)=>{
+    const { data: result } = await updateUser(id,params)
+    setLocal(field,params[field])
+  }
+
+  return { user_detail,question_list,answer_list,article_list,follower_list,following_list,
+    fetchUserDetail,fetchQuestions,fetchAnswers,fetchArticles,fetchFollowers,fetchFollowings
+    ,modifyUser }
 }

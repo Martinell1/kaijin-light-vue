@@ -8,8 +8,19 @@ const getArticleDetail = async(id)=>{
   return await axios.get("article/"+id)
 }
 
+const createArticle = async(params)=>{
+  return await axios.post("article",params)
+}
+
+const updateArticle = async(id,params)=>{
+  return await axios.patch("article/"+id,params)
+}
+
+
 
 export {
   getArticles,
-  getArticleDetail
+  getArticleDetail,
+  createArticle,
+  updateArticle
 }

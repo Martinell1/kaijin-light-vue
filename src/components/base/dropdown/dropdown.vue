@@ -1,20 +1,23 @@
 <template>
-  <div v-show="visible" class="dropdown">
+  <div v-show="visible" class="dropdown" @click="hide()">
     <div class="py-1">
       <router-link :to="{ name: 'UserDetail', params: { id: userInfo._id } }">
         <div class="dropdown-item">我的主页</div>
       </router-link>
-      <div class="dropdown-item">写文章</div>
+      <router-link :to="{ name: 'Edit' }">
+        <div class="dropdown-item">写文章</div>
+      </router-link>
+
       <div class="dropdown-item">提问题</div>
-      <div class="dropdown-item">退出</div>
+      <div class="dropdown-item" @click="logOut">退出</div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useStore } from 'vuex';
-
+import { useRoute, useRouter } from 'vue-router';
 const store = useStore()
 const userInfo = computed(() => store.state.userInfo)
 const visible = ref(false)
@@ -35,6 +38,17 @@ defineExpose({
   hide,
   shiftVisible
 })
+
+const route = useRoute()
+watch(() => route.path, () => {
+  hide()
+})
+
+const router = useRouter()
+const logOut = () => {
+  store.dispatch('logOut')
+  router.go(0)
+}
 </script>
 
 <style scoped>

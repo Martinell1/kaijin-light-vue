@@ -34,6 +34,11 @@
       <ChatAltIcon class="act-item-icon"></ChatAltIcon>
       <div class="act-item-text">评论</div>
     </div>
+
+    <div class="act-item" v-if="actionList.includes('edit')" @click="editClick">
+      <ChatAltIcon class="act-item-icon"></ChatAltIcon>
+      <div class="act-item-text">编辑</div>
+    </div>
   </div>
 </template>
 
@@ -70,7 +75,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['thumbClick', 'followClick', 'writeAnswerClick', 'commentClick'])
+const emit = defineEmits(['thumbClick', 'followClick', 'writeAnswerClick', 'commentClick', 'editClick'])
 const thumbClick = () => {
   emit('thumbClick')
 }
@@ -82,6 +87,9 @@ const writeAnswerClick = () => {
 }
 const commentClick = () => {
   emit('commentClick')
+}
+const editClick = () => {
+  emit('editClick')
 }
 
 </script>

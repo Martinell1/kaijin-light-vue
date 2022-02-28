@@ -1,5 +1,5 @@
 <template>
-  <teleport to="#app">
+  <teleport to="body">
     <div class="model-wrapper" v-show="visible" @click="hide">
       <div @click.stop>
         <h1>{{ title }}</h1>

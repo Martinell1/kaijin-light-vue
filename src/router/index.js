@@ -1,11 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
-  {
-    path: '/login',
-    name:'Login',
-    component: () => import(/* webpackChunkName: "Login" */ '../views/login.vue'),
-  },
+
   {
     path: '/',
     redirect:'questions',
@@ -43,19 +39,24 @@ const routes = [
             path: ':channel',
             name: 'Moment',
             components:{
-              nav:() => import(/* webpackChunkName: "Questions" */ '../components/moment-list/moment-nav.vue'),
-              default:() => import(/* webpackChunkName: "Questions" */ '../components/moment-list/moment-list.vue'),
+              nav:() => import(/* webpackChunkName: "Questions" */ '../components/user-space/moment-nav.vue'),
+              default:() => import(/* webpackChunkName: "Questions" */ '../components/user-space/moment-list.vue'),
             }
           },
           {
             path: 'edit',
             name: 'EditUser',
-            component: () => import(/* webpackChunkName: "Questions" */ '../views/user-edit.vue'),
+            component: () => import(/* webpackChunkName: "Questions" */ '../components/user-space/user-edit.vue'),
           },
         ]
       }
     ]
   },
+  {
+    path: '/edit/:id?',
+    name: 'Edit',
+    component: () => import(/* webpackChunkName: "Questions" */ '../views/edit.vue'),
+  }
 
 ]
 

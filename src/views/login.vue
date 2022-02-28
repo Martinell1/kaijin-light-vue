@@ -50,6 +50,8 @@ import { reactive } from 'vue';
 import { useStore } from 'vuex';
 import { LockClosedIcon } from '@heroicons/vue/solid'
 import { login } from '@/api/user'
+import { useRouter } from 'vue-router';
+const router = useRouter()
 const store = useStore()
 
 const emit = defineEmits(['hide'])
@@ -63,13 +65,19 @@ const useLogin = () => {
     const { data: { id, token } } = await login(loginForm)
     localStorage.setItem("token", token)
     store.dispatch('fetchUserInfo', id)
-    emit('hide')
+    let timer = setTimeout(() => {
+      router.go(0)
+      emit('hide')
+      timer = null
+    }, 1000);
+
   }
 
   return { loginForm, handleLogin }
 }
 
 const { loginForm, handleLogin } = useLogin()
+
 </script>
 
 <style scoped>

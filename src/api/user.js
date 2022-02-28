@@ -8,6 +8,10 @@ const getUserDetail = async(id,params)=>{
   return await axios.get("user/"+id+"?fields="+params)
 }
 
+const getFollowings = async(id)=>{
+  return await axios.get("user/"+id+"/followings")
+}
+
 const getFollowers = async(id)=>{
   return await axios.get("user/"+id+"/followers")
 }
@@ -41,9 +45,14 @@ const unfollow = async(field,id)=>{
   return await axios.delete("user/"+field+"/"+id)
 }
 
+const updateUser = async(id,params)=>{
+  return await axios.patch("user/"+id,params)
+}
+
 export {
   login,
   getUserDetail,
+  getFollowings,
   getFollowers,
   getArticles,
   getQuestions,
@@ -51,5 +60,6 @@ export {
   thumb,
   unthumb,
   follow,
-  unfollow
+  unfollow,
+  updateUser
 }

@@ -16,7 +16,7 @@
           <div class="btn">Search</div>
         </div>
 
-        <div v-if="avatar_url" class="relative" id="drop-down-wrapper">
+        <div v-if="userInfo?.avatar_url" class="relative" id="drop-down-wrapper">
           <img
             src="../../../assets/images/static.jpg"
             class="w-10 h-10 rounded-full cursor-pointer"
@@ -24,16 +24,16 @@
           />
           <Dropdown ref="dropdownRef"></Dropdown>
         </div>
-        <div v-if="!avatar_url" class="flex">
+        <div v-if="!userInfo?.avatar_url" class="flex">
           <div class="btn" @click="showLogin">Login</div>
           <div class="btn">Register</div>
         </div>
       </div>
     </div>
   </div>
-  <Modal ref="modalRef">
+  <!-- <Modal ref="modalRef">
     <Login @hide="hideLogin" />
-  </Modal>
+  </Modal>-->
 </template>
 
 <script setup>
@@ -44,7 +44,7 @@ import { useStore } from 'vuex';
 import Dropdown from '../dropdown/dropdown.vue';
 
 const store = useStore()
-const avatar_url = computed(() => store.state.userInfo?.avatar_url)
+const userInfo = computed(() => store.state.userInfo)
 
 const modalRef = ref(null)
 const showLogin = () => {
