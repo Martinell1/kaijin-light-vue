@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = "http://localhost:3000"
+axios.defaults.baseURL = "/api"
 
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {

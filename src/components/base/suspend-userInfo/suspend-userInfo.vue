@@ -30,7 +30,7 @@
           <label>粉丝数</label>
           <span class="follow-count">{{ follower_list.length }}</span>
         </div>
-        <div class="follow-item" v-if="me._id !== userInfo._id">
+        <div class="follow-item" v-if="me && me._id !== userInfo._id">
           <div
             @click="doFollowHandle"
             class="text-center text-white font-semibold bg-rose-500 ring-rose-300 ring-inset ring-4 rounded-lg leading-10 cursor-pointer"

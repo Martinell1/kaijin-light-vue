@@ -3,7 +3,10 @@
     <div class="main-wrapper">
       <TopicList :topics="question_detail.topics" :tag="true"></TopicList>
       <h1 class="font-black text-3xl my-6 text-rose-500">{{ question_detail.title }}</h1>
-      <PreviewEditor :modelValue="question_detail.description" class="my-4"></PreviewEditor>
+      <div class="flex">
+        <PreviewEditor :content="question_detail.description" class="my-4"></PreviewEditor>
+        <div class="btn self-start" @click="editQuestion">编辑问题</div>
+      </div>
       <ActionList
         :voteCount="question_detail.voteCount"
         :voteActive="userInfo?.likingQuestions.includes(question_detail._id)"
@@ -17,14 +20,14 @@
       ></ActionList>
     </div>
   </div>
-  <div class="main-wrapper">
+  <div class="main-wrapper" ref="wrapper">
     <Editor ref="editorRef" @refresh="refresh"></Editor>
     <AnswerList :answer_list="answer_list" @editAnswerClick="editAnswerHandle"></AnswerList>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import AnswerList from '@/components/answer-list/answer-list.vue';
@@ -35,6 +38,7 @@ import TopicList from '@/components/topic-list/topic-list.vue';
 import useThumb from '@/components/base/action-list/useThumb'
 import useFollow from '@/components/base/action-list/useFollow'
 import useQuestion from '@/hooks/useQuestion';
+
 
 const route = useRoute()
 
@@ -67,6 +71,15 @@ const editAnswerHandle = (answer) => {
 const refresh = () => {
   answer_list.value = []
   fetchAnswers()
+}
+
+const wrapper = ref(null)
+watch(wrapper, () => {
+  wrapper.value.children[0].children[0].setAttribute('id', 'answer-id')
+})
+
+const editQuestion = () => {
+  console.log(wrapper.value.children[0].children[0]);
 }
 
 </script>

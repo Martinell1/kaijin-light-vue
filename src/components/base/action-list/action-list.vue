@@ -77,7 +77,9 @@ const props = defineProps({
 
 const emit = defineEmits(['thumbClick', 'followClick', 'writeAnswerClick', 'commentClick', 'editClick'])
 const thumbClick = () => {
+  console.log('点赞');
   emit('thumbClick')
+
 }
 const followClick = () => {
   emit('followClick')

@@ -5,8 +5,6 @@
     <div class="flex justify-between mb-6">
       <div class="flex items-center">
         <SuspendUserInfo :userInfo="article_detail.holder" :showAvatar="true"></SuspendUserInfo>
-        <!-- <img src="../assets/images/static.jpg" class="w-10 h-10 rounded-full" />
-        <span class="ml-4 text-lg font-bold">{{ article_detail.holder?.nickname }}</span>-->
       </div>
       <div class="btn mr-4" @click="followHandle(article_detail.holder, '')">
         <span v-show="userInfo?.followings.includes(article_detail.holder?._id)">已关注</span>

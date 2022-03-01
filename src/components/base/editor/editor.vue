@@ -1,6 +1,6 @@
 <template>
   <div v-show="visible" class="mt-5 bg-zinc-50 shadow-md">
-    <MdEditor v-model="content" :preview="false"></MdEditor>
+    <MdEditor v-model="content" :preview="false" :toolbars="TOOL"></MdEditor>
     <div class="flex justify-end py-4">
       <div class="btn mr-8" @click="publishHandle">发布回答</div>
     </div>
@@ -12,6 +12,7 @@ import { ref } from 'vue';
 import MdEditor from 'md-editor-v3';
 import { doAnswer, updateAnswer } from '@/api/answer'
 import { useRoute } from 'vue-router';
+import { TOOL } from '@/js/constance'
 const id = ref('')
 const content = ref('')
 const visible = ref(false)
