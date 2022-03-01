@@ -8,8 +8,12 @@ const getQuestionDetail = async(id)=>{
   return await axios.get("question/"+id)
 }
 
+const createQuestion = async(params)=>{
+  return await axios.post("question",params)
+}
 
 export {
   getQuestions,
-  getQuestionDetail
+  getQuestionDetail,
+  createQuestion
 }

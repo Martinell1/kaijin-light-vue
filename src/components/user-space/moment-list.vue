@@ -18,7 +18,7 @@
             @writeAnswerClick="goDetail(data)"
             @thumbClick="thumbHandle(data, route.params.channel)"
             @commentClick="goDetail(data)"
-            @editClick="goDetail(data)"
+            @editClick="editHandle(data)"
           ></ActionList>
         </div>
         <img v-if="data.avatar_url" src="../../assets/images/static.jpg" class="w-40 h-24" />
@@ -117,6 +117,27 @@ const goDetail = (data) => {
     })
   }
 }
+
+const editHandle = (data) => {
+  const channel = route.params.channel
+  if (channel === 'question') {
+    router.push({
+      name: 'QuestionDetail',
+      params: {
+        id: data._id
+      }
+    })
+  } else if (channel === 'article') {
+    router.push({
+      name: 'Edit',
+      params: {
+        id: data._id
+      }
+    })
+  }
+}
+
+
 
 </script>
 <style scoped>

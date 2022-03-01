@@ -22,7 +22,7 @@
             class="w-10 h-10 rounded-full cursor-pointer"
             @click="avatarClick"
           />
-          <Dropdown ref="dropdownRef"></Dropdown>
+          <Dropdown ref="dropdownRef" @askQuestion="askQuestionHandle"></Dropdown>
         </div>
         <div v-if="!userInfo?._id" class="flex">
           <div class="btn" @click="showLogin(false)">Login</div>
@@ -31,8 +31,11 @@
       </div>
     </div>
   </div>
-  <Modal ref="modalRef">
+  <Modal ref="loginModalRef">
     <Login :isRegister="isRegister" @hide="hideLogin" />
+  </Modal>
+  <Modal ref="askModalRef">
+    <AskQuestion @hide="hideAsk"></AskQuestion>
   </Modal>
 </template>
 
@@ -42,19 +45,20 @@ import Modal from '../modal/modal.vue';
 import Login from '../../../views/login.vue';
 import { useStore } from 'vuex';
 import Dropdown from '../dropdown/dropdown.vue';
+import AskQuestion from '../../ask-question/ask-question.vue';
 
 const store = useStore()
 const userInfo = computed(() => store.state.userInfo)
 
-const modalRef = ref(null)
+const loginModalRef = ref(null)
 const isRegister = ref(false)
 const showLogin = (info) => {
-  modalRef.value.show()
+  loginModalRef.value.show()
   isRegister.value = info
 }
 
 const hideLogin = () => {
-  modalRef.value.hide()
+  loginModalRef.value.hide()
 }
 
 const dropdownRef = ref(null)
@@ -62,7 +66,14 @@ const avatarClick = () => {
   dropdownRef.value.shiftVisible()
 }
 
+const askModalRef = ref(null)
+const askQuestionHandle = () => {
+  askModalRef.value.show()
+}
 
+const hideAsk = () => {
+  askModalRef.value.hide()
+}
 </script>
 <style scoped>
 .nav {

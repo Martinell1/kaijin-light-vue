@@ -1,5 +1,5 @@
 <template>
-  <div v-show="visible" class="dropdown" @click="hide()">
+  <div v-show="visible" class="dropdown" @click="hide" @focusout="hide">
     <div class="py-1">
       <router-link :to="{ name: 'UserDetail', params: { id: userInfo._id } }">
         <div class="dropdown-item">我的主页</div>
@@ -8,7 +8,7 @@
         <div class="dropdown-item">写文章</div>
       </router-link>
 
-      <div class="dropdown-item">提问题</div>
+      <div class="dropdown-item" @click="askQuestion">提问题</div>
       <div class="dropdown-item" @click="logOut">退出</div>
     </div>
   </div>
@@ -43,6 +43,11 @@ const route = useRoute()
 watch(() => route.path, () => {
   hide()
 })
+
+const emit = defineEmits(['askQuestion'])
+const askQuestion = () => {
+  emit('askQuestion')
+}
 
 const router = useRouter()
 const logOut = () => {
