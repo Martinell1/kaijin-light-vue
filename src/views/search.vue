@@ -51,26 +51,26 @@ import useTopic from '../hooks/useTopic'
 
 const route = useRoute()
 const key = ref(route.params.key)
-const { question_list, fetchQuestions } = useQuestion()
-const { article_list, fetchArticles } = useArticle()
-const { user_list, fetchUsers } = useUser()
+const { question_list, setQuestionPage, fetchQuestions } = useQuestion()
+const { article_list, setArticlePage, fetchArticles } = useArticle()
+const { user_list, setUserPage, fetchUsers } = useUser()
 const { topic_list, fetchTopics } = useTopic()
 
 const useSearch = () => {
   const data_list = ref([])
 
   const searchQuestion = async () => {
-    await fetchQuestions(10, 1, key.value)
+    await fetchQuestions(10, key.value)
     data_list.value = question_list.value
   }
 
   const searchArticle = async () => {
-    await fetchArticles(10, 1, key.value)
+    await fetchArticles(10, key.value)
     data_list.value = article_list.value
   }
 
   const searchUser = async () => {
-    await fetchUsers(10, 1, key.value)
+    await fetchUsers(10, key.value)
     data_list.value = user_list.value
   }
 
@@ -96,10 +96,13 @@ const type = ref('question')
 watch(type, (newType) => {
   initData()
   if (newType === 'question') {
+    setQuestionPage()
     searchQuestion()
   } else if (newType === 'article') {
+    setArticlePage()
     searchArticle()
   } else if (newType === 'user') {
+    setUserPage()
     searchUser()
   } else if (newType === 'topic') {
     searchTopic()

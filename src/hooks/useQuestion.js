@@ -10,6 +10,10 @@ export default function useQuestion(){
     question_list.value = [...question_list.value, ...result]
   }
 
+  const setQuestionPage = ()=>{
+    page = 1
+  }
+
   //问题详情
   const question_detail = ref({})
   const fetchQuestionDetail = async (id) => {
@@ -25,5 +29,9 @@ export default function useQuestion(){
     answer_list.value = [...answer_list.value, ...result]
   }
 
-  return { question_list,question_detail,answer_list, fetchQuestions, fetchQuestionDetail, fetchAnswers }
+  const setAnswerPage = ()=>{
+    page = 1
+  }
+
+  return { question_list,question_detail,answer_list, fetchQuestions, fetchQuestionDetail, fetchAnswers,setQuestionPage,setAnswerPage }
 }

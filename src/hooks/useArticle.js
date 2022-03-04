@@ -17,5 +17,9 @@ export default function useArticle(){
     article_list.value = [...article_list.value, ...result]
   }
 
-  return { article_list, article_detail,fetchArticles, fetchArticleDetail }
+  const setArticlePage = ()=>{
+    page = 1
+  }
+
+  return { article_list, article_detail,fetchArticles, fetchArticleDetail,setArticlePage }
 }

@@ -13,6 +13,10 @@ export default function useQuestion(){
     user_list.value = [...user_list.value, ...result]
   }
 
+  const setUserPage = ()=>{
+    page = 1
+  }
+
   //用户详情
   const user_detail = ref({})
   const fetchUserDetail = async (id) => {
@@ -56,6 +60,6 @@ export default function useQuestion(){
   }
 
   return { user_list,user_detail,question_list,answer_list,article_list,follower_list,following_list,
-    fetchUsers,fetchUserDetail,fetchQuestions,fetchAnswers,fetchArticles,fetchFollowers,fetchFollowings
+    fetchUsers,fetchUserDetail,fetchQuestions,fetchAnswers,fetchArticles,fetchFollowers,fetchFollowings,setUserPage
     ,modifyUser }
 }
