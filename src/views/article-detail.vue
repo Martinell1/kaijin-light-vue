@@ -6,13 +6,17 @@
       <div class="flex items-center">
         <SuspendUserInfo :userInfo="article_detail.holder" :showAvatar="true"></SuspendUserInfo>
       </div>
-      <div class="btn mr-4" @click="followHandle(article_detail.holder, '')">
+      <div
+        v-if="article_detail.holder?._id !== userInfo._id"
+        class="btn mr-4"
+        @click="followHandle(article_detail.holder, '')"
+      >
         <span v-show="userInfo?.followings.includes(article_detail.holder?._id)">已关注</span>
         <span v-show="!userInfo?.followings.includes(article_detail.holder?._id)">关注</span>
       </div>
     </div>
     <PreviewEditor :previewOnly="true" :modelValue="article_detail.content"></PreviewEditor>
-    <TopicList :topics="article_detail.topics" :tag="true"></TopicList>
+    <TopicList :topics="article_detail.topics" :tag="true" class="my-5"></TopicList>
     <TalkList :articleId="article_detail._id"></TalkList>
   </div>
   <ArticleFooter :article_detail="article_detail"></ArticleFooter>

@@ -1,0 +1,132 @@
+<template>
+  <div class="main-wrapper">
+    <div class="flex items-center mb-4 text-stone-500 cursor-pointer">
+      <span
+        class="mr-4"
+        @click="searchTypeHandle('question')"
+        :class="{ 'text-rose-500': type === 'question' }"
+      >问题</span>
+      <span
+        class="mr-4"
+        :class="{ 'text-rose-500': type === 'article' }"
+        @click="searchTypeHandle('article')"
+      >文章</span>
+      <span
+        class="mr-4"
+        @click="searchTypeHandle('user')"
+        :class="{ 'text-rose-500': type === 'user' }"
+      >用户</span>
+      <span @click="searchTypeHandle('topic')" :class="{ 'text-rose-500': type === 'topic' }">标签</span>
+    </div>
+    <ContentList v-if="['question', 'article'].includes(type)" :datas="data_list"></ContentList>
+    <div v-if="type === 'user'">
+      <div v-for="user in data_list" class="shadow border px-5 py-4">
+        <router-link :to="{ name: 'UserDetail', params: { id: user._id } }">
+          <SuspendUserInfo :userInfo="user"></SuspendUserInfo>
+        </router-link>
+      </div>
+    </div>
+    <div v-if="type === 'topic'" class="flex space-x-8">
+      <div
+        v-for="topic in data_list"
+        @click="searchTopicHandle(topic._id)"
+        class="flex flex-col justify-center items-center w-32 border shadow-sm px-4 py-5 hover:border-rose-200 cursor-pointer"
+      >
+        <img :src="topic.avatar_url" width="68" height="68" />
+        <div class="mt-4">{{ topic.name }}</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router';
+import ContentList from '../components/content-list/content-list.vue';
+import SuspendUserInfo from '../components/base/suspend-userInfo/suspend-userInfo.vue'
+import useArticle from '../hooks/useArticle';
+import useQuestion from '../hooks/useQuestion';
+import useUser from '../hooks/useUser'
+import useTopic from '../hooks/useTopic'
+
+const route = useRoute()
+const key = ref(route.params.key)
+const { question_list, fetchQuestions } = useQuestion()
+const { article_list, fetchArticles } = useArticle()
+const { user_list, fetchUsers } = useUser()
+const { topic_list, fetchTopics } = useTopic()
+
+const useSearch = () => {
+  const data_list = ref([])
+
+  const searchQuestion = async () => {
+    await fetchQuestions(10, 1, key.value)
+    data_list.value = question_list.value
+  }
+
+  const searchArticle = async () => {
+    await fetchArticles(10, 1, key.value)
+    data_list.value = article_list.value
+  }
+
+  const searchUser = async () => {
+    await fetchUsers(10, 1, key.value)
+    data_list.value = user_list.value
+  }
+
+  const searchTopic = async () => {
+    await fetchTopics(key.value)
+    data_list.value = topic_list.value
+  }
+
+  return { data_list, searchQuestion, searchArticle, searchUser, searchTopic }
+}
+
+const { data_list, searchQuestion, searchArticle, searchUser, searchTopic } = useSearch()
+
+const initData = () => {
+  data_list.value = []
+  question_list.value = []
+  article_list.value = []
+  user_list.value = []
+}
+
+const type = ref('question')
+
+watch(type, (newType) => {
+  initData()
+  if (newType === 'question') {
+    searchQuestion()
+  } else if (newType === 'article') {
+    searchArticle()
+  } else if (newType === 'user') {
+    searchUser()
+  } else if (newType === 'topic') {
+    searchTopic()
+  }
+}, { immediate: true })
+
+watch(() => route.params.key, (newKey) => {
+  key.value = newKey
+  initData()
+  type.value = 'question'
+  searchQuestion()
+})
+
+const searchTypeHandle = (newType) => {
+  type.value = newType
+}
+
+const router = useRouter()
+const searchTopicHandle = (id) => {
+  router.push({
+    name: 'Search',
+    params: {
+      key: id
+    }
+  })
+}
+
+</script>
+<style  scoped>
+</style>

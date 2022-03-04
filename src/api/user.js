@@ -8,6 +8,10 @@ const register = async (params) => {
   return await axios.post("user",params)
 }
 
+const getUsers = async (per_page=10,page=1,q='') => {
+  return await axios.get("user/?per_page=" + per_page + "&page=" + page + '&q=' + q)
+}
+
 const getUserDetail = async(id,params)=>{
   return await axios.get("user/"+id+"?fields="+params)
 }
@@ -56,6 +60,7 @@ const updateUser = async(id,params)=>{
 export {
   login,
   register,
+  getUsers,
   getUserDetail,
   getFollowings,
   getFollowers,

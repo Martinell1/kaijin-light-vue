@@ -1,10 +1,10 @@
 <template>
-  <div class="flex w-96 shadow border justify-between text-center bg-zinc-50 flex-wrap">
+  <div class="flex flex-wrap flex-col bg-zinc-50 border justify-between text-center">
     <div
       v-for="topic in topic_list"
       @click="topicClick(topic)"
-      class="py-2 px-4 w-40"
-      :class="{ 'bg-rose-200 border-b-2 border-rose-400': select_topics.map(item => item._id).includes(topic._id) }"
+      class="py-2 px-4 w-40 shadow border"
+      :class="{ 'bg-rose-200 ': select_topics.map(item => item._id).includes(topic._id) }"
     >{{ topic.name }}</div>
   </div>
 </template>

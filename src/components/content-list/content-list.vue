@@ -1,5 +1,5 @@
 <template>
-  <div class="content-list-wrapper shadow rounded bg-zinc-50">
+  <div ref="scrollRef" class="content-list-wrapper shadow rounded bg-zinc-50">
     <div v-for="item in datas" :key="item.id" class="pt-4 px-6">
       <div class="flex justify-between mb-3 font-black text-xl text-stone-500">
         <SuspendUserInfo :userInfo="item.holder" :showAvatar="false"></SuspendUserInfo>
@@ -41,7 +41,7 @@ import ActionList from '../../components/base/action-list/action-list.vue';
 import useThumb from '../base/action-list/useThumb'
 import SuspendUserInfo from '@/components/base/suspend-userInfo/suspend-userInfo.vue'
 import TopicList from '../topic-list/topic-list.vue';
-
+import useScroll from '../../hooks/useScroll';
 
 const store = useStore()
 
@@ -54,6 +54,12 @@ const props = defineProps({
   content_type: {
     type: String,
     default: 'Question'
+  },
+  fetchFn: {
+    type: Function,
+    default: () => {
+      return
+    }
   }
 })
 const { thumbHandle } = useThumb()
@@ -67,6 +73,9 @@ const commentHandle = (item) => {
     }
   })
 }
+
+const scrollRef = ref(null)
+useScroll(scrollRef, props.fetchFn)
 
 </script>
 <style scoped>

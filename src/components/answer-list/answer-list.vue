@@ -43,6 +43,7 @@ import useThumb from '@/components/base/action-list/useThumb'
 import useFollow from '@/components/base/action-list/useFollow'
 import SuspendUserInfo from '@/components/base/suspend-userInfo/suspend-userInfo.vue'
 import useComment from '../comment-list/useComment'
+import useScroll from '../../hooks/useScroll';
 defineProps({
   answer_list: {
     type: Array,

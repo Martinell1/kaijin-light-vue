@@ -8,7 +8,7 @@
     />
     <MdEditor v-model="question_detail.description" :preview="false"></MdEditor>
     <footer class="flex justify-center mt-4">
-      <div class="btn" @click="topicSelectClick">选择话题</div>
+      <div class="btn mr-4" @click="topicSelectClick">选择话题</div>
       <Modal ref="modalRef">
         <TopicSelect :select_topics="question_detail.topics" @selectTopic="selectTopicHandle"></TopicSelect>
       </Modal>

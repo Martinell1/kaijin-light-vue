@@ -4,9 +4,9 @@ import { getAnswers } from '@/api/answer'
 export default function useQuestion(){
   //问题列表
   const question_list = ref([])
-
-  const fetchQuestions = async (per_page, page) => {
-    const { data: result } = await getQuestions(per_page, page)
+  let page = 1
+  const fetchQuestions = async (per_page,q) => {
+    const { data: result } = await getQuestions(per_page, page++,q)
     question_list.value = [...question_list.value, ...result]
   }
 
@@ -19,9 +19,9 @@ export default function useQuestion(){
 
   //回答列表
   const answer_list = ref([])
-
+  let apage = 1
   const fetchAnswers = async (id) => {
-    const { data: result } = await getAnswers(id)
+    const { data: result } = await getAnswers(id,10,apage++)
     answer_list.value = [...answer_list.value, ...result]
   }
 

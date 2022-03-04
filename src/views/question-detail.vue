@@ -22,7 +22,7 @@
   </div>
   <div class="main-wrapper" ref="wrapper">
     <Editor ref="editorRef" @refresh="refresh"></Editor>
-    <AnswerList :answer_list="answer_list" @editAnswerClick="editAnswerHandle"></AnswerList>
+    <AnswerList ref="scrollRef" :answer_list="answer_list" @editAnswerClick="editAnswerHandle"></AnswerList>
   </div>
 </template>
 
@@ -38,6 +38,7 @@ import TopicList from '@/components/topic-list/topic-list.vue';
 import useThumb from '@/components/base/action-list/useThumb'
 import useFollow from '@/components/base/action-list/useFollow'
 import useQuestion from '@/hooks/useQuestion';
+import useScroll from '../hooks/useScroll';
 
 
 const route = useRoute()
@@ -70,7 +71,7 @@ const editAnswerHandle = (answer) => {
 
 const refresh = () => {
   answer_list.value = []
-  fetchAnswers()
+  fetchAnswers(route.params.id)
 }
 
 const wrapper = ref(null)
@@ -81,6 +82,9 @@ watch(wrapper, () => {
 const editQuestion = () => {
   console.log(wrapper.value.children[0].children[0]);
 }
+
+const scrollRef = ref(null)
+useScroll(scrollRef, fetchAnswers, route.params.id)
 
 </script>
 <style scoped>

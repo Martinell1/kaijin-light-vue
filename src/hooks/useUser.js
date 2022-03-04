@@ -1,10 +1,18 @@
 import { ref } from 'vue';
-import { getUserDetail, getFollowers,getArticles,getQuestions,getAnswers,getFollowings,updateUser } from '@/api/user'
+import { getUserDetail, getFollowers,getArticles,getQuestions,getAnswers,getFollowings,updateUser,getUsers } from '@/api/user'
 import { FIELDS } from '@/js/constance'
 import { useStore } from 'vuex';
 import { setLocal } from '../js/user-store';
 export default function useQuestion(){
   const store = useStore()
+
+  const user_list = ref([])
+  let page = 1
+  const fetchUsers = async (per_page,q) => {
+    const { data: result } = await getUsers(per_page, page++,q)
+    user_list.value = [...user_list.value, ...result]
+  }
+
   //用户详情
   const user_detail = ref({})
   const fetchUserDetail = async (id) => {
@@ -47,7 +55,7 @@ export default function useQuestion(){
     setLocal(field,params[field])
   }
 
-  return { user_detail,question_list,answer_list,article_list,follower_list,following_list,
-    fetchUserDetail,fetchQuestions,fetchAnswers,fetchArticles,fetchFollowers,fetchFollowings
+  return { user_list,user_detail,question_list,answer_list,article_list,follower_list,following_list,
+    fetchUsers,fetchUserDetail,fetchQuestions,fetchAnswers,fetchArticles,fetchFollowers,fetchFollowings
     ,modifyUser }
 }

@@ -11,9 +11,9 @@ export default function useArticle(){
   }
 
   const article_list = ref([])
-
-  const fetchArticles = async (per_page, page) => {
-    const { data: result } = await getArticles(per_page, page)
+  let page = 1
+  const fetchArticles = async (per_page,q) => {
+    const { data: result } = await getArticles(per_page, page++,q)
     article_list.value = [...article_list.value, ...result]
   }
 

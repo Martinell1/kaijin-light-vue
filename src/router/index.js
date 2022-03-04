@@ -20,17 +20,17 @@ const routes = [
       {
         path: 'question/:id',
         name: 'QuestionDetail',
-        component: () => import(/* webpackChunkName: "Questions" */ '../views/question-detail.vue'),
+        component: () => import(/* webpackChunkName: "QuestionDetail" */ '../views/question-detail.vue'),
       },
       {
         path: 'article/:id',
         name: 'ArticleDetail',
-        component: () => import(/* webpackChunkName: "Questions" */ '../views/article-detail.vue'),
+        component: () => import(/* webpackChunkName: "ArticleDetail" */ '../views/article-detail.vue'),
       },
       {
         path: 'user/:id',
         name: 'UserDetail',
-        component: () => import(/* webpackChunkName: "Questions" */ '../views/user-detail.vue'),
+        component: () => import(/* webpackChunkName: "UserDetail" */ '../views/user-detail.vue'),
         redirect: to => {
           return { name: 'Moment', params: { id:to.params.id,channel:'question' } }
         },
@@ -39,23 +39,28 @@ const routes = [
             path: ':channel',
             name: 'Moment',
             components:{
-              nav:() => import(/* webpackChunkName: "Questions" */ '../components/user-space/moment-nav.vue'),
-              default:() => import(/* webpackChunkName: "Questions" */ '../components/user-space/moment-list.vue'),
+              nav:() => import(/* webpackChunkName: "UserDetail" */ '../components/user-space/moment-nav.vue'),
+              default:() => import(/* webpackChunkName: "UserDetail" */ '../components/user-space/moment-list.vue'),
             }
           },
           {
             path: 'edit',
             name: 'EditUser',
-            component: () => import(/* webpackChunkName: "Questions" */ '../components/user-space/user-edit.vue'),
+            component: () => import(/* webpackChunkName: "UserDetail" */ '../components/user-space/user-edit.vue'),
           },
         ]
+      },
+      {
+        path:'search/:key',
+        name:'Search',
+        component: () => import(/* webpackChunkName: "Search" */ '../views/search.vue'),
       }
     ]
   },
   {
     path: '/edit/:id?',
     name: 'Edit',
-    component: () => import(/* webpackChunkName: "Questions" */ '../views/edit.vue'),
+    component: () => import(/* webpackChunkName: "Edit" */ '../views/edit.vue'),
   }
 
 ]

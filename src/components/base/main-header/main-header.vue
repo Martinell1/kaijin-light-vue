@@ -2,18 +2,25 @@
   <div class="w-full h-[3.75rem] bg-slate-50 shadow box-border mb-5">
     <div class="flex justify-between items-center h-full xl:mx-[25rem]">
       <div class="flex">
+        <h1 class="nav text-4xl mr-10">LightHub</h1>
         <router-link :to="{ name: 'Questions' }">
-          <div class="nav">Question</div>
+          <div class="nav w-28 text-xl">Question</div>
         </router-link>
         <router-link :to="{ name: 'Articles' }">
-          <div class="nav">Article</div>
+          <div class="nav w-28 text-xl">Article</div>
         </router-link>
       </div>
 
       <div class="flex">
         <div class="flex mr-10 items-center">
-          <input class="bg-zinc-50 w-80 outline-rose-300 pl-4" type="text" />
-          <div class="btn">Search</div>
+          <input
+            v-model="key"
+            v-on:keypress.enter="searchHandle"
+            class="border h-10 bg-zinc-50 w-80 outline-rose-300 pl-4"
+            type="text"
+            placeholder="请输入关键字"
+          />
+          <div class="btn" @click="searchHandle">Search</div>
         </div>
 
         <div v-if="userInfo?._id" class="relative" id="drop-down-wrapper">
@@ -46,6 +53,7 @@ import Login from '../../../views/login.vue';
 import { useStore } from 'vuex';
 import Dropdown from '../dropdown/dropdown.vue';
 import AskQuestion from '../../ask-question/ask-question.vue';
+import { useRouter } from 'vue-router';
 
 const store = useStore()
 const userInfo = computed(() => store.state.userInfo)
@@ -74,9 +82,21 @@ const askQuestionHandle = () => {
 const hideAsk = () => {
   askModalRef.value.hide()
 }
+
+const router = useRouter()
+const key = ref('')
+const searchHandle = () => {
+  router.push({
+    name: 'Search',
+    params: {
+      key: key.value
+    }
+  })
+}
+
 </script>
 <style scoped>
 .nav {
-  @apply text-center text-rose-500 font-semibold text-xl w-28 h-10 leading-10 cursor-pointer;
+  @apply text-center text-rose-500 font-semibold  h-10 leading-10 cursor-pointer;
 }
 </style>
