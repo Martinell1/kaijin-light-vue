@@ -5,7 +5,6 @@
       <h1 class="font-black text-3xl my-6 text-rose-500">{{ question_detail.title }}</h1>
       <div class="flex">
         <PreviewEditor :content="question_detail.description" class="my-4"></PreviewEditor>
-        <div class="btn self-start" @click="editQuestion">编辑问题</div>
       </div>
       <ActionList
         :voteCount="question_detail.voteCount"
@@ -47,7 +46,7 @@ const store = useStore()
 const userInfo = computed(() => store.state.userInfo)
 
 
-const { question_detail, answer_list, fetchQuestionDetail, fetchAnswers } = useQuestion()
+const { question_detail, answer_list, fetchQuestionDetail, fetchAnswers, setAnswerPage } = useQuestion()
 fetchQuestionDetail(route.params.id)
 fetchAnswers(route.params.id)
 
@@ -71,6 +70,7 @@ const editAnswerHandle = (answer) => {
 
 const refresh = () => {
   answer_list.value = []
+  setAnswerPage()
   fetchAnswers(route.params.id)
 }
 
@@ -79,9 +79,6 @@ watch(wrapper, () => {
   wrapper.value.children[0].children[0].setAttribute('id', 'answer-id')
 })
 
-const editQuestion = () => {
-  console.log(wrapper.value.children[0].children[0]);
-}
 
 const scrollRef = ref(null)
 useScroll(scrollRef, fetchAnswers, route.params.id)

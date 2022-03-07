@@ -30,7 +30,7 @@ export default function useQuestion(){
   }
 
   const setAnswerPage = ()=>{
-    page = 1
+    apage = 1
   }
 
   return { question_list,question_detail,answer_list, fetchQuestions, fetchQuestionDetail, fetchAnswers,setQuestionPage,setAnswerPage }

@@ -71,11 +71,12 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive, inject } from 'vue';
 import { useStore } from 'vuex';
 import { LockClosedIcon } from '@heroicons/vue/solid'
 import { login, register } from '@/api/user'
 import { useRouter } from 'vue-router';
+const useMessage = inject('useMessage')
 defineProps({
   isRegister: {
     type: Boolean,
@@ -94,28 +95,58 @@ const useLogin = () => {
     nickname: ''
   })
 
+  const checkForm = () => {
+    const checkAccount = new RegExp(/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/)
+    const checkPassword = new RegExp(/^[a-zA-Z]\w{5,17}$/)
+    if (!checkAccount.test(userForm.account)) {
+      useMessage('WARN', '用户名不符合规范 -- 字母开头，允许5-16字节，允许字母数字下划线', 2000)
+      return false
+    }
+    if (!checkPassword.test(userForm.password)) {
+      useMessage('WARN', '密码不符合规范 -- 以字母开头，长度在6~18之间，只能包含字母、数字和下划线', 2000)
+      return false
+    }
+
+    return true
+  }
+
+
+
   const handleRegister = async () => {
+    if (!checkForm()) {
+      return
+    }
     const { data: result } = await register(userForm)
-    console.log('result', result);
     if (result) {
+      useMessage('SUCCESS', '注册成功', 2000)
       let timer = setTimeout(() => {
         router.go(0)
         emit('hide')
         timer = null
       }, 1000);
+    } else {
+      useMessage('FAIL', '注册失败', 2000)
     }
-
   }
 
   const handleLogin = async () => {
+    if (!checkForm()) {
+      return
+    }
     const { data: { id, token } } = await login(userForm)
-    localStorage.setItem("token", token)
-    store.dispatch('fetchUserInfo', id)
-    let timer = setTimeout(() => {
-      router.go(0)
-      emit('hide')
-      timer = null
-    }, 1000);
+    if (id && token) {
+      localStorage.setItem("token", token)
+      store.dispatch('fetchUserInfo', id)
+      useMessage('SUCCESS', '登录成功', 2000)
+      let timer = setTimeout(() => {
+        router.go(0)
+        emit('hide')
+        timer = null
+      }, 2000);
+    } else {
+      useMessage('FAIL', '登录失败', 2000)
+    }
+
 
   }
 

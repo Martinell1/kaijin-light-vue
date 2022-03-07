@@ -1,11 +1,14 @@
 import { follow, unfollow } from '@/api/user';
 import { setLocal } from '@/js/user-store'
-import {computed} from 'vue'
+import {computed,inject} from 'vue'
 import { useStore } from 'vuex';
+
 
 export default function useFollow(){
   const store = useStore()
   const userInfo = computed(()=> store.state.userInfo)
+
+  const useMessage = inject('useMessage')
 
   const followHandle = async(item,content_type)=>{
     let id = item._id
@@ -15,9 +18,11 @@ export default function useFollow(){
     if (index > -1) {
       await unfollow(field, id)
       list.splice(index, 1)
+      useMessage('SUCCESS', '取关成功', 2000)
     } else {
       await follow(field, id)
       list.push(id)
+      useMessage('SUCCESS', '关注成功', 2000)
     }
     store.commit(fn, list)
     setLocal(field, list)

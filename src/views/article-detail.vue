@@ -7,7 +7,7 @@
         <SuspendUserInfo :userInfo="article_detail.holder" :showAvatar="true"></SuspendUserInfo>
       </div>
       <div
-        v-if="article_detail.holder?._id !== userInfo._id"
+        v-if="userInfo && article_detail.holder?._id !== userInfo._id"
         class="btn mr-4"
         @click="followHandle(article_detail.holder, '')"
       >

@@ -112,6 +112,7 @@ watch(type, (newType) => {
 watch(() => route.params.key, (newKey) => {
   key.value = newKey
   initData()
+  setQuestionPage()
   type.value = 'question'
   searchQuestion()
 })
@@ -131,5 +132,5 @@ const searchTopicHandle = (id) => {
 }
 
 </script>
-<style  scoped>
+<style scoped>
 </style>

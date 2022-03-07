@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
 import { doTalk } from '@/api/talk'
 const props = defineProps({
   articleId: {
@@ -26,6 +26,7 @@ const props = defineProps({
     default: ''
   }
 })
+const useMessage = inject('useMessage')
 const talk_content = ref('')
 const emit = defineEmits(['refresh'])
 const publishHandle = async () => {
@@ -35,6 +36,7 @@ const publishHandle = async () => {
     params.replyTo = props.replyTo
   }
   await doTalk(props.articleId, params)
+  useMessage('SUCCESS', '发布成功', 2000)
   talk_content.value = ''
   emit('refresh')
 }

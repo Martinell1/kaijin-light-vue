@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
 import { doComment } from '@/api/comment'
 const props = defineProps({
   questionId: {
@@ -30,6 +30,7 @@ const props = defineProps({
     default: ''
   }
 })
+const useMessage = inject('useMessage')
 const comment_content = ref('')
 const emit = defineEmits(['refresh'])
 const publishHandle = async () => {
@@ -39,6 +40,7 @@ const publishHandle = async () => {
     params.replyTo = props.replyTo
   }
   const { data: comment } = await doComment(props.questionId, props.answerId, params)
+  useMessage('SUCCESS', '发布成功', 2000)
   comment_content.value = ''
   emit('refresh', comment)
 }

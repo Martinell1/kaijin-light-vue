@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
 import MdEditor from 'md-editor-v3';
 import { doAnswer, updateAnswer } from '@/api/answer'
 import { useRoute } from 'vue-router';
@@ -36,14 +36,17 @@ defineExpose({
   shiftVisible,
 })
 
+const useMessage = inject('useMessage')
 const route = useRoute()
 const emit = defineEmits(['refresh'])
 const publishHandle = async () => {
   const params = { 'content': content.value }
   if (id.value) {
     await updateAnswer(route.params.id, id.value, params)
+    useMessage('SUCCESS', '编辑成功', 2000)
   } else {
     await doAnswer(route.params.id, params);
+    useMessage('SUCCESS', '发布成功', 2000)
   }
   emit('refresh')
   hide()

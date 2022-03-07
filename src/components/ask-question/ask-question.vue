@@ -19,7 +19,7 @@
 </template>
 
 <script setup >
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import { useRouter } from 'vue-router';
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
@@ -48,10 +48,13 @@ const selectTopicHandle = (item) => {
     question_detail.value.topics?.push(item)
   }
 }
+
+const useMessage = inject('useMessage')
 const router = useRouter()
 const emit = defineEmits(['hide'])
 const publishHandle = async () => {
   const { data: result } = await createQuestion(question_detail.value)
+  useMessage('SUCCESS', '发布成功', 2000)
   if (result._id) {
     router.push({
       name: 'QuestionDetail',

@@ -40,16 +40,16 @@
       </div>
     </div>
   </div>
-  <Modal ref="loginModalRef">
+  <Modal ref="loginModalRef" :title="isRegister ? 'Register' : 'Login'">
     <Login :isRegister="isRegister" @hide="hideLogin" />
   </Modal>
-  <Modal ref="askModalRef">
+  <Modal ref="askModalRef" :title="'提问题'">
     <AskQuestion @hide="hideAsk"></AskQuestion>
   </Modal>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, inject } from 'vue';
 import Modal from '../modal/modal.vue';
 import Login from '../../../views/login.vue';
 import { useStore } from 'vuex';
@@ -85,9 +85,14 @@ const hideAsk = () => {
   askModalRef.value.hide()
 }
 
+const useMessage = inject('useMessage')
 const router = useRouter()
 const key = ref('')
 const searchHandle = () => {
+  if (key.value === '') {
+    useMessage('FAIL', '关键字不能为空', 2000)
+    return
+  }
   router.push({
     name: 'Search',
     params: {

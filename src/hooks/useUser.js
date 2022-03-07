@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref,inject } from 'vue';
 import { getUserDetail, getFollowers,getArticles,getQuestions,getAnswers,getFollowings,updateUser,getUsers } from '@/api/user'
 import { FIELDS } from '@/js/constance'
 import { useStore } from 'vuex';
@@ -54,8 +54,10 @@ export default function useQuestion(){
     follower_list.value = result
   }
 
+  const useMessage = inject('useMessage')
   const modifyUser = async(field,id,params)=>{
     const { data: result } = await updateUser(id,params)
+    useMessage('SUCCESS', '修改成功', 2000)
     setLocal(field,params[field])
   }
 

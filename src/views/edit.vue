@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import Modal from '../components/base/modal/modal.vue';
@@ -69,6 +69,7 @@ const selectTopicHandle = (item) => {
 
 }
 
+const useMessage = inject('useMessage')
 const router = useRouter()
 const publishHandle = async () => {
   let res;
@@ -77,9 +78,11 @@ const publishHandle = async () => {
   let params = { ...article.value, topics }
   if (route.params.id) {
     const { data: result } = await updateArticle(route.params.id, params)
+    useMessage('SUCCESS', '编辑成功', 2000)
     res = result
   } else {
     const { data: result } = await createArticle(params)
+    useMessage('SUCCESS', '发布成功', 2000)
     res = result
   }
   if (res._id) {
