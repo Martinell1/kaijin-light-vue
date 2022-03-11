@@ -7,8 +7,10 @@
   </header>
   <input v-model="article.description" type="text" placeholder="简介" class="input h-14 w-full" />
   <MdEditor v-model="article.content" style=" min-height: 75vh;"></MdEditor>
-  <footer class="flex justify-center mt-2">
-    <div class="btn" @click="topicSelectClick">选择图片</div>
+  <footer class="flex justify-center mt-4">
+    <div class="btn">
+      <Upload @onUpload="AvatarHandle" />选择图片
+    </div>
     <div class="btn mx-4" @click="topicSelectClick">选择话题</div>
     <Modal ref="modalRef">
       <TopicSelect :select_topics="article.topics" @selectTopic="selectTopicHandle"></TopicSelect>
@@ -21,6 +23,7 @@
 <script setup>
 import { ref, inject } from 'vue'
 import MdEditor from 'md-editor-v3';
+import Upload from '../components/base/upload/upload.vue';
 import 'md-editor-v3/lib/style.css';
 import Modal from '../components/base/modal/modal.vue';
 import TopicSelect from '../components/topic-list/topic-select.vue'
@@ -75,7 +78,6 @@ const router = useRouter()
 const publishHandle = async () => {
   let res;
   let topics = article.value.topics;
-  console.log(topics);
   let params = { ...article.value, topics }
   if (route.params.id) {
     const { data: result } = await updateArticle(route.params.id, params)
@@ -94,6 +96,10 @@ const publishHandle = async () => {
       }
     })
   }
+}
+
+const AvatarHandle = () => {
+  console.log();
 }
 </script>
 <style scoped>
