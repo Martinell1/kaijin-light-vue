@@ -48,6 +48,7 @@ watch(() => route.params.id, (newID) => {
 const AvatarHandle = async (url) => {
   user_detail.value.avatar_url = url
   await modifyUser('avatar_url', user_detail.value._id, user_detail.value)
+  store.commit('setAvatarUrl', url)
 }
 </script>
 <style scoped>

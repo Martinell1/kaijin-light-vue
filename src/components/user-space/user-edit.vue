@@ -52,7 +52,7 @@ const route = useRoute()
 const { user_detail, fetchUserDetail, modifyUser } = useUser()
 fetchUserDetail(route.params.id)
 const modifyHandle = (field) => {
-  modifyUser(field, user_detail.value._id, user_detail.value)
+  await modifyUser(field, user_detail.value._id, user_detail.value)
 }
 </script>
 <style scoped>

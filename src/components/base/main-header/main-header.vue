@@ -24,7 +24,6 @@
           />
           <div class="btn" @click="searchHandle">Search</div>
         </div>
-
         <div v-if="userInfo?._id" class="relative" id="drop-down-wrapper">
           <img
             :src="userInfo.avatar_url"
