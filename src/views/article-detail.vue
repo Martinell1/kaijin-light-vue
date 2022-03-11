@@ -1,6 +1,6 @@
 <template>
   <div class="main-wrapper pb-14">
-    <img src="../assets/images/static.jpg" />
+    <img :src="article_detail.holder.avatar_url" />
     <h1 class="font-black text-3xl my-6 text-rose-500">{{ article_detail.title }}</h1>
     <div class="flex justify-between mb-6">
       <div class="flex items-center">

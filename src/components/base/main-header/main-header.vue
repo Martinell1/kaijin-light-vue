@@ -27,7 +27,7 @@
 
         <div v-if="userInfo?._id" class="relative" id="drop-down-wrapper">
           <img
-            src="../../../assets/images/static.jpg"
+            :src="userInfo.avatar_url"
             class="w-10 h-10 rounded-full cursor-pointer"
             @click="avatarClick"
           />

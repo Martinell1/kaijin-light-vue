@@ -12,9 +12,10 @@
             @change="AvatarHandle"
             multiple="true"
             enctype="multipart/form-data"
+            accept="image/*"
           />
         </div>
-        <img src="../assets/images/static.jpg" class="w-40 h-40 object-cover rounded-full" />
+        <img :src="user_detail.avatar_url" class="w-40 h-40 object-cover rounded-full" />
         <div class="ml-4">
           <h1 class="font-bold text-2xl">{{ user_detail.nickname }}</h1>
           <span>{{ user_detail.headline }}</span>
@@ -37,17 +38,19 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch,inject } from 'vue'
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import useUser from '@/hooks/useUser'
+import {uploadImage , toQiNiu} from '@/api/home'
 const route = useRoute()
 const store = useStore()
+const useMessage = inject('useMessage')
 const me = computed(() => store.state.userInfo)
 
 const id = route.params.id
 
-const { user_detail, fetchUserDetail } = useUser()
+const { user_detail, fetchUserDetail,modifyUser } = useUser()
 fetchUserDetail(id)
 
 watch(() => route.params.id, (newID) => {
@@ -57,31 +60,19 @@ watch(() => route.params.id, (newID) => {
 const avatarRef = ref(null)
 const AvatarHandle = async () => {
   const file = avatarRef.value.files[0];
-  let { data: result } = await upload();
-  if (result.code === 200) {
+  let { data: token } = await uploadImage();
+  if (token) {
     const form = new FormData();
-    form.append("token", result.data)
+    form.append("token", token)
     form.append("file", file)
-
-    console.log(form);
-    // let { data: res } = await toQiNiu(form);
-
-    // const addr = "http://qiniu.kaijinx.top/" + res.key;
-    // console.log(addr);
-
-    // const params = new FormData();
-    // params.append('_id', userInfo.value._id)
-    // params.append('avater', addr)
-
-    // let { data: result2 } = await updateUserInfo(params);
-    // if (result2.code === 200) {
-    //   userInfo.value = result2.data;
-
-    //   msg('success', '更新成功')
-    //   loadUserInfo(userInfo.value._id)
-    //   localStorage.setItem("avater", userInfo.value.avater)
-    //   store.commit('updateUserInfo', { "id": userInfo.value._id, "nickname": userInfo.value.nickname, "avater": userInfo.value.avater })
-    // }
+    let { data: addr } = await toQiNiu(form);
+    user_detail.value.avatar_url = "http://qiniu.kaijinx.top/" + addr.key;
+    let newUser = await modifyUser('avatar_url', user_detail.value._id, user_detail.value)
+    if (newUser) {
+      userInfo.value = newUser;
+      useMessage('SUCCESS', '更新成功', 2000)
+      fetchUserDetail(newUser._id)
+    }
 
   }
 }

@@ -21,7 +21,7 @@
             @editClick="editHandle(data)"
           ></ActionList>
         </div>
-        <img v-if="data.avatar_url" src="../../assets/images/static.jpg" class="w-40 h-24" />
+        <img v-if="data.avatar_url" :src="data.avatar_url" class="w-40 h-24" />
       </div>
     </div>
   </div>

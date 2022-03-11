@@ -3,7 +3,7 @@
     <div class="flex items-center h-10 z-10">
       <img
         v-if="showAvatar"
-        src="../../../assets/images/static.jpg"
+        :src="userInfo.avatar_url"
         class="w-10 h-10 mr-4"
         :class="'rounded' + rounded"
       />
@@ -15,7 +15,7 @@
       :class="{ 'top-10': showAvatar }"
     >
       <div class="flex">
-        <img src="../../../assets/images/static.jpg" class="w-14 h-14 object-cover" />
+        <img :src="userInfo.avatar_url" class="w-14 h-14 object-cover" />
         <div class="flex flex-col justify-between">
           <div class="ml-4 text-lg font-bold">{{ userInfo.nickname }}</div>
           <div class="ml-4 text-lg font-bold">{{ userInfo.headline }}</div>

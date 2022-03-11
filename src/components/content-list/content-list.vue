@@ -14,7 +14,7 @@
         <div class="text-lg text-stone-500 mb-2">{{ item.description }}</div>
         <img
           v-if="item.avatar_url"
-          src="../../assets/images/static.jpg"
+          :src="item.avatar_url"
           width="190"
           height="105"
           class="ml-4"
