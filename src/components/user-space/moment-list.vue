@@ -14,7 +14,7 @@
             :voteCount="data.voteCount"
             :voteActive="isVoted(data._id)"
             :viewCount="data.viewCount"
-            :actionList="['voteCount', 'viewCount', 'comment', route.params.channel === 'question' ? 'writeAnswer' : '', route.params.id === userInfo._id ? 'edit' : '']"
+            :actionList="['voteCount', 'viewCount', 'comment', route.params.channel === 'question' ? 'writeAnswer' : '', route.params.id === userInfo?._id ? 'edit' : '']"
             @writeAnswerClick="goDetail(data)"
             @thumbClick="thumbHandle(data, route.params.channel)"
             @commentClick="goDetail(data)"

@@ -1,10 +1,8 @@
 import { ref,inject } from 'vue';
 import { getUserDetail, getFollowers,getArticles,getQuestions,getAnswers,getFollowings,updateUser,getUsers } from '@/api/user'
 import { FIELDS } from '@/js/constance'
-import { useStore } from 'vuex';
 import { setLocal } from '../js/user-store';
-export default function useQuestion(){
-  const store = useStore()
+export default function useUser(){
 
   const user_list = ref([])
   let page = 1
@@ -58,7 +56,7 @@ export default function useQuestion(){
   const modifyUser = async(field,id,params)=>{
     const { data: result } = await updateUser(id,params)
     useMessage('SUCCESS', '修改成功', 2000)
-    setLocal(field,params[field])
+    setLocal(field,result[field])
   }
 
   return { user_list,user_detail,question_list,answer_list,article_list,follower_list,following_list,

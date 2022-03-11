@@ -8,7 +8,8 @@
   <input v-model="article.description" type="text" placeholder="简介" class="input h-14 w-full" />
   <MdEditor v-model="article.content" style=" min-height: 75vh;"></MdEditor>
   <footer class="flex justify-center mt-2">
-    <div class="btn" @click="topicSelectClick">选择话题</div>
+    <div class="btn" @click="topicSelectClick">选择图片</div>
+    <div class="btn mx-4" @click="topicSelectClick">选择话题</div>
     <Modal ref="modalRef">
       <TopicSelect :select_topics="article.topics" @selectTopic="selectTopicHandle"></TopicSelect>
     </Modal>
