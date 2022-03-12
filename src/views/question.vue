@@ -11,5 +11,5 @@ import useQuestion from '@/hooks/useQuestion';
 const { question_list, fetchQuestions } = useQuestion()
 fetchQuestions(10)
 </script>
-<style lang='scss' scoped>
+<style scoped>
 </style>

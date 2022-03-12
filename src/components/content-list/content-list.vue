@@ -11,13 +11,13 @@
       </router-link>
 
       <div class="flex justify-between mt-3">
-        <div class="text-lg text-stone-500 mb-2">{{ item.description }}</div>
+        <div class="text-lg text-stone-500 mb-2">{{ fmtMarkDown(item.description) }}</div>
         <img
           v-if="item.avatar_url"
           :src="item.avatar_url"
           width="190"
           height="105"
-          class="ml-4"
+          class="ml-4 object-cover"
         />
       </div>
       <ActionList
@@ -42,7 +42,7 @@ import useThumb from '../base/action-list/useThumb'
 import SuspendUserInfo from '@/components/base/suspend-userInfo/suspend-userInfo.vue'
 import TopicList from '../topic-list/topic-list.vue';
 import useScroll from '../../hooks/useScroll';
-
+import { fmtMarkDown } from '../../js/utils'
 const store = useStore()
 
 const userInfo = ref(store.state.userInfo)

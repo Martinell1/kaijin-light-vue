@@ -3,10 +3,10 @@
     <input
       v-model="question_detail.title"
       type="text"
-      placeholder="问题"
+      placeholder="标题"
       class="px-4 border-gray-300 rounded-md outline-none my-1 h-10 w-full"
     />
-    <MdEditor v-model="question_detail.description" :preview="false"></MdEditor>
+    <MdEditor v-model="question_detail.description" :preview="false" @upload-img="onUploadImg"></MdEditor>
     <footer class="flex justify-center mt-4">
       <div class="btn mr-4" @click="topicSelectClick">选择话题</div>
       <Modal ref="modalRef">
@@ -26,7 +26,8 @@ import 'md-editor-v3/lib/style.css';
 import Modal from '@/components/base/modal/modal.vue';
 import TopicSelect from '@/components/topic-list/topic-select.vue'
 import { createQuestion } from '@/api/question'
-
+import useUpload from '../base/upload/useUpload';
+const { fetchToken, uploadToQiniu } = useUpload()
 const modalRef = ref(null)
 const topicSelectClick = () => {
   modalRef.value.show()
@@ -63,6 +64,20 @@ const publishHandle = async () => {
       }
     })
     emit('hide')
+  }
+}
+
+const onUploadImg = async (files, callback) => {
+  let file = files[0]
+  let token = await fetchToken()
+  if (token) {
+    const form = new FormData();
+    form.append("token", token)
+    form.append("file", file)
+    const url = await uploadToQiniu(form)
+    let urls = []
+    urls.push(url)
+    callback(urls);
   }
 }
 </script>

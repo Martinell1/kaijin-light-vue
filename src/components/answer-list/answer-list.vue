@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow-md bg-zinc-50 mt-4 px-5">
+  <div class="shadow-md bg-zinc-50 mt-4 px-5 mb-20">
     <div v-for="(answer, index) in answer_list" :key="answer._id" class="pt-4 border-b-2">
       <div class="flex mb-4">
         <SuspendUserInfo :userInfo="answer.holder" :showAvatar="true"></SuspendUserInfo>
@@ -43,7 +43,6 @@ import useThumb from '@/components/base/action-list/useThumb'
 import useFollow from '@/components/base/action-list/useFollow'
 import SuspendUserInfo from '@/components/base/suspend-userInfo/suspend-userInfo.vue'
 import useComment from '../comment-list/useComment'
-import useScroll from '../../hooks/useScroll';
 defineProps({
   answer_list: {
     type: Array,

@@ -2,8 +2,8 @@
   <teleport to="#app">
     <transition name="slide-down">
       <div
-        class="message"
-        :class="{ ' bg-green-300': type === 'SUCCESS', ' bg-rose-300': type === 'FAIL', ' bg-orange-300': type === 'WARN' }"
+        class="message ring-inset ring-8"
+        :class="{ ' bg-green-300 ring-green-400': type === 'SUCCESS', ' bg-rose-300 ring-rose-400': type === 'FAIL', ' bg-orange-300 ring-orange-400': type === 'WARN' }"
         @click="closeHandle"
       >
         <div class="text-zinc-500 text-center">{{ message }}</div>
@@ -31,7 +31,7 @@ defineExpose({
 </script>
 <style  scoped>
 .message {
-  @apply fixed left-1/2  top-20 -translate-x-[200px] w-[400px] h-28 leading-[7rem] rounded-md opacity-90 text-xl;
+  @apply fixed left-1/2 top-20 -translate-x-[200px] w-[400px] h-24 leading-[6rem] rounded-md text-xl bg-opacity-80 z-50;
 }
 
 .slide-down-enter-active,

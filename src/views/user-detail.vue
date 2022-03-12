@@ -2,7 +2,7 @@
   <div class="main-wrapper">
     <div class="shadow p-6 flex justify-between border">
       <div class="flex items-start">
-        <Upload v-if="user_detail._id === me?._id" @onUpload="AvatarHandle" />
+        <Upload v-if="user_detail._id === me?._id" @onUpload="AvatarHandle" :sty="'w-40 h-40'" />
         <img :src="user_detail.avatar_url" class="w-40 h-40 object-cover rounded-full" />
         <div class="ml-4">
           <h1 class="font-bold text-2xl">{{ user_detail.nickname }}</h1>
@@ -42,7 +42,10 @@ const { user_detail, fetchUserDetail, modifyUser } = useUser()
 fetchUserDetail(id)
 
 watch(() => route.params.id, (newID) => {
-  fetchUserDetail(newID)
+  if (newID) {
+    fetchUserDetail(newID)
+  }
+
 })
 
 const AvatarHandle = async (url) => {

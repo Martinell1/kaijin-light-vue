@@ -8,7 +8,9 @@
       <div class="flex justify-between cursor-pointer" @click="goDetail(data)">
         <div :class="{ 'withAvatar': data.avatar_url }">
           <div class="font-bold text-xl text-rose-400">{{ data.title || data.question?.title }}</div>
-          <div class="my-3 truncate text-stone-500">{{ data.description || data.content }}</div>
+          <div
+            class="my-3 truncate text-stone-500"
+          >{{ fmtMarkDown(data.description) || fmtMarkDown(data.content) }}</div>
           <ActionList
             @click.stop
             :voteCount="data.voteCount"
@@ -43,7 +45,7 @@ import SuspendUserInfo from '../base/suspend-userinfo/suspend-userInfo.vue';
 import TopicList from '../topic-list/topic-list.vue';
 import ActionList from '../base/action-list/action-list.vue';
 import useThumb from '@/components/base/action-list/useThumb'
-
+import { fmtMarkDown } from '../../js/utils';
 const route = useRoute()
 const store = useStore()
 const id = route.params.id;

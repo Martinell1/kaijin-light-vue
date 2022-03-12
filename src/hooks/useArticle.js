@@ -3,7 +3,13 @@ import { getArticles } from '@/api/article'
 import { getArticleDetail } from '@/api/article'
 
 export default function useArticle(){
-  const article_detail = ref({})
+  const article_detail = ref({
+    title:'',
+    description:'',
+    content:'',
+    avatar_url:'',
+    topics:[]
+  })
 
   const fetchArticleDetail = async (id) => {
     const { data: result } = await getArticleDetail(id)
@@ -20,6 +26,8 @@ export default function useArticle(){
   const setArticlePage = ()=>{
     page = 1
   }
+
+
 
   return { article_list, article_detail,fetchArticles, fetchArticleDetail,setArticlePage }
 }

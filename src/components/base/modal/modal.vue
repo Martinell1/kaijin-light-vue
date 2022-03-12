@@ -1,7 +1,7 @@
 <template>
   <teleport to="body">
     <div class="model-wrapper" v-show="visible" @click="hide">
-      <div class="p-40" @click.stop>
+      <div @click.stop>
         <h1 class="text-center mb-4 text-2xl text-zinc-50">{{ title }}</h1>
         <div>
           <slot></slot>
