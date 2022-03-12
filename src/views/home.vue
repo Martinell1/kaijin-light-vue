@@ -1,7 +1,8 @@
 <template>
   <MainHeader></MainHeader>
-  <div class="home-wrapper">
+  <div class="main-wrapper flex">
     <router-view></router-view>
+    <router-view name="aside"></router-view>
   </div>
 </template>
 

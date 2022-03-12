@@ -1,7 +1,7 @@
 <template>
-  <div class="main-wrapper">
+  <main>
     <ContentList :datas="article_list" :content_type="'Article'" :fetchFn="fetchArticles"></ContentList>
-  </div>
+  </main>
 </template>
 
 <script setup>

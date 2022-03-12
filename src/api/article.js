@@ -1,8 +1,11 @@
 import axios from './axios'
 
 const getArticles = async (per_page=10,page=1,q='') => {
-  console.log(page);
   return await axios.get("article/?per_page=" + per_page + "&page=" + page + '&q=' + q)
+}
+
+const getHotArticles = async () => {
+  return await axios.get("article/hot")
 }
 
 const getArticleDetail = async(id)=>{
@@ -21,6 +24,7 @@ const updateArticle = async(id,params)=>{
 
 export {
   getArticles,
+  getHotArticles,
   getArticleDetail,
   createArticle,
   updateArticle

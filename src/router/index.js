@@ -10,12 +10,18 @@ const routes = [
       {
         path: 'questions',
         name: 'Questions',
-        component: () => import(/* webpackChunkName: "Questions" */ '../views/question.vue'),
+        components:{
+          aside:() => import(/* webpackChunkName: "UserDetail" */ '../components/home-aside/home-aside.vue'),
+          default:() => import(/* webpackChunkName: "Questions" */ '../views/question.vue'),
+        } 
       },
       {
         path: 'articles',
         name: 'Articles',
-        component: () => import(/* webpackChunkName: "Articles" */ '../views/article.vue'),
+        components:{
+          aside:() => import(/* webpackChunkName: "UserDetail" */ '../components/home-aside/home-aside.vue'),
+          default:() => import(/* webpackChunkName: "Articles" */ '../views/article.vue'),
+        } 
       },
       {
         path: 'question/:id',
