@@ -22,7 +22,7 @@
       </div>
       <ActionList
         :voteCount="item.voteCount"
-        :voteActive="content_type === 'Question' ? userInfo?.likingQuestions.includes(item._id) : userInfo?.likingArticles.includes(item._id)"
+        :voteActive="content_type === 'Question' ? userInfo?.likingQuestions?.includes(item._id) : userInfo?.likingArticles?.includes(item._id)"
         :viewCount="item.viewCount"
         :divide="true"
         :actionList="['voteCount', 'viewCount', content_type === 'Article' ? 'comment' : '']"

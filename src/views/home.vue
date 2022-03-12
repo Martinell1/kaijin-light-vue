@@ -8,7 +8,6 @@
 
 <script setup>
 import MainHeader from '../components/base/main-header/main-header.vue';
-
 </script>
 <style scoped>
 .home-wrapper {

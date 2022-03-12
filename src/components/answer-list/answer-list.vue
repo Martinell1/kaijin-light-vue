@@ -8,12 +8,10 @@
       <div class="mb-4 text-zinc-500">{{ new Date(answer.updatedAt).toDateString() }}</div>
       <div class="flex justify-between items-center">
         <ActionList
-          :actionList="['voteCount', 'follow', 'comment']"
+          :actionList="['voteCount', 'comment']"
           :voteCount="answer.voteCount"
           :voteActive="userInfo?.likingAnswers.includes(answer._id)"
-          :followActive="userInfo?.followingAnswers.includes(answer._id)"
           @thumbClick="thumbHandle(answer, 'Answer')"
-          @followClick="followHandle(answer, 'Answer')"
           @commentClick="commentHandle(index)"
         ></ActionList>
         <div
@@ -54,7 +52,6 @@ const store = useStore()
 const userInfo = computed(() => store.state.userInfo)
 
 const { thumbHandle } = useThumb()
-const { followHandle } = useFollow()
 
 const { setInputRef, commentHandle } = useComment()
 

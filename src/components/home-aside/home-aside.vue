@@ -1,7 +1,7 @@
 <template>
   <aside>
     <div class="card">
-      <h2 class="mx-1 mb-2 text-lg font-semibold">热门文章</h2>
+      <h2 class="mx-1 mb-2 text-lg font-semibold text-rose-500">热门问题</h2>
 
       <div
         v-for="(question, index) in hot_questions"
@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="card mt-5">
-      <h2 class="mx-1 mb-2 text-lg font-semibold">热门文章</h2>
+      <h2 class="mx-1 mb-2 text-lg font-semibold text-rose-500">热门文章</h2>
       <div
         v-for="(article, index) in hot_articles"
         :key="article._id"

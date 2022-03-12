@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute left-0 right-0">
+  <div class="absolute left-0 right-0 -z-10">
     <div class="bg-zinc-50 shadow">
       <div class="main-wrapper">
         <TopicList :topics="question_detail.topics" :tag="true"></TopicList>
@@ -9,8 +9,8 @@
         </div>
         <ActionList
           :voteCount="question_detail.voteCount"
-          :voteActive="userInfo?.likingQuestions.includes(question_detail._id)"
-          :followActive="userInfo?.followingQuestions.includes(question_detail._id)"
+          :voteActive="userInfo?.likingQuestions?.includes(question_detail._id)"
+          :followActive="userInfo?.followingQuestions?.includes(question_detail._id)"
           :viewCount="question_detail.viewCount"
           :actionList="['follow', 'writeAnswer', 'voteCount', 'viewCount']"
           :size="'text-xl'"

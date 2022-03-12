@@ -54,7 +54,6 @@ watch(() => route.params.id, (newID) => {
   if (newID) {
     fetchUserDetail(newID)
   }
-
 })
 
 const AvatarHandle = async (url) => {

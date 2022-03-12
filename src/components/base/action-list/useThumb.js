@@ -12,7 +12,7 @@ export default function useThumb(){
   const thumbHandle = async(item,content_type)=>{
     let id = item._id
     const { field, fn } = useContentTypeHandle(content_type)
-
+    console.log(userInfo.value,field);
     let list = userInfo.value[field].slice()
     let index = list.indexOf(id)
     if (index > -1) {
@@ -34,7 +34,6 @@ export default function useThumb(){
     content_type = content_type.replace(content_type[0],content_type[0].toUpperCase())
     const field = "liking" + content_type + 's'
     const fn = 'setLiking' + content_type + 's'
-    console.log(field, fn );
     return { field, fn }
   }
 

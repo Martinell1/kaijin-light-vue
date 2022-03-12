@@ -15,6 +15,9 @@
     <router-link :to="{ name: 'Moment', params: { channel: 'follower' } }">
       <div class="nav-item">粉丝</div>
     </router-link>
+    <router-link :to="{ name: 'Moment', params: { channel: 'collection' } }">
+      <div class="nav-item">收藏</div>
+    </router-link>
   </div>
 </template>
 

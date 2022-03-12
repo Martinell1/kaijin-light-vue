@@ -4,8 +4,6 @@ export async function fetchUserInfo ({ commit, state }, id) {
   const { data: userInfo } = await getUserDetail(id, FIELDS)
   commit('setUserInfo',userInfo)
   localStorage.setItem('userInfo',JSON.stringify(userInfo))
-  console.log(userInfo);
- 
 }
 
 export function logOut(){

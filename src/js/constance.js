@@ -17,7 +17,7 @@ export const TOOL = [
   'code',
   'image',
   'table',
-  'mermaid',
+  'mermid',
   'katex',
   '-',
   'revoke',

@@ -47,7 +47,7 @@ const routes = [
             components:{
               nav:() => import(/* webpackChunkName: "UserDetail" */ '../components/user-space/moment-nav.vue'),
               default:() => import(/* webpackChunkName: "UserDetail" */ '../components/user-space/moment-list.vue'),
-            }
+            },
           },
           {
             path: 'edit',

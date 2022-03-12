@@ -55,7 +55,6 @@ import { useStore } from 'vuex';
 import Dropdown from '../dropdown/dropdown.vue';
 import AskQuestion from '../../ask-question/ask-question.vue';
 import { useRouter } from 'vue-router';
-
 const store = useStore()
 const userInfo = computed(() => store.state.userInfo)
 
@@ -99,6 +98,9 @@ const searchHandle = () => {
     }
   })
 }
+
+
+
 
 </script>
 <style scoped>
