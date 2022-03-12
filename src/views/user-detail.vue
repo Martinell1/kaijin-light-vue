@@ -11,12 +11,21 @@
       </div>
 
       <div class="btn self-end">
-        <router-link v-if="me?._id === id" :to="{ name: 'EditUser', params: { id: me._id } }">
+        <router-link
+          v-if="me?._id === route.params.id"
+          :to="{ name: 'EditUser', params: { id: me._id } }"
+        >
           <span>编辑个人信息</span>
         </router-link>
         <span v-else>
-          <div v-show="me?.followings?.includes(id)">已关注</div>
-          <div v-show="!me?.followings?.includes(id)">关注</div>
+          <div
+            v-show="me?.followings?.includes(route.params.id)"
+            @click="followHandle(user_detail, '')"
+          >已关注</div>
+          <div
+            v-show="!me?.followings?.includes(route.params.id)"
+            @click="followHandle(user_detail, '')"
+          >关注</div>
         </span>
       </div>
     </div>
@@ -31,15 +40,15 @@ import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import useUser from '@/hooks/useUser'
 import Upload from '../components/base/upload/upload.vue';
+import useFollow from '@/components/base/action-list/useFollow'
 
 const route = useRoute()
 const store = useStore()
 const me = computed(() => store.state.userInfo)
-
-const id = route.params.id
+const { followHandle } = useFollow()
 
 const { user_detail, fetchUserDetail, modifyUser } = useUser()
-fetchUserDetail(id)
+fetchUserDetail(route.params.id)
 
 watch(() => route.params.id, (newID) => {
   if (newID) {

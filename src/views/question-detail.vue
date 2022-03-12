@@ -1,27 +1,30 @@
 <template>
-  <div class="question-detail-wrappper">
-    <div class="main-wrapper">
-      <TopicList :topics="question_detail.topics" :tag="true"></TopicList>
-      <h1 class="font-black text-3xl my-6 text-rose-500">{{ question_detail.title }}</h1>
-      <div class="flex">
-        <PreviewEditor :content="question_detail.description" class="my-4"></PreviewEditor>
+  <div class="absolute left-0 right-0">
+    <div class="bg-zinc-50 shadow">
+      <div class="main-wrapper">
+        <TopicList :topics="question_detail.topics" :tag="true"></TopicList>
+        <h1 class="font-black text-3xl my-6 text-rose-500">{{ question_detail.title }}</h1>
+        <div class="flex">
+          <PreviewEditor :content="question_detail.description" class="my-4"></PreviewEditor>
+        </div>
+        <ActionList
+          :voteCount="question_detail.voteCount"
+          :voteActive="userInfo?.likingQuestions.includes(question_detail._id)"
+          :followActive="userInfo?.followingQuestions.includes(question_detail._id)"
+          :viewCount="question_detail.viewCount"
+          :actionList="['follow', 'writeAnswer', 'voteCount', 'viewCount']"
+          :size="'text-xl'"
+          @thumbClick="thumbHandle(question_detail, 'Question')"
+          @followClick="followHandle(question_detail, 'Question')"
+          @writeAnswerClick="writeAnswerHandle"
+        ></ActionList>
       </div>
-      <ActionList
-        :voteCount="question_detail.voteCount"
-        :voteActive="userInfo?.likingQuestions.includes(question_detail._id)"
-        :followActive="userInfo?.followingQuestions.includes(question_detail._id)"
-        :viewCount="question_detail.viewCount"
-        :actionList="['follow', 'writeAnswer', 'voteCount', 'viewCount']"
-        :size="'text-xl'"
-        @thumbClick="thumbHandle(question_detail, 'Question')"
-        @followClick="followHandle(question_detail, 'Question')"
-        @writeAnswerClick="writeAnswerHandle"
-      ></ActionList>
     </div>
-  </div>
-  <div class="main-wrapper" ref="wrapper">
-    <Editor ref="editorRef" @refresh="refresh"></Editor>
-    <AnswerList ref="scrollRef" :answer_list="answer_list" @editAnswerClick="editAnswerHandle"></AnswerList>
+
+    <div class="main-wrapper" ref="wrapper">
+      <Editor ref="editorRef" @refresh="refresh"></Editor>
+      <AnswerList ref="scrollRef" :answer_list="answer_list" @editAnswerClick="editAnswerHandle"></AnswerList>
+    </div>
   </div>
 </template>
 
@@ -85,7 +88,4 @@ useScroll(scrollRef, fetchAnswers, route.params.id)
 
 </script>
 <style scoped>
-.question-detail-wrappper {
-  @apply -mt-4 pt-5 bg-zinc-50 shadow;
-}
 </style>

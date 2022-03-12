@@ -48,29 +48,28 @@ import useThumb from '@/components/base/action-list/useThumb'
 import { fmtMarkDown } from '../../js/utils';
 const route = useRoute()
 const store = useStore()
-const id = route.params.id;
 const userInfo = computed(() => store.state.userInfo)
 const datas = ref([])
 const useMoment = async () => {
   switch (route.params.channel) {
     case 'question':
-      await fetchQuestions(id)
+      await fetchQuestions(route.params.id)
       datas.value = question_list.value;
       break;
     case 'answer':
-      await fetchAnswers(id)
+      await fetchAnswers(route.params.id)
       datas.value = answer_list.value;
       break;
     case 'article':
-      await fetchArticles(id)
+      await fetchArticles(route.params.id)
       datas.value = article_list.value;
       break;
     case 'following':
-      await fetchFollowings(id)
+      await fetchFollowings(route.params.id)
       datas.value = following_list.value;
       break;
     case 'follower':
-      await fetchFollowers(id)
+      await fetchFollowers(route.params.id)
       datas.value = follower_list.value;
       break;
     default:
@@ -85,6 +84,12 @@ watch(() => route.params.channel, async (newChannel) => {
     await useMoment()
   }
 }, { immediate: true })
+
+watch(() => route.params.id, async (newId) => {
+  if (newId) {
+    await useMoment()
+  }
+})
 
 const { thumbHandle } = useThumb()
 
