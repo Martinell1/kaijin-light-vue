@@ -13,8 +13,8 @@ export default function useThumb(){
     let id = item._id
     const { field, fn } = useContentTypeHandle(content_type)
     console.log(userInfo.value,field);
-    let list = userInfo.value[field].slice()
-    let index = list.indexOf(id)
+    let list = userInfo.value[field]?.slice()
+    let index = list?.indexOf(id)
     if (index > -1) {
       await unthumb(field, id)
       list.splice(index, 1)

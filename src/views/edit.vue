@@ -1,7 +1,7 @@
 <template>
   <header class="h-16 shadow flex items-center">
     <input v-model="article_detail.title" type="text" placeholder="标题" class="input h-14 w-full" />
-    <router-link to="/">
+    <router-link to="/questions">
       <div class="btn mx-4">返回主页</div>
     </router-link>
   </header>

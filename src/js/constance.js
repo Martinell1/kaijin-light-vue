@@ -1,4 +1,4 @@
-export const FIELDS = "education;employment;followings;followingTopics;followingArticles;followingQuestions;followingAnswers;likingAnswers;dislikingAnswers;likingQuestions;likingArticles;likingComments;dislikingComments;likingTalks;dislikingTalks"
+export const FIELDS = "education;employment;followings;followingTopics;followingArticles;followingQuestions;followingAnswers;likingAnswers;dislikingAnswers;likingQuestions;likingArticles;likingComments;dislikingComments;likingTalks;likingMoments;dislikingTalks"
 
 
 export const TOOL = [

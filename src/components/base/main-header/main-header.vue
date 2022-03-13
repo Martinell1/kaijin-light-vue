@@ -2,7 +2,7 @@
   <div class="w-full h-[3.75rem] bg-slate-50 shadow box-border mb-5">
     <div class="flex justify-between items-center h-full xl:mx-[25rem]">
       <div class="flex">
-        <router-link :to="{ name: 'Questions' }">
+        <router-link :to="{ name: 'Home' }">
           <h1 class="nav text-4xl mr-10">LightHub</h1>
         </router-link>
         <router-link :to="{ name: 'Questions' }">
@@ -10,6 +10,9 @@
         </router-link>
         <router-link :to="{ name: 'Articles' }">
           <div class="nav w-28 text-xl">Article</div>
+        </router-link>
+        <router-link :to="{ name: 'Moment' }">
+          <div class="nav w-28 text-xl">Moment</div>
         </router-link>
       </div>
 

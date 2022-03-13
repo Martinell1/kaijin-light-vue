@@ -4,9 +4,19 @@ const routes = [
 
   {
     path: '/',
-    redirect:'questions',
-    component: () => import(/* webpackChunkName: "Home" */ '../views/home.vue'),
+    redirect:'/home',
+    component: () => import(/* webpackChunkName: "Home" */ '../views/main.vue'),
     children:[
+      {
+        path: 'home',
+        name: 'Home',
+        component: () => import(/* webpackChunkName: "QuestionDetail" */ '../views/home.vue'),
+      },
+      {
+        path: 'moment',
+        name: 'Moment',
+        component: () => import(/* webpackChunkName: "ArticleDetail" */ '../views/moment.vue'),
+      },
       {
         path: 'questions',
         name: 'Questions',
@@ -24,6 +34,14 @@ const routes = [
         } 
       },
       {
+        path:'search/:key',
+        name:'Search',
+        components:{
+          aside:() => import(/* webpackChunkName: "UserDetail" */ '../components/home-aside/home-aside.vue'),
+          default:() => import(/* webpackChunkName: "Search" */ '../views/search.vue')
+        } 
+      },
+      {
         path: 'question/:id',
         name: 'QuestionDetail',
         component: () => import(/* webpackChunkName: "QuestionDetail" */ '../views/question-detail.vue'),
@@ -38,12 +56,12 @@ const routes = [
         name: 'UserDetail',
         component: () => import(/* webpackChunkName: "UserDetail" */ '../views/user-detail.vue'),
         redirect: to => {
-          return { name: 'Moment', params: { id:to.params.id,channel:'question' } }
+          return { name: 'UserMoment', params: { id:to.params.id,channel:'question' } }
         },
         children:[
           {
             path: ':channel',
-            name: 'Moment',
+            name: 'UserMoment',
             components:{
               nav:() => import(/* webpackChunkName: "UserDetail" */ '../components/user-space/moment-nav.vue'),
               default:() => import(/* webpackChunkName: "UserDetail" */ '../components/user-space/moment-list.vue'),
@@ -55,11 +73,6 @@ const routes = [
             component: () => import(/* webpackChunkName: "UserDetail" */ '../components/user-space/user-edit.vue'),
           },
         ]
-      },
-      {
-        path:'search/:key',
-        name:'Search',
-        component: () => import(/* webpackChunkName: "Search" */ '../views/search.vue'),
       }
     ]
   },

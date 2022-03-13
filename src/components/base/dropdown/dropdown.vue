@@ -9,6 +9,9 @@
       </router-link>
 
       <div class="dropdown-item" @click="askQuestion">提问题</div>
+      <router-link :to="{ name: 'Moment' }">
+        <div class="dropdown-item">写动态</div>
+      </router-link>
       <div class="dropdown-item" @click="logOut">退出</div>
     </div>
   </div>
