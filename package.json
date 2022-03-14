@@ -13,8 +13,12 @@
     "@vueuse/core": "^7.6.2",
     "axios": "^0.26.0",
     "md-editor-v3": "^1.10.2",
+    "qrcodejs2": "0.0.2",
+    "swiper": "^8.0.7",
     "vue": "^3.2.25",
+    "vue-awesome-swiper": "^4.1.1",
     "vue-router": "^4.0.12",
+    "vue3-carousel": "^0.1.36",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

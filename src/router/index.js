@@ -18,6 +18,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "ArticleDetail" */ '../views/moment.vue'),
       },
       {
+        path: 'UploadResources',
+        name: 'UploadResources',
+        component: () => import(/* webpackChunkName: "ArticleDetail" */ '../views/UploadResources.vue'),
+      },
+      {
         path: 'questions',
         name: 'Questions',
         components:{

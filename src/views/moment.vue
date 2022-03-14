@@ -22,7 +22,7 @@
         maxlength="120"
         placeholder="分享你的light"
       ></textarea>
-      <div class="flex justify-between mt-4">
+      <div class="flex justify-between my-4">
         <div class="btn relative">
           <Upload @onUpload="uploadHandle" :sty="'w-full h-full'" />图片
         </div>
@@ -46,12 +46,19 @@
             </div>
           </div>
         </div>
-        <div class="flex justify-around items-center mt-5">
-          <div class>分享</div>
+        <div class="flex justify-around items-center my-2">
+          <div class="act-item">
+            <ShareIcon class="act-item-icon"></ShareIcon>
+            <div class="act-item-text">分享</div>
+          </div>
           <div
-            :class="{ 'text-rose-500': userInfo?.likingMoments?.includes(moment._id) }"
+            class="act-item"
+            :class="{ 'act-item-active': userInfo?.likingMoments?.includes(moment._id) }"
             @click="thumbHandle(moment, 'Moment')"
-          >点赞</div>
+          >
+            <ThumbUpIcon class="act-item-icon"></ThumbUpIcon>
+            <div class="act-item-text">点赞数 {{ moment.voteCount }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -64,6 +71,7 @@ import Upload from '../components/base/upload/upload.vue';
 import useThumb from '@/components/base/action-list/useThumb'
 import { useStore } from 'vuex';
 import useMoment from '../hooks/useMoment'
+import { ShareIcon, ThumbUpIcon } from '@heroicons/vue/solid'
 const store = useStore()
 const userInfo = computed(() => store.state.userInfo)
 
@@ -100,5 +108,21 @@ const SortBy = (SortBy) => {
 
 .side-item-active {
   @apply bg-rose-100;
+}
+
+.act-item {
+  @apply flex items-center text-stone-500 mr-6 cursor-pointer;
+}
+
+.act-item-active {
+  @apply text-rose-500;
+}
+
+.act-item-icon {
+  @apply h-5 w-5 mr-2;
+}
+
+.act-item-text {
+  @apply leading-5;
 }
 </style>

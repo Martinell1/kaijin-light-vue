@@ -27,6 +27,6 @@ body{
 }
 
 .moment-card {
-  @apply bg-zinc-100 shadow rounded border w-[700px] p-5;
+  @apply bg-zinc-100 shadow rounded border w-[700px] p-5 pb-0;
 }
 

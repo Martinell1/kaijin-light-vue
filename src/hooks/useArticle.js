@@ -1,6 +1,5 @@
 import { ref } from 'vue';
-import { getArticles } from '@/api/article'
-import { getArticleDetail } from '@/api/article'
+import { getArticles,getArticleDetail,getArticlesByFolow ,getRecommandArticles} from '@/api/article'
 
 export default function useArticle(){
   const article_detail = ref({
@@ -23,11 +22,21 @@ export default function useArticle(){
     article_list.value = [...article_list.value, ...result]
   }
 
+  const fetchArticlesByFolow = async (per_page) => {
+    const { data: result } = await getArticlesByFolow(per_page, page++)
+    article_list.value = [...article_list.value, ...result]
+  }
+  const fetchRecommandArticles = async(per_page) => {
+    const { data: result } = await getRecommandArticles(per_page, page++)
+    article_list.value = [...article_list.value, ...result]
+  }
+
   const setArticlePage = ()=>{
+    article_list.value = []
     page = 1
   }
 
 
 
-  return { article_list, article_detail,fetchArticles, fetchArticleDetail,setArticlePage }
+  return { article_list, article_detail,fetchArticles,fetchArticlesByFolow,fetchRecommandArticles, fetchArticleDetail,setArticlePage }
 }
