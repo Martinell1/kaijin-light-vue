@@ -27,8 +27,6 @@ export default function useNews(){
     news_list.value = [...news_list.value, ...result]
   }
 
-
-
   const setNewsPage = ()=>{
     news_list.value = []
     page = 1
