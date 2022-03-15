@@ -45,7 +45,17 @@
         </div>
         <div>
           <div>下载专区</div>
-          <div>友情链接</div>
+          <div>
+            <div>友情链接</div>
+            <ul v-for="link in links">
+              <li class="flex">
+                <div class="w-8 h-8">
+                  <img :src="link.avatar_url" class="w-full h-full rounded" />
+                </div>
+                <a :href="link.url">{{ link.title }}</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </section>
     </main>
@@ -109,10 +119,14 @@ const handleType = async (newType) => {
 handleType('follow')
 
 const swipers = ref([])
+const links = ref([])
 onMounted(() => {
   fetchTopics()
   axios.get('swiper').then(res => {
     swipers.value = res.data
+  })
+  axios.get('link').then(res => {
+    links.value = res.data
   })
 })
 
