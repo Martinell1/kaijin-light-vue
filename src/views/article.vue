@@ -1,5 +1,8 @@
 <template>
   <main>
+    <div>
+      <img src="../" alt />
+    </div>
     <ContentList :datas="article_list" :content_type="'Article'" :fetchFn="fetchArticles"></ContentList>
   </main>
 </template>

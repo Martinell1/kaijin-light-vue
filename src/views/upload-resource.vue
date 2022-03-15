@@ -37,18 +37,24 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import Modal from '../components/base/modal/modal.vue';
 import TopicSelect from '../components/topic-list/topic-select.vue'
+import { createResource } from '@/api/resource'
 import { uploadFile } from '@/api/home'
+import { useStore } from 'vuex';
 const topicSelectClick = () => {
   modalRef.value.show()
 }
+const useMessage = inject('useMessage')
+const store = useStore()
+const userInfo = computed(() => store.state.userInfo)
 const modalRef = ref(null)
 const resource = ref({
   title: '',
   description: '',
   topics: [],
+  holder: '',
   url: ''
 })
 const selectTopicHandle = (item) => {
@@ -74,8 +80,12 @@ const onChangeHandle = async () => {
   resource.value.url = result
 }
 
-const handleUpload = () => {
-
+const handleUpload = async () => {
+  resource.value.holder = userInfo.value._id
+  let { data: result } = await createResource(resource.value)
+  if (result) {
+    useMessage('SUCCESS', '上传成功', 2000)
+  }
 }
 
 </script>

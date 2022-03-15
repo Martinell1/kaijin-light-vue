@@ -16,7 +16,7 @@
           <carousel :items-to-show="1" :wrapAround="true" :transition="2000" :autoplay="5000">
             <slide v-for="swiper in swipers" :key="swiper._id">
               <a :href="swiper.url">
-                <img :src="swiper.avatar_url" class="w-[1200px] h-[500px] object-cover" />
+                <img :src="swiper.avatar_url" class="w-[1200px] h-[500px] object-cover rounded" />
               </a>
             </slide>
 
