@@ -1,13 +1,13 @@
 <template>
   <div ref="scrollRef" class="content-list-wrapper shadow rounded bg-zinc-50">
     <div v-for="item in datas" :key="item.id" class="pt-4 px-6">
-      <div class="flex justify-between mb-3 font-black text-xl text-stone-500">
+      <div class="flex justify-between mb-3 font-black text-lg text-stone-500">
         <SuspendUserInfo :userInfo="item.holder" :showAvatar="false"></SuspendUserInfo>
         <TopicList :topics="item.topics"></TopicList>
       </div>
 
       <router-link :to="{ name: content_type + 'Detail', params: { id: item._id } }">
-        <h2 class="font-black text-xl text-rose-500">{{ item.title }}</h2>
+        <h2 class="font-black text-lg text-rose-500">{{ item.title }}</h2>
       </router-link>
 
       <div class="flex justify-between mt-3">

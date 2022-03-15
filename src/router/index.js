@@ -13,14 +13,29 @@ const routes = [
         component: () => import(/* webpackChunkName: "QuestionDetail" */ '../views/home.vue'),
       },
       {
+        path: 'news',
+        name: 'News',
+        component: () => import(/* webpackChunkName: "ArticleDetail" */ '../views/news.vue'),
+      },
+      {
+        path: 'news/:id',
+        name: 'NewsDetail',
+        component: () => import(/* webpackChunkName: "ArticleDetail" */ '../views/news-detail.vue'),
+      },
+      {
         path: 'moment',
         name: 'Moment',
         component: () => import(/* webpackChunkName: "ArticleDetail" */ '../views/moment.vue'),
       },
       {
-        path: 'UploadResources',
-        name: 'UploadResources',
-        component: () => import(/* webpackChunkName: "ArticleDetail" */ '../views/UploadResources.vue'),
+        path: 'resource',
+        name: 'Resource',
+        component: () => import(/* webpackChunkName: "ArticleDetail" */ '../views/resource.vue'),
+      },
+      {
+        path: 'uploadResource',
+        name: 'UploadResource',
+        component: () => import(/* webpackChunkName: "ArticleDetail" */ '../views/upload-resource.vue'),
       },
       {
         path: 'questions',

@@ -5,20 +5,20 @@
         <router-link :to="{ name: 'Home' }">
           <h1 class="nav text-4xl mr-10">首页</h1>
         </router-link>
-        <router-link :to="{ name: 'Moment' }">
-          <div class="nav w-28 text-xl">资讯</div>
+        <router-link :to="{ name: 'News' }">
+          <div class="nav w-28 text-lg">资讯</div>
         </router-link>
         <router-link :to="{ name: 'Questions' }">
-          <div class="nav w-28 text-xl">问题</div>
+          <div class="nav w-28 text-lg">问题</div>
         </router-link>
         <router-link :to="{ name: 'Articles' }">
-          <div class="nav w-28 text-xl">文章</div>
+          <div class="nav w-28 text-lg">文章</div>
         </router-link>
         <router-link :to="{ name: 'Moment' }">
-          <div class="nav w-28 text-xl">动态</div>
+          <div class="nav w-28 text-lg">动态</div>
         </router-link>
-        <router-link :to="{ name: 'Moment' }">
-          <div class="nav w-28 text-xl">下载</div>
+        <router-link :to="{ name: 'Resource' }">
+          <div class="nav w-28 text-lg">下载</div>
         </router-link>
       </div>
 

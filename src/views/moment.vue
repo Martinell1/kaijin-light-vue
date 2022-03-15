@@ -34,7 +34,7 @@
         <div class="flex">
           <img class="w-12 h-12 rounded-full mr-5" :src="moment.holder.avatar_url" />
           <div class="flex flex-col justify-between">
-            <div class="text-xl">{{ moment.holder.nickname }}</div>
+            <div class="text-lg">{{ moment.holder.nickname }}</div>
             <div class="mb-4 text-zinc-500">{{ new Date(moment.updatedAt).toDateString() }}</div>
           </div>
         </div>

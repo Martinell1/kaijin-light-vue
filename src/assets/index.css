@@ -30,3 +30,10 @@ body{
   @apply bg-zinc-100 shadow rounded border w-[700px] p-5 pb-0;
 }
 
+.img-wrapper{
+  @apply w-full h-0 relative pt-[100%]
+
+}
+.img-wrappe img{
+  @apply max-w-full absolute top-0 bottom-0 left-0 right-0
+}

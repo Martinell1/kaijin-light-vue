@@ -104,10 +104,10 @@ const editClick = () => {
 }
 
 .act-item-icon {
-  @apply h-5 w-5 mr-2;
+  @apply h-4 w-4 mr-2;
 }
 
 .act-item-text {
-  @apply leading-5;
+  @apply text-sm;
 }
 </style>

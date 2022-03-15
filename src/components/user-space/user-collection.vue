@@ -46,6 +46,6 @@ const fieldHandle = (newField) => {
 </script>
 <style  scoped>
 .nav-item {
-  @apply text-xl px-4 py-2 text-stone-700 cursor-pointer;
+  @apply text-lg px-4 py-2 text-stone-700 cursor-pointer;
 }
 </style>

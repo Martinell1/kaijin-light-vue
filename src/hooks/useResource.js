@@ -26,5 +26,5 @@ export default function useResource(){
     resource_list.value = [...resource_list.value, ...result]
   }
 
-  return { resource_list,resource_detail, fetchResources, fetchResourceDetail,setResourcePage }
+  return { resource_list,resource_detail, fetchResources, fetchResourceDetail,fetchHotResource,setResourcePage }
 }

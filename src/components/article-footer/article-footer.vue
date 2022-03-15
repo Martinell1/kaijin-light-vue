@@ -7,7 +7,7 @@
       :followActive="userInfo?.followingArticles.includes(article_detail._id)"
       :viewCount="article_detail.viewCount"
       :actionList="['follow', 'voteCount', 'viewCount']"
-      :size="'text-xl'"
+      :size="'text-lg'"
       @thumbClick="thumbHandle(article_detail, 'Article')"
       @followClick="followHandle(article_detail, 'Article')"
     ></ActionList>

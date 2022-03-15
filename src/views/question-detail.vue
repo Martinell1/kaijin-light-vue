@@ -13,7 +13,7 @@
           :followActive="userInfo?.followingQuestions?.includes(question_detail._id)"
           :viewCount="question_detail.viewCount"
           :actionList="['follow', 'writeAnswer', 'voteCount', 'viewCount']"
-          :size="'text-xl'"
+          :size="'text-lg'"
           @thumbClick="thumbHandle(question_detail, 'Question')"
           @followClick="followHandle(question_detail, 'Question')"
           @writeAnswerClick="writeAnswerHandle"

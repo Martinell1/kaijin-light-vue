@@ -31,7 +31,7 @@ defineExpose({
 </script>
 <style  scoped>
 .message {
-  @apply fixed left-1/2 top-20 -translate-x-[200px] w-[400px] h-24 leading-[6rem] rounded-md text-xl bg-opacity-80 z-50;
+  @apply fixed left-1/2 top-20 -translate-x-[200px] w-[400px] h-24 leading-[6rem] rounded-md text-lg bg-opacity-80 z-50;
 }
 
 .slide-down-enter-active,

@@ -5,7 +5,7 @@
   </div>
   <div class="flex justify-between cursor-pointer" @click="goDetail(data)">
     <div :class="{ 'withAvatar': data.avatar_url }">
-      <div class="font-bold text-xl text-rose-400">{{ data.title || data.question?.title }}</div>
+      <div class="font-bold text-lg text-rose-400">{{ data.title || data.question?.title }}</div>
       <div
         class="my-3 truncate text-stone-500"
       >{{ fmtMarkDown(data.description) || fmtMarkDown(data.content) }}</div>
