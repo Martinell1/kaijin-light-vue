@@ -1,5 +1,9 @@
 <template>
   <main>
+    <div class="w-full h-[150px]">
+      <img src="../assets/images/question.png" class="w-full h-full rounded object-cover" />
+    </div>
+    <h2 class="text-stone-500 text-xl font-semibold my-2">问题区</h2>
     <ContentList :datas="question_list" :fetchFn="fetchQuestions"></ContentList>
   </main>
 </template>

@@ -13,12 +13,24 @@
       >文章</span>
       <span
         class="mr-4"
+        :class="{ 'text-rose-500': type === 'news' }"
+        @click="searchTypeHandle('news')"
+      >资讯</span>
+      <span
+        class="mr-4"
+        :class="{ 'text-rose-500': type === 'resource' }"
+        @click="searchTypeHandle('resource')"
+      >资源</span>
+      <span
+        class="mr-4"
         @click="searchTypeHandle('user')"
         :class="{ 'text-rose-500': type === 'user' }"
       >用户</span>
       <span @click="searchTypeHandle('topic')" :class="{ 'text-rose-500': type === 'topic' }">标签</span>
     </div>
     <ContentList v-if="['question', 'article'].includes(type)" :datas="data_list"></ContentList>
+    <NewsList v-if="type === 'news'" :datas="data_list"></NewsList>
+    <ResourceList v-if="type === 'resource'" :datas="data_list"></ResourceList>
     <div v-if="type === 'user'">
       <div v-for="user in data_list" class="shadow border px-5 py-4">
         <router-link :to="{ name: 'UserDetail', params: { id: user._id } }">
@@ -48,6 +60,10 @@ import useArticle from '../hooks/useArticle';
 import useQuestion from '../hooks/useQuestion';
 import useUser from '../hooks/useUser'
 import useTopic from '../hooks/useTopic'
+import NewsList from '../components/news-list/news-list.vue';
+import useNews from '../hooks/useNews';
+import useResource from '../hooks/useResource';
+import ResourceList from '../components/resource-list/resource-list.vue';
 
 const route = useRoute()
 const key = ref(route.params.key)
@@ -55,6 +71,8 @@ const { question_list, setQuestionPage, fetchQuestions } = useQuestion()
 const { article_list, setArticlePage, fetchArticles } = useArticle()
 const { user_list, setUserPage, fetchUsers } = useUser()
 const { topic_list, fetchTopics } = useTopic()
+const { news_list, setNewsPage, fetchNewss } = useNews()
+const { resource_list, setResourcePage, fetchResources } = useResource()
 
 const useSearch = () => {
   const data_list = ref([])
@@ -69,6 +87,12 @@ const useSearch = () => {
     data_list.value = article_list.value
   }
 
+  const searchNews = async () => {
+
+    await fetchNewss(10, key.value)
+    data_list.value = news_list.value
+  }
+
   const searchUser = async () => {
     await fetchUsers(10, key.value)
     data_list.value = user_list.value
@@ -79,10 +103,16 @@ const useSearch = () => {
     data_list.value = topic_list.value
   }
 
-  return { data_list, searchQuestion, searchArticle, searchUser, searchTopic }
+  const searchResource = async () => {
+    await fetchResources(10, key.value)
+    console.log(resource_list.value);
+    data_list.value = resource_list.value
+  }
+
+  return { data_list, searchQuestion, searchArticle, searchUser, searchTopic, searchNews, searchResource }
 }
 
-const { data_list, searchQuestion, searchArticle, searchUser, searchTopic } = useSearch()
+const { data_list, searchQuestion, searchArticle, searchUser, searchTopic, searchNews, searchResource } = useSearch()
 
 const initData = () => {
   data_list.value = []
@@ -106,6 +136,12 @@ watch(type, (newType) => {
     searchUser()
   } else if (newType === 'topic') {
     searchTopic()
+  } else if (newType === 'news') {
+    setNewsPage()
+    searchNews()
+  } else if (newType === 'resource') {
+    setResourcePage()
+    searchResource()
   }
 }, { immediate: true })
 

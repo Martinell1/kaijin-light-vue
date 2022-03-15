@@ -1,6 +1,7 @@
 import axios from './axios'
 
 const getResources = async (per_page=10,page=1,q='') => {
+  console.log(per_page,page,q);
   return await axios.get("resource/?per_page=" + per_page + "&page=" + page + '&q=' + q)
 }
 

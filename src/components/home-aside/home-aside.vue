@@ -3,14 +3,13 @@
     <div class="card">
       <h2 class="mx-1 mb-2 text-lg font-semibold text-rose-500">热门问题</h2>
 
-      <div
-        v-for="(question, index) in hot_questions"
-        :key="question._id"
-        class="flex h-9 items-center relative hover:bg-stone-200"
-      >
-        <router-link :to="{ name: 'QuestionDetail', params: { id: question._id } }">
+      <div v-for="(question, index) in hot_questions" :key="question._id">
+        <router-link
+          :to="{ name: 'QuestionDetail', params: { id: question._id } }"
+          class="flex h-9 items-center relative hover:bg-stone-200"
+        >
           <span class="inline-block w-4 text-center mr-4 font-semibold">{{ index + 1 }}</span>
-          <span>{{ question.title }}</span>
+          <div class="w-[150px] truncate">{{ question.title }}</div>
           <span
             class="inline-block w-7 h-7 bg-stone-200 rounded text-center leading-7 absolute right-0"
           >{{ question.voteCount }}</span>
@@ -19,14 +18,14 @@
     </div>
     <div class="card mt-5">
       <h2 class="mx-1 mb-2 text-lg font-semibold text-rose-500">热门文章</h2>
-      <div
-        v-for="(article, index) in hot_articles"
-        :key="article._id"
-        class="flex h-9 items-center relative hover:bg-stone-200"
-      >
-        <router-link :to="{ name: 'ArticleDetail', params: { id: article._id } }">
+      <div v-for="(article, index) in hot_articles" :key="article._id">
+        <router-link
+          :to="{ name: 'ArticleDetail', params: { id: article._id } }"
+          class="flex h-9 items-center relative hover:bg-stone-200"
+        >
           <span class="inline-block w-4 text-center mr-4 font-semibold">{{ index + 1 }}</span>
-          <span>{{ article.title }}</span>
+
+          <div class="w-[150px] truncate">{{ article.title }}</div>
           <span
             class="inline-block w-7 h-7 bg-stone-200 rounded text-center leading-7 absolute right-0"
           >{{ article.voteCount }}</span>

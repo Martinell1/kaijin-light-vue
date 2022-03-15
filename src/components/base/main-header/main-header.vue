@@ -18,7 +18,7 @@
           <div class="nav w-28 text-lg">动态</div>
         </router-link>
         <router-link :to="{ name: 'Resource' }">
-          <div class="nav w-28 text-lg">下载</div>
+          <div class="nav w-28 text-lg">资源</div>
         </router-link>
       </div>
 

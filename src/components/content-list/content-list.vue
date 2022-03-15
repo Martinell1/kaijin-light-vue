@@ -11,7 +11,9 @@
       </router-link>
 
       <div class="flex justify-between mt-3">
-        <div class="text-lg text-stone-500 mb-2">{{ fmtMarkDown(item.description) }}</div>
+        <div
+          class="text-lg text-stone-500 mb-2 max-h-20 overflow-ellipsis overflow-hidden"
+        >{{ fmtMarkDown(item.description) }}</div>
         <img
           v-if="item.avatar_url"
           :src="item.avatar_url"

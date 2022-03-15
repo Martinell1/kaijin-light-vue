@@ -15,9 +15,14 @@
         <div class="swiper-wrapper">
           <carousel :items-to-show="1" :wrapAround="true" :transition="2000" :autoplay="5000">
             <slide v-for="swiper in swipers" :key="swiper._id">
-              <a :href="swiper.url">
-                <img :src="swiper.avatar_url" class="w-[1200px] h-[500px] object-cover rounded" />
-              </a>
+              <div class="relative">
+                <h2
+                  class="text-stone-200 text-4xl font-semibold absolute top-1/2 left-1/2 -translate-x-1/2"
+                >{{ swiper.title }}</h2>
+                <a :href="swiper.url">
+                  <img :src="swiper.avatar_url" class="w-[1200px] h-[500px] object-cover rounded" />
+                </a>
+              </div>
             </slide>
 
             <template #addons>
@@ -30,7 +35,7 @@
       <section class="w-[1200px] mx-auto flex">
         <div>
           <div class="flex border-b ml-5">
-            <div class="nav" @click="handleType('follow')">关注</div>
+            <div v-if="userInfo" class="nav" @click="handleType('follow')">关注</div>
             <div class="nav" @click="handleType('news')">热点资讯</div>
             <div class="nav" @click="handleType('hot')">热点问题</div>
             <div class="nav" @click="handleType('recommand')">小编推荐</div>
@@ -41,15 +46,23 @@
               :datas="data"
               :content_type="activeType"
             ></ContentList>
+            <NewsList v-if="type === 'news'" :datas="data" :content_type="activeType"></NewsList>
           </div>
         </div>
-        <div>
-          <div>下载专区</div>
-          <div>
-            <div>友情链接</div>
-            <ul v-for="link in links">
+        <div class="flex flex-col w-full ml-10">
+          <div class="text-stone-500 leading-[4rem]">下载专区</div>
+          <div class="shadow border w-full px-5 py-4">
+            <ul v-for="resource in resource_list">
               <li class="flex">
-                <div class="w-8 h-8">
+                <a :href="'http://localhost:3001/' + resource.url" download>{{ resource.title }}</a>
+              </li>
+            </ul>
+          </div>
+          <div class="text-stone-500 leading-[4rem]">友情链接</div>
+          <div class="shadow border w-full px-5 py-4">
+            <ul v-for="link in links">
+              <li class="flex my-2 text-stone-500 items-center">
+                <div class="w-8 h-8 mr-4">
                   <img :src="link.avatar_url" class="w-full h-full rounded" />
                 </div>
                 <a :href="link.url">{{ link.title }}</a>
@@ -72,12 +85,19 @@ import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import useArticle from '../hooks/useArticle';
 import useNews from '../hooks/useNews'
+import useResource from '../hooks/useResource';
+import { useStore } from 'vuex';
+import NewsList from '../components/news-list/news-list.vue';
+
+const store = useStore()
 const { hot_questions, fetchHotQuestions } = useHots()
 const { article_list, fetchArticlesByFolow, fetchRecommandArticles, setArticlePage } = useArticle()
 const { topic_list, fetchTopics } = useTopics()
 const { news_list, fetchHotNews } = useNews()
+const { resource_list, fetchHotResource } = useResource()
 const data = ref([])
 const type = ref('hot')
+const userInfo = computed(() => store.state.userInfo)
 const activeType = computed(() => {
   if (type.value === 'hot') {
     return 'Question'
@@ -122,6 +142,7 @@ const swipers = ref([])
 const links = ref([])
 onMounted(() => {
   fetchTopics()
+  fetchHotResource()
   axios.get('swiper').then(res => {
     swipers.value = res.data
   })

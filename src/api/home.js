@@ -12,8 +12,13 @@ const uploadFile = async (params) => {
   return await axios.post("home/uploadFile",params)
 }
 
+const download = async (name)=>{
+  return await axios.post("home/download/"+name)
+}
+
 export {
   uploadImage,
   toQiNiu,
-  uploadFile
+  uploadFile,
+  download
 }
