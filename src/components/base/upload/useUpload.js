@@ -6,9 +6,13 @@ export default function useUpload(){
         return token
     }
 
-    const uploadToQiniu = async(form)=>{
+    const uploadToQiniu = async(form,row=false)=>{
         let { data: result } = await toQiNiu(form);
-        return "http://qiniu.kaijinx.top/" + result.key
+        if(row){
+          return result.key
+        }else{
+          return "http://qiniu.kaijinx.top/" + result.key
+        }
     }
 
     return {

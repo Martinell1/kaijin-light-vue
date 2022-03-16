@@ -10,7 +10,6 @@
         <div class="text-stone-500">{{ resource.description }}</div>
       </div>
       <div
-        @click="downloadFile('http://localhost:3001/', '《图解HTTP》.pdf')"
         class="w-[100px] h-[100px] bg-stone-300 rounded text-center leading-[100px] text-stone-100 font-semibold"
       >下载</div>
     </div>
@@ -19,8 +18,6 @@
 
 <script setup>
 import TopicList from '../topic-list/topic-list.vue';
-import { download } from '@/api/home'
-import axios from '@/api/axios';
 defineProps({
   datas: {
     type: Array
@@ -28,23 +25,23 @@ defineProps({
 })
 
 
-function downloadFile (url, fileName) {
-  console.log(url, fileName);
-  var request = new XMLHttpRequest();
-  request.responseType = "blob";//定义响应类型
-  request.open("get", url);
-  request.onload = function () {
-    console.log(this.response);
-    var url = window.URL.createObjectURL(this.response);
-    console.log('url', url);
-    var a = document.createElement("a");
-    document.body.appendChild(a);
-    a.href = url;
-    a.download = fileName
-    a.click();
-  }
-  request.send();
-}
+// function downloadFile (url, fileName) {
+//   console.log(url, fileName);
+//   var request = new XMLHttpRequest();
+//   request.responseType = "blob";//定义响应类型
+//   request.open("get", url);
+//   request.onload = function () {
+//     console.log(this.response);
+//     var url = window.URL.createObjectURL(this.response);
+//     console.log('url', url);
+//     var a = document.createElement("a");
+//     document.body.appendChild(a);
+//     a.href = url;
+//     a.download = fileName
+//     a.click();
+//   }
+//   request.send();
+// }
 
 
 

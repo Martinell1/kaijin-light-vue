@@ -12,6 +12,7 @@
     "@heroicons/vue": "^1.0.5",
     "@vueuse/core": "^7.6.2",
     "axios": "^0.26.0",
+    "iconv-lite": "^0.6.3",
     "md-editor-v3": "^1.10.2",
     "qrcodejs2": "0.0.2",
     "swiper": "^8.0.7",

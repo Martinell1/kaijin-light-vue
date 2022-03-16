@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import { getResources,getResourceDetail,getHotResource } from '@/api/resource'
+import { getResources,getResourceDetail,getHotResource,downloadResource } from '@/api/resource'
 export default function useResource(){
   //问题列表
   const resource_list = ref([])
@@ -27,5 +27,10 @@ export default function useResource(){
     hot_resources.value = [...hot_resources.value, ...result]
   }
 
-  return { resource_list,resource_detail,hot_resources, fetchResources, fetchResourceDetail,fetchHotResource,setResourcePage }
+  const download = async(id)=>{
+    const {data:result} = await downloadResource(id)
+    return result
+  }
+
+  return { resource_list,resource_detail,hot_resources, fetchResources, fetchResourceDetail,fetchHotResource,setResourcePage,download }
 }

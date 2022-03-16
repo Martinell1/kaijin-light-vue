@@ -52,13 +52,15 @@
         <div class="flex flex-col w-full ml-10">
           <div class="text-stone-500 leading-[4rem]">下载专区</div>
           <div class="shadow border w-full px-5 py-4">
-            <ul v-for="resource in hot_resources">
-              <li class="flex">
-                <a
-                  :href="'http://localhost:3001/' + resource.url"
-                  download
-                  target="_blank"
-                >{{ resource.title }}</a>
+            <ul v-for="(resource, index) in hot_resources">
+              <li @click="download(resource._id)">
+                <a :href="resource.url" download target="_blank" class="flex relative my-2">
+                  <span class="inline-block w-4 text-center mr-4 font-semibold">{{ index + 1 }}</span>
+                  <div class="w-[150px] truncate">{{ resource.title }}</div>
+                  <span
+                    class="inline-block w-7 h-7 bg-stone-200 rounded text-center leading-7 absolute right-0"
+                  >{{ resource.downloadCount }}</span>
+                </a>
               </li>
             </ul>
           </div>
@@ -98,7 +100,7 @@ const { hot_questions, fetchHotQuestions } = useHots()
 const { article_list, fetchArticlesByFolow, fetchRecommandArticles, setArticlePage } = useArticle()
 const { topic_list, fetchTopics } = useTopics()
 const { news_list, fetchHotNews } = useNews()
-const { hot_resources, fetchHotResource } = useResource()
+const { hot_resources, fetchHotResource, download } = useResource()
 const data = ref([])
 const type = ref('hot')
 const userInfo = computed(() => store.state.userInfo)

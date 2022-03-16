@@ -41,8 +41,8 @@ import { computed, inject, ref } from 'vue';
 import Modal from '../components/base/modal/modal.vue';
 import TopicSelect from '../components/topic-list/topic-select.vue'
 import { createResource } from '@/api/resource'
-import { uploadFile } from '@/api/home'
 import { useStore } from 'vuex';
+import useUpload from '../components/base/upload/useUpload';
 const topicSelectClick = () => {
   modalRef.value.show()
 }
@@ -72,12 +72,21 @@ const selectTopicHandle = (item) => {
 }
 
 const uploadRef = ref(null)
+const { fetchToken, uploadToQiniu } = useUpload()
 const onChangeHandle = async () => {
   const file = uploadRef.value.files[0];
-  const form = new FormData();
-  form.append("file", file)
-  const { data: result } = await uploadFile(form)
-  resource.value.url = result
+  console.log(file);
+  let token = await fetchToken()
+  if (token) {
+    const form = new FormData();
+    form.append("token", token)
+    form.append("file", file)
+    const url = await uploadToQiniu(form)
+    const type = file.name.split('.').pop()
+    console.log(type);
+    resource.value.url = url + '?attname=' + file.name
+    resource.value.type = type
+  }
 }
 
 const handleUpload = async () => {
