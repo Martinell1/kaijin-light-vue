@@ -83,7 +83,6 @@ const onChangeHandle = async () => {
     form.append("file", file)
     const url = await uploadToQiniu(form)
     const type = file.name.split('.').pop()
-    console.log(type);
     resource.value.url = url + '?attname=' + file.name
     resource.value.type = type
   }

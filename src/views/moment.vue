@@ -15,6 +15,10 @@
     </div>
   </aside>
   <div class="flex flex-col">
+    <div class="w-full h-[150px]">
+      <img src="../assets/images/moment.jpg" class="w-full h-full rounded object-cover" />
+    </div>
+    <h2 class="text-stone-500 text-xl font-semibold my-2">动态区</h2>
     <div class="moment-card">
       <textarea
         v-model="moment_detail.content"

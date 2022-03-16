@@ -6,12 +6,12 @@
     </div>
     <div class="flex justify-between">
       <div>
-        <TopicList :topics="resource.topics" :tag="'tag'" class="my-2"></TopicList>
+        <TopicList :topics="resource.topics" :tag="'mini-tag'" class="my-2"></TopicList>
         <div class="text-stone-500">{{ resource.description }}</div>
       </div>
       <div
         class="w-[100px] h-[100px] bg-stone-300 rounded text-center leading-[100px] text-stone-100 font-semibold"
-      >下载</div>
+      >{{ resource.type || '下载' }}</div>
     </div>
   </div>
 </template>

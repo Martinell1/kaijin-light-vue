@@ -133,16 +133,13 @@ const useLogin = () => {
     if (!checkForm()) {
       return
     }
-    const { data: { id, token } } = await login(userForm)
-    if (id && token) {
+    const { data: { token, userInfo } } = await login(userForm)
+    console.log('执行');
+    if (token && userInfo) {
       localStorage.setItem("token", token)
-      store.dispatch('fetchUserInfo', id)
+      localStorage.setItem("userInfo", JSON.stringify(userInfo))
       useMessage('SUCCESS', '登录成功', 2000)
-      let timer = setTimeout(() => {
-        router.go(0)
-        emit('hide')
-        timer = null
-      }, 2000);
+      window.location.reload()
     } else {
       useMessage('FAIL', '登录失败', 2000)
     }
