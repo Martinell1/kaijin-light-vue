@@ -43,6 +43,7 @@
           <div class="mt-4">
             <ContentList
               v-if="['hot', 'follow', 'recommand'].includes(type)"
+              :width="800"
               :datas="data"
               :content_type="activeType"
             ></ContentList>

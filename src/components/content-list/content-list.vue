@@ -1,5 +1,5 @@
 <template>
-  <div ref="scrollRef" class="content-list-wrapper shadow rounded bg-zinc-50">
+  <div ref="scrollRef" class="shadow rounded bg-zinc-50" :class="`w-[${width}px]`">
     <div v-for="item in datas" :key="item.id" class="pt-4 px-6">
       <div class="flex justify-between mb-3 font-black text-lg text-stone-500">
         <SuspendUserInfo :userInfo="item.holder" :showAvatar="false"></SuspendUserInfo>
@@ -62,6 +62,10 @@ const props = defineProps({
     default: () => {
       return
     }
+  },
+  width: {
+    type: Number,
+    default: 700
   }
 })
 const { thumbHandle } = useThumb()
@@ -81,7 +85,4 @@ useScroll(scrollRef, props.fetchFn)
 
 </script>
 <style scoped>
-.content-list-wrapper {
-  width: 700px;
-}
 </style>
