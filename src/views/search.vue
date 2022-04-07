@@ -28,7 +28,7 @@
       >用户</span>
       <span @click="searchTypeHandle('topic')" :class="{ 'text-rose-500': type === 'topic' }">标签</span>
     </div>
-    <ContentList v-if="['question', 'article'].includes(type)" :datas="data_list"></ContentList>
+    <ContentList v-if="['question', 'article'].includes(type)" :datas="data_list" :content_type="type[0].toUpperCase()+type.slice(1)"></ContentList>
     <NewsList v-if="type === 'news'" :datas="data_list"></NewsList>
     <ResourceList v-if="type === 'resource'" :datas="data_list"></ResourceList>
     <div v-if="type === 'user'">

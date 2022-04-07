@@ -43,6 +43,7 @@ import TopicSelect from '../components/topic-list/topic-select.vue'
 import { createResource } from '@/api/resource'
 import { useStore } from 'vuex';
 import useUpload from '../components/base/upload/useUpload';
+import router from '../router';
 const topicSelectClick = () => {
   modalRef.value.show()
 }
@@ -93,6 +94,9 @@ const handleUpload = async () => {
   let { data: result } = await createResource(resource.value)
   if (result) {
     useMessage('SUCCESS', '上传成功', 2000)
+    router.push({
+      name:'Resource'
+    })
   }
 }
 
