@@ -1,7 +1,7 @@
 <template>
   <div class="fixed bottom-0 left-0 right-0 flex justify-center items-center bg-zinc-50 h-14">
     <ActionList
-      class="pb-0"
+      class="pt-4"
       :voteCount="article_detail.voteCount"
       :voteActive="userInfo?.likingArticles.includes(article_detail._id)"
       :followActive="userInfo?.followingArticles.includes(article_detail._id)"
