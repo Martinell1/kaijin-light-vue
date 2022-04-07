@@ -10,7 +10,7 @@
             autocomplete="account"
             required
             class="input"
-            placeholder="Account"
+            :placeholder="isRegister?'Account-字母开头，长度在5-16之间，允许字母数字下划线':'Account-请输入帐号'"
           />
         </div>
         <div>
@@ -22,7 +22,7 @@
             autocomplete="current-password"
             required
             class="input"
-            placeholder="Password"
+            :placeholder="isRegister?'Password-以字母开头，长度在6~18之间，允许字母数字下划线':'Password-请输入密码'"
           />
         </div>
         <div v-if="isRegister">
@@ -33,7 +33,7 @@
             autocomplete="current-password"
             required
             class="input"
-            placeholder="nickname"
+            placeholder="Nickname-用户昵称"
           />
         </div>
       </div>
@@ -99,7 +99,7 @@ const useLogin = () => {
     const checkAccount = new RegExp(/^[a-zA-Z][a-zA-Z0-9_]{4,15}$/)
     const checkPassword = new RegExp(/^[a-zA-Z]\w{5,17}$/)
     if (!checkAccount.test(userForm.account)) {
-      useMessage('WARN', '用户名不符合规范 -- 字母开头，允许5-16字节，允许字母数字下划线', 2000)
+      useMessage('WARN', '用户名不符合规范 -- 字母开头，长度在5-16之间，允许字母数字下划线', 2000)
       return false
     }
     if (!checkPassword.test(userForm.password)) {
@@ -116,35 +116,30 @@ const useLogin = () => {
     if (!checkForm()) {
       return
     }
-    const { data: result } = await register(userForm)
-    if (result) {
+    register(userForm).then(res=>{
       useMessage('SUCCESS', '注册成功', 2000)
       let timer = setTimeout(() => {
-        router.go(0)
-        emit('hide')
+        window.location.reload()
         timer = null
       }, 1000);
-    } else {
-      useMessage('FAIL', '注册失败', 2000)
-    }
+    },rej=>{
+       useMessage('FAIL', '注册失败', 2000)
+    })
   }
 
   const handleLogin = async () => {
     if (!checkForm()) {
       return
     }
-    const { data: { token, userInfo } } = await login(userForm)
-    console.log('执行');
-    if (token && userInfo) {
+    login(userForm).then(res=>{
+      const { data: { token, userInfo } } = res
       localStorage.setItem("token", token)
       localStorage.setItem("userInfo", JSON.stringify(userInfo))
       useMessage('SUCCESS', '登录成功', 2000)
       window.location.reload()
-    } else {
+    },rej=>{
       useMessage('FAIL', '登录失败', 2000)
-    }
-
-
+    })
   }
 
   return { userForm, handleLogin, handleRegister }
