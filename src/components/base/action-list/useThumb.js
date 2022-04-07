@@ -12,7 +12,7 @@ export default function useThumb(){
   const thumbHandle = async(item,content_type)=>{
     let id = item._id
     const { field, fn } = useContentTypeHandle(content_type)
-    console.log(userInfo.value,field);
+    console.log('field',userInfo.value,field);
     let list = userInfo.value[field]?.slice()
     let index = list?.indexOf(id)
     if (index > -1) {

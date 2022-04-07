@@ -44,9 +44,6 @@ const mutations = {
   setLikingAnswers(state,likingAnswers){
     state.userInfo.likingAnswers = likingAnswers
   },
-  setDislikingAnswers(state,dislikingAnswers){
-    state.userInfo.dislikingAnswers = dislikingAnswers
-  },
   setLikingQuestions(state,likingQuestions){
     state.userInfo.likingQuestions = likingQuestions
   },
@@ -56,15 +53,13 @@ const mutations = {
   setLikingComments(state,likingComments){
     state.userInfo.likingComments = likingComments
   },
-  setDislikingComments(state,dislikingComments){
-    state.userInfo.dislikingComments = dislikingComments
-  },
   setLikingTalks(state,likingTalks){
     state.userInfo.likingTalks = likingTalks
   },
-  setDislikingTalks(state,dislikingTalks){
-    state.userInfo.dislikingTalks = dislikingTalks
-  }
+  setLikingMoments(state,likingMoments){
+    state.userInfo.likingMoments = likingMoments
+  },
+
 }
 
 export default mutations
