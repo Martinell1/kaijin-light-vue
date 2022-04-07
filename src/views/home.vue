@@ -1,7 +1,7 @@
 <template>
   <div class="home-wrapper">
-    <header class="transition-all">
-      <div class="flex bg-zinc-100 p-5 pb-0 shadow overflow-hidden hover:flex-wrap">
+    <header class="transition-all hover:relative hover:h-[60px]">
+      <div class="flex bg-zinc-100 p-5 pb-0 shadow overflow-hidden hover:flex-wrap hover:absolute">
         <router-link
           class="mr-8 mb-4"
           v-for="topic in topic_list"
