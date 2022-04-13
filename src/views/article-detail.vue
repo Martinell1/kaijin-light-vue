@@ -16,7 +16,7 @@
       </div>
     </div>
     <PreviewEditor :previewOnly="true" :modelValue="article_detail.content"></PreviewEditor>
-    <TopicList :topics="article_detail.topics" :tag="true" class="my-5"></TopicList>
+    <TopicList :topics="article_detail.topics" class="my-5"></TopicList>
     <TalkList :articleId="article_detail._id"></TalkList>
   </div>
   <ArticleFooter :article_detail="article_detail"></ArticleFooter>

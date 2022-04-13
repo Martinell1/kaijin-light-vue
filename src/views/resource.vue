@@ -12,7 +12,7 @@
       <div class="w-[280px] ml-5 shadow border px-5 py-4">
         <div class="text-stone-500 leading-8 mb-2">热门资源</div>
         <ul v-for="(resource, index) in hot_resources">
-          <li @click="download(resource._id)">
+          <li>
             <a :href="resource.url" download target="_blank" class="flex relative my-2">
               <span class="inline-block w-4 text-center mr-4 font-semibold">{{ index + 1 }}</span>
               <div class="w-[150px] truncate">{{ resource.title }}</div>

@@ -15,8 +15,6 @@ export default function useTalk(){
       talkInputRefs[id] = el
   }
   const talkHandle = async(id) => {
-    console.log(id);
-    console.log(talkInputRefs);
     talkInputRefs[id].shiftVisible()
   }
 

@@ -105,7 +105,6 @@ const useSearch = () => {
 
   const searchResource = async () => {
     await fetchResources(10, key.value)
-    console.log(resource_list.value);
     data_list.value = resource_list.value
   }
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label for="upload" class="absolute block" :class="sty"></label>
+    <label for="upload" class="absolute block cursor-pointer" :class="sty"></label>
     <input
       ref="uploadRef"
       id="upload"

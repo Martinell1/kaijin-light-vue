@@ -2,7 +2,7 @@
   <div class="absolute left-0 right-0 -z-10">
     <div class="bg-zinc-50 shadow">
       <div class="main-wrapper">
-        <TopicList :topics="question_detail.topics" :tag="true" class="pt-4"></TopicList>
+        <TopicList :topics="question_detail.topics" class="pt-4"></TopicList>
         <h1 class="font-black text-3xl my-6 text-rose-500">{{ question_detail.title }}</h1>
         <div class="flex">
           <PreviewEditor :content="question_detail.description" class="my-4"></PreviewEditor>

@@ -6,7 +6,7 @@
 
         <div class="flex justify-between items-center">
             <h1 class="font-black text-xl my-6 text-rose-500">{{ news_detail.title }}</h1>
-            <TopicList :topics="news_detail.topics" :tag="true" class="my-5"></TopicList>
+            <TopicList :topics="news_detail.topics" class="my-5"></TopicList>
         </div>
         <PreviewEditor :previewOnly="true" :modelValue="news_detail.content"></PreviewEditor>
     </div>
