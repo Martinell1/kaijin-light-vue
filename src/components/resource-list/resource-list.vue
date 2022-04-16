@@ -12,9 +12,10 @@
         <div class="text-stone-500">{{ resource.description }}</div>
       </div>
       <div
+        @click="download(resource._id)"
         class="w-[100px] h-[100px] bg-stone-300 rounded text-center leading-[100px] text-stone-100 font-semibold"
       >
-       <a :href="resource.url" download target="_blank">{{ resource.type || '下载' }}</a>
+       <a :href="resource.url" download target="_blank" class="leading-[100px] w-[100px] h-[100px]">{{ resource.type || '下载' }}</a>
        </div>
     </div>
   </div>
@@ -22,6 +23,9 @@
 
 <script setup>
 import TopicList from '../topic-list/topic-list.vue';
+import useResource from '../../hooks/useResource';
+
+const { download } = useResource()
 defineProps({
   datas: {
     type: Array
