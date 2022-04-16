@@ -44,7 +44,7 @@
         @click="searchTopicHandle(topic._id)"
         class="flex flex-col justify-center items-center w-32 border shadow-sm px-4 py-5 hover:border-rose-200 cursor-pointer"
       >
-        <img :src="topic.avatar_url" width="68" height="68" />
+        <img :src="topic.avatar_url" class="w-16 h-16 object-cover" />
         <div class="mt-4">{{ topic.name }}</div>
       </div>
     </div>

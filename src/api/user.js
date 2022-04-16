@@ -57,6 +57,10 @@ const updateUser = async(id,params)=>{
   return await axios.patch("user/"+id,params)
 }
 
+const modifyPassword = async(id,params)=>{
+  return await axios.patch("user/modifyPassword/"+id,params)
+}
+
 export {
   login,
   register,
@@ -71,5 +75,6 @@ export {
   unthumb,
   follow,
   unfollow,
-  updateUser
+  updateUser,
+  modifyPassword
 }

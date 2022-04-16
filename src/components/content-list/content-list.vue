@@ -12,7 +12,8 @@
 
       <div class="flex justify-between mt-3">
         <div
-          class="text-lg text-stone-500 mb-2 max-h-20 overflow-ellipsis overflow-hidden"
+          class="text-lg text-stone-500 mb-2 max-h-20 truncate"
+          :class="{'w-[750px]':item.avatar_url}"
         >{{ fmtMarkDown(item.description) }}</div>
         <img
           v-if="item.avatar_url"

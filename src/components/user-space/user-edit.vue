@@ -25,6 +25,20 @@
       <input v-model="user_detail.headline" type="text" class="w-full form-input" />
       <div class="btn ml-4" @click="modifyHandle('headline')">修改</div>
     </div>
+    <div class="form-item border-t-2 mt-4">
+      <div class="mt-4 w-full">
+         <label class="form-label">修改密码</label>
+         <div class="form-item">
+           <div class="form-label">原密码</div>
+           <input v-model="form.oldpass" type="password" class="w-full form-input" />
+         </div>
+         <div class="form-item mt-2">
+           <div class="form-label">新密码</div>
+           <input v-model="form.newpass" type="password" class="w-full form-input" />
+         </div>
+         <div class="w-full btn flex-row-reverse" @click="handleModifyPassword">修改</div>
+      </div>
+    </div>
     <!-- <div class="form-item">
       <label class="form-label">公司</label>
       
@@ -46,21 +60,48 @@
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router';
+import { reactive,inject } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import useUser from '../../hooks/useUser'
+import {modifyPassword} from '@/api/user'
+import { useStore } from 'vuex';
 const route = useRoute()
 const { user_detail, fetchUserDetail, modifyUser } = useUser()
 fetchUserDetail(route.params.id)
 const modifyHandle = async (field) => {
   await modifyUser(field, user_detail.value._id, user_detail.value)
 }
+
+const form = reactive({
+  oldpass:'',
+  newpass:''
+})
+
+const useMessage = inject('useMessage')
+const handleModifyPassword = async () => {
+  const checkPassword = new RegExp(/^[a-zA-Z]\w{5,17}$/)
+  if (!checkPassword.test(form.newpass)) {
+    useMessage('WARN', '密码不符合规范 -- 以字母开头，长度在6~18之间，只能包含字母、数字和下划线', 2000)
+    return
+  }
+  modifyPassword(user_detail.value._id,form)
+  .then(res=>{
+    if(res.status === 200 && res.data ==='修改成功'){
+      useMessage('SUCCESS', res.data, 2000)
+    }else{
+      useMessage('FAIL', res.data, 2000)
+    }
+  })
+}
+
+
 </script>
 <style scoped>
 .form-item {
   @apply flex items-center;
 }
 .form-label {
-  @apply w-20;
+  @apply w-40;
 }
 
 .form-input {

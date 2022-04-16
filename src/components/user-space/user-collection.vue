@@ -1,7 +1,7 @@
 <template>
   <div class="flex shadow mt-4 border px-2">
-    <div class="nav-item" @click="fieldHandle('question')">问题</div>
-    <div class="nav-item" @click="fieldHandle('article')">文章</div>
+    <div class="nav-item" :class="{'nav-item-active':field === 'question'}" @click="fieldHandle('question')">问题</div>
+    <div class="nav-item" :class="{'nav-item-active':field === 'article'}" @click="fieldHandle('article')">文章</div>
   </div>
   <div v-for="data in datas" :key="data" class="shadow border px-5 pt-4">
     <CollectionCard :field="field" :id="data"></CollectionCard>
@@ -47,5 +47,9 @@ const fieldHandle = (newField) => {
 <style  scoped>
 .nav-item {
   @apply text-lg px-4 py-2 text-stone-700 cursor-pointer;
+}
+
+.nav-item-active{
+  @apply border-b-2 border-rose-500
 }
 </style>

@@ -15,7 +15,7 @@
           v-if="me?._id === route.params.id"
           :to="{ name: 'EditUser', params: { id: me._id } }"
         >
-          <span>编辑个人信息</span>
+          <span>修改信息</span>
         </router-link>
         <span v-else>
           <div

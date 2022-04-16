@@ -35,10 +35,10 @@
       <section class="w-[1200px] mx-auto flex">
         <div>
           <div class="flex border-b ml-5">
-            <div v-if="userInfo" class="nav" @click="handleType('follow')">关注</div>
-            <div class="nav" @click="handleType('news')">热点资讯</div>
-            <div class="nav" @click="handleType('hot')">热点问题</div>
-            <div class="nav" @click="handleType('recommand')">小编推荐</div>
+            <div v-if="userInfo" class="nav" :class="{'nav-active':type==='follow'}" @click="handleType('follow')">关注</div>
+            <div class="nav" :class="{'nav-active':type==='news'}" @click="handleType('news')">热点资讯</div>
+            <div class="nav" :class="{'nav-active':type==='hot'}" @click="handleType('hot')">热点问题</div>
+            <div class="nav" :class="{'nav-active':type==='recommand'}" @click="handleType('recommand')">小编推荐</div>
           </div>
           <div class="mt-4">
             <ContentList
@@ -143,7 +143,7 @@ const handleType = async (newType) => {
       break;
   }
 }
-handleType('follow')
+handleType('news')
 
 const swipers = ref([])
 const links = ref([])
@@ -173,6 +173,6 @@ onMounted(() => {
 }
 
 .nav-active {
-  @apply border-b-4 border-stone-700;
+  @apply border-b-2 border-stone-700;
 }
 </style>

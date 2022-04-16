@@ -7,7 +7,8 @@
     <div class="w-full" :class="{ 'withAvatar': data.avatar_url }">
       <div class="font-bold text-lg text-rose-400">{{ data.title || data.question?.title }}</div>
       <div
-        class="my-3 truncate text-stone-500 w-full"
+        class="my-3 truncate text-stone-500"
+        :class="{'w-[750px]':data.avatar_url}"
       >{{ fmtMarkDown(data.description) || fmtMarkDown(data.content) }}</div>
       <ActionList
         @click.stop

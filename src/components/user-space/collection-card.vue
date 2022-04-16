@@ -1,28 +1,31 @@
 <template>
-  <div class="flex justify-between items-center">
-    <SuspendUserInfo :showAvatar="false" :userInfo="data.holder"></SuspendUserInfo>
-    <TopicList :topics="data.topics" class="text-stone-500"></TopicList>
-  </div>
-  <div class="flex justify-between cursor-pointer" @click="goDetail(data)">
-    <div :class="{ 'withAvatar': data.avatar_url }">
-      <div class="font-bold text-lg text-rose-400">{{ data.title || data.question?.title }}</div>
-      <div
-        class="my-3 truncate text-stone-500"
-      >{{ fmtMarkDown(data.description) || fmtMarkDown(data.content) }}</div>
-      <ActionList
-        @click.stop
-        :voteCount="data.voteCount"
-        :voteActive="isVoted(data._id)"
-        :viewCount="data.viewCount"
-        :actionList="['voteCount', 'viewCount', 'comment', field === 'question' ? 'writeAnswer' : '', route.params.id === userInfo?._id ? 'edit' : '']"
-        @writeAnswerClick="goDetail(data)"
-        @thumbClick="thumbHandle(data, field)"
-        @commentClick="goDetail(data)"
-        @editClick="editHandle(data)"
-      ></ActionList>
+
+    <div class="flex justify-between items-center">
+      <SuspendUserInfo :showAvatar="false" :userInfo="data.holder"></SuspendUserInfo>
+      <TopicList :topics="data.topics" class="text-stone-500"></TopicList>
     </div>
-    <img v-if="data.avatar_url" :src="data.avatar_url" class="w-40 h-24" />
-  </div>
+    <div class="flex justify-between cursor-pointer" @click="goDetail(data)">
+      <div :class="{ 'withAvatar': data.avatar_url }" class="w-full">
+        <div class="font-bold text-lg text-rose-400">{{ data.title || data.question?.title }}</div>
+        <div
+          class="my-3 truncate text-stone-500"
+          :class="{'w-[750px]':data.avatar_url}"
+        >{{ fmtMarkDown(data.description) || fmtMarkDown(data.content) }}</div>
+        <ActionList
+          @click.stop
+          :voteCount="data.voteCount"
+          :voteActive="isVoted(data._id)"
+          :viewCount="data.viewCount"
+          :actionList="['voteCount', 'viewCount', 'comment', field === 'question' ? 'writeAnswer' : '', route.params.id === userInfo?._id ? 'edit' : '']"
+          @writeAnswerClick="goDetail(data)"
+          @thumbClick="thumbHandle(data, field)"
+          @commentClick="goDetail(data)"
+          @editClick="editHandle(data)"
+        ></ActionList>
+      </div>
+      <img v-if="data.avatar_url" :src="data.avatar_url" class="w-40 h-24" />
+    </div>
+
 </template>
 <script setup>
 import { ref, onMounted, computed } from 'vue'
