@@ -11,20 +11,11 @@
       </div>
       <div class="w-full pl-14">
         <div class="my-2 text-lg text-stone-700">{{ talk.content }}</div>
-        <ActionList
-          :actionList="['voteCount', 'comment']"
-          :voteCount="talk.voteCount"
-          :voteActive="userInfo?.likingTalks.includes(talk._id)"
-          @thumbClick="thumbHandle(talk, 'Talk')"
-          @commentClick="talkHandle(talk._id)"
-        ></ActionList>
-        <TalkInput
-          :articleId="articleId"
-          :rootTalkId="rootTalkId"
-          :replyTo="talk.holder?._id"
-          :ref="(el) => setInputRef(el, talk._id)"
-          @refresh="refresh"
-        ></TalkInput>
+        <ActionList :actionList="['voteCount', 'comment']" :voteCount="talk.voteCount"
+          :voteActive="userInfo?.likingTalks.includes(talk._id)" @thumbClick="thumbHandle(talk, 'Talk')"
+          @commentClick="talkHandle(talk._id)"></ActionList>
+        <TalkInput :articleId="articleId" :rootTalkId="rootTalkId" :replyTo="talk.holder?._id"
+          :ref="(el) => setInputRef(el, talk._id)" @refresh="refresh"></TalkInput>
       </div>
     </div>
   </div>

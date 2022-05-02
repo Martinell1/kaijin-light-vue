@@ -2,16 +2,8 @@
   <aside>
     <div class="w-[280px] shadow rounded bg-zinc-50 mr-5 border px-4 text-stone-500">
       <div class="side-item" :class="{ 'side-item-active': active === 'last' }" @click="SortBy()">最新</div>
-      <div
-        class="side-item"
-        :class="{ 'side-item-active': active === 'hot' }"
-        @click="SortBy('voteCount')"
-      >热门</div>
-      <div
-        class="side-item"
-        :class="{ 'side-item-active': active === 'follow' }"
-        @click="SortBy('follow')"
-      >关注</div>
+      <div class="side-item" :class="{ 'side-item-active': active === 'hot' }" @click="SortBy('voteCount')">热门</div>
+      <div class="side-item" :class="{ 'side-item-active': active === 'follow' }" @click="SortBy('follow')">关注</div>
     </div>
   </aside>
   <div class="flex flex-col">
@@ -20,12 +12,8 @@
     </div>
     <h2 class="text-stone-500 text-xl font-semibold my-2">动态区</h2>
     <div class="moment-card">
-      <textarea
-        v-model="moment_detail.content"
-        class="w-full outline-none p-2 box-border h-20"
-        maxlength="120"
-        placeholder="分享你的light"
-      ></textarea>
+      <textarea v-model="moment_detail.content" class="w-full outline-none p-2 box-border h-20" maxlength="120"
+        placeholder="分享你的light"></textarea>
       <div class="flex justify-between my-4">
         <div class="btn relative">
           <Upload @onUpload="uploadHandle" :sty="'w-full h-full'" />图片
@@ -33,7 +21,7 @@
         <div class="btn" @click="publicMoment">发布</div>
       </div>
     </div>
-    <div>
+    <div ref="scrollRef">
       <div v-for="moment in moment_list" :key="moment._id" class="moment-card mt-4">
         <div class="flex">
           <img class="w-12 h-12 rounded-full mr-5" :src="moment.holder.avatar_url" />
@@ -55,11 +43,8 @@
             <ShareIcon class="act-item-icon"></ShareIcon>
             <div class="act-item-text">分享</div>
           </div>
-          <div
-            class="act-item"
-            :class="{ 'act-item-active': userInfo?.likingMoments?.includes(moment._id) }"
-            @click="thumbHandle(moment, 'Moment')"
-          >
+          <div class="act-item" :class="{ 'act-item-active': userInfo?.likingMoments?.includes(moment._id) }"
+            @click="thumbHandle(moment, 'Moment')">
             <ThumbUpIcon class="act-item-icon"></ThumbUpIcon>
             <div class="act-item-text">点赞数 {{ moment.voteCount }}</div>
           </div>
@@ -73,6 +58,7 @@
 import { ref, computed } from 'vue';
 import Upload from '../components/base/upload/upload.vue';
 import useThumb from '@/components/base/action-list/useThumb'
+import useScroll from '../hooks/useScroll';
 import { useStore } from 'vuex';
 import useMoment from '../hooks/useMoment'
 import { ShareIcon, ThumbUpIcon } from '@heroicons/vue/solid'
@@ -104,6 +90,8 @@ const SortBy = (SortBy) => {
     fetchMomentsBySort(10, SortBy)
   }
 }
+const scrollRef = ref(null)
+useScroll(scrollRef, fetchMoments)
 </script>
 <style  scoped>
 .side-item {

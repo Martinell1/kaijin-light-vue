@@ -23,7 +23,7 @@ export default function useResource(){
 
   const hot_resources = ref([])
   const fetchHotResource = async (per_page,q) => {
-    const { data: result } = await getHotResource(per_page, page++,q)
+    const { data: result } = await getHotResource(per_page, 1,q)
     hot_resources.value = [...hot_resources.value, ...result]
   }
 

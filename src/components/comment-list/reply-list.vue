@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-for="comment in comment_list"
-    :key="comment._id"
-    class="flex flex-col pt-4 pb-2 border-t-2"
-  >
+  <div v-for="comment in comment_list" :key="comment._id" class="flex flex-col pt-4 pb-2 border-t-2">
     <div class="flex justify-between">
       <div class="flex items-center">
         <SuspendUserInfo :userInfo="comment.holder" :rounded="''"></SuspendUserInfo>
@@ -14,21 +10,11 @@
     </div>
     <div class="w-full pl-14">
       <div class="my-2 text-lg text-stone-700">{{ comment.content }}</div>
-      <ActionList
-        :actionList="['voteCount', 'comment']"
-        :voteCount="comment.voteCount"
-        :voteActive="userInfo?.likingComments.includes(comment._id)"
-        @thumbClick="thumbHandle(comment, 'Comment')"
-        @commentClick="commentHandle(comment._id)"
-      ></ActionList>
-      <CommentInput
-        :questionId="questionId"
-        :answerId="answerId"
-        :rootCommentId="rootCommentId"
-        :replyTo="comment.holder._id"
-        :ref="(el) => setInputRef(el, comment._id)"
-        @refresh="refresh"
-      ></CommentInput>
+      <ActionList :actionList="['voteCount', 'comment']" :voteCount="comment.voteCount"
+        :voteActive="userInfo?.likingComments.includes(comment._id)" @thumbClick="thumbHandle(comment, 'Comment')"
+        @commentClick="commentHandle(comment._id)"></ActionList>
+      <CommentInput :questionId="questionId" :answerId="answerId" :rootCommentId="rootCommentId"
+        :replyTo="comment.holder._id" :ref="(el) => setInputRef(el, comment._id)" @refresh="refresh"></CommentInput>
     </div>
   </div>
 </template>

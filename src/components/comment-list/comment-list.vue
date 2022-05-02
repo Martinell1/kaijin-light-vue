@@ -8,36 +8,19 @@
           <span class="support-text">{{ useTimeAgo(comment.updatedAt).value }}</span>
         </div>
         <div class="my-2 text-lg text-stone-700">{{ comment.content }}</div>
-        <ActionList
-          :actionList="['voteCount', 'comment']"
-          :voteCount="comment.voteCount"
-          :voteActive="userInfo?.likingComments.includes(comment._id)"
-          @thumbClick="thumbHandle(comment, 'Comment')"
-          @commentClick="commentHandle(comment._id)"
-        ></ActionList>
-        <CommentInput
-          :questionId="questionId"
-          :answerId="answerId"
-          :rootCommentId="comment._id"
-          @refresh="refresh2(index)"
-          :replyTo="comment.holder._id"
-          :ref="(el) => setInputRef(el, comment._id)"
-        ></CommentInput>
-        <ReplyList
-          :questionId="questionId"
-          :answerId="answerId"
-          :rootCommentId="comment._id"
-          :ref="(el) => setReplyRef(el, index)"
-        ></ReplyList>
+        <ActionList :actionList="['voteCount', 'comment']" :voteCount="comment.voteCount"
+          :voteActive="userInfo?.likingComments.includes(comment._id)" @thumbClick="thumbHandle(comment, 'Comment')"
+          @commentClick="commentHandle(comment._id)"></ActionList>
+        <CommentInput :questionId="questionId" :answerId="answerId" :rootCommentId="comment._id"
+          @refresh="refresh2(index)" :replyTo="comment.holder._id" :ref="(el) => setInputRef(el, comment._id)">
+        </CommentInput>
+        <ReplyList :questionId="questionId" :answerId="answerId" :rootCommentId="comment._id"
+          :ref="(el) => setReplyRef(el, index)"></ReplyList>
       </div>
     </div>
     <div class="ml-5 mr-4">
-      <CommentInput
-        @refresh="refresh1"
-        :questionId="questionId"
-        :answerId="answerId"
-        ref="commentInputRef"
-      ></CommentInput>
+      <CommentInput @refresh="refresh1" :questionId="questionId" :answerId="answerId" ref="commentInputRef">
+      </CommentInput>
     </div>
   </div>
 </template>
